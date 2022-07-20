@@ -4,6 +4,7 @@
  */
 package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
+import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -14,6 +15,12 @@ import javax.swing.*;
  * @author Carlos
  */
 public class Loja extends JFrame {
+    
+    public static Color corFundoEscura = Color.darkGray;
+    public static Color corFundoClara = Color.lightGray;
+    public static Color corFonteClara = Color.white;
+    public static Color corFonteEscura = Color.black;
+    public static Color corDestaque = Color.white;
 
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private static ArrayList<Pedido> pedidos = new ArrayList<>();
@@ -70,20 +77,20 @@ public class Loja extends JFrame {
         labelExcluir = new javax.swing.JLabel();
         fieldExcluir = new javax.swing.JTextField();
         buttonExcluir = new javax.swing.JButton();
-        painelPrincipal = new javax.swing.JPanel();
         painelCliente = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
         buttonProcurarCliente = new javax.swing.JButton();
         buttonExcluirCliente = new javax.swing.JButton();
-        painelPedidos = new javax.swing.JPanel();
+        painelPedido = new javax.swing.JPanel();
+        menuPedidos = new javax.swing.JPanel();
         buttonNovoPedido = new javax.swing.JButton();
         buttonProcurarPedido = new javax.swing.JButton();
         menuPrincipal = new javax.swing.JMenuBar();
         Arquivo = new javax.swing.JMenu();
-        Opções = new javax.swing.JMenu();
+        Sair = new javax.swing.JMenuItem();
 
         frameProcurar.setSize(new java.awt.Dimension(400, 250));
-        frameProcurar.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+        frameProcurar.getContentPane().setLayout(new java.awt.GridLayout());
 
         labelProcurar.setText("jLabel1");
         frameProcurar.getContentPane().add(labelProcurar);
@@ -95,7 +102,7 @@ public class Loja extends JFrame {
         frameProcurar.getContentPane().add(buttonProcurar);
 
         frameExcluirCliente.setSize(new java.awt.Dimension(400, 250));
-        frameExcluirCliente.getContentPane().setLayout(new java.awt.GridLayout());
+        frameExcluirCliente.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         labelExcluir.setText("jLabel1");
         frameExcluirCliente.getContentPane().add(labelExcluir);
@@ -108,18 +115,17 @@ public class Loja extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja");
-        setBackground(new java.awt.Color(0, 0, 0));
+        setBackground(Loja.corFundoEscura);
         setName("frameLoja"); // NOI18N
-        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
-        painelPrincipal.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
-
-        painelCliente.setBackground(new java.awt.Color(153, 153, 153));
-        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Clientes"));
+        painelCliente.setBackground(Loja.corFundoEscura);
+        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
         painelCliente.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
-        buttonNovoCliente.setBackground(new java.awt.Color(153, 153, 153));
+        buttonNovoCliente.setBackground(Loja.corFundoClara);
+        buttonNovoCliente.setForeground(Loja.corFonteEscura);
         buttonNovoCliente.setText("Novo Cliente");
         buttonNovoCliente.setAlignmentX(0.5F);
         buttonNovoCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -134,7 +140,8 @@ public class Loja extends JFrame {
         });
         painelCliente.add(buttonNovoCliente);
 
-        buttonProcurarCliente.setBackground(new java.awt.Color(153, 153, 153));
+        buttonProcurarCliente.setBackground(Loja.corFundoClara);
+        buttonProcurarCliente.setForeground(Loja.corFonteEscura);
         buttonProcurarCliente.setText("Procurar Cliente");
         buttonProcurarCliente.setAlignmentX(0.5F);
         buttonProcurarCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -149,7 +156,8 @@ public class Loja extends JFrame {
         });
         painelCliente.add(buttonProcurarCliente);
 
-        buttonExcluirCliente.setBackground(new java.awt.Color(153, 153, 153));
+        buttonExcluirCliente.setBackground(Loja.corFundoClara);
+        buttonExcluirCliente.setForeground(Loja.corFonteEscura);
         buttonExcluirCliente.setText("Excluir Cliente");
         buttonExcluirCliente.setAlignmentX(0.5F);
         buttonExcluirCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -164,14 +172,18 @@ public class Loja extends JFrame {
         });
         painelCliente.add(buttonExcluirCliente);
 
-        painelPrincipal.add(painelCliente);
+        getContentPane().add(painelCliente);
 
-        painelPedidos.setBackground(new java.awt.Color(153, 153, 153));
-        painelPedidos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Pedidos"));
-        painelPedidos.setPreferredSize(new java.awt.Dimension(450, 200));
-        painelPedidos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+        painelPedido.setBackground(Loja.corFundoEscura);
+        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
+        painelPedido.setPreferredSize(new java.awt.Dimension(450, 200));
+        painelPedido.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
-        buttonNovoPedido.setBackground(new java.awt.Color(153, 153, 153));
+        menuPedidos.setBackground(new java.awt.Color(153, 153, 153));
+        menuPedidos.setOpaque(false);
+
+        buttonNovoPedido.setBackground(Loja.corFundoClara);
+        buttonNovoPedido.setForeground(Loja.corFonteEscura);
         buttonNovoPedido.setText("Novo Pedido");
         buttonNovoPedido.setAlignmentX(0.5F);
         buttonNovoPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -184,9 +196,10 @@ public class Loja extends JFrame {
                 buttonNovoPedidoActionPerformed(evt);
             }
         });
-        painelPedidos.add(buttonNovoPedido);
+        menuPedidos.add(buttonNovoPedido);
 
-        buttonProcurarPedido.setBackground(new java.awt.Color(153, 153, 153));
+        buttonProcurarPedido.setBackground(Loja.corFundoClara);
+        buttonProcurarPedido.setForeground(Loja.corFonteEscura);
         buttonProcurarPedido.setText("Procurar Pedido");
         buttonProcurarPedido.setAlignmentX(0.5F);
         buttonProcurarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -199,17 +212,27 @@ public class Loja extends JFrame {
                 buttonProcurarPedidoActionPerformed(evt);
             }
         });
-        painelPedidos.add(buttonProcurarPedido);
+        menuPedidos.add(buttonProcurarPedido);
 
-        painelPrincipal.add(painelPedidos);
+        painelPedido.add(menuPedidos);
 
-        getContentPane().add(painelPrincipal);
+        getContentPane().add(painelPedido);
 
+        menuPrincipal.setBackground(Loja.corFundoEscura);
+        menuPrincipal.setForeground(Loja.corFonteClara);
+
+        Arquivo.setForeground(new java.awt.Color(255, 255, 255));
         Arquivo.setText("Arquivo");
-        menuPrincipal.add(Arquivo);
 
-        Opções.setText("Sair");
-        menuPrincipal.add(Opções);
+        Sair.setText("Sair");
+        Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SairActionPerformed(evt);
+            }
+        });
+        Arquivo.add(Sair);
+
+        menuPrincipal.add(Arquivo);
 
         setJMenuBar(menuPrincipal);
 
@@ -223,11 +246,15 @@ public class Loja extends JFrame {
 
     private void buttonNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoPedidoActionPerformed
         Pedido novo = new Pedido();
-        buttonNovoPedido.setVisible(false);
-        buttonProcurarPedido.setVisible(false);
+        menuPedidos.setVisible(false);
         novo.setVisible(true);
-        painelPedidos.add(novo);
-        //mostrar botoes
+        painelPedido.add(novo);
+        novo.iniciarCadastro(() -> {   
+            novo.setVisible(false);
+            painelPedido.remove(novo);
+            menuPedidos.setVisible(true);
+            pedidos.add(novo);            
+        });        
     }//GEN-LAST:event_buttonNovoPedidoActionPerformed
 
     private void buttonProcurarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarPedidoActionPerformed
@@ -287,25 +314,29 @@ public class Loja extends JFrame {
         });
     }//GEN-LAST:event_buttonExcluirClienteActionPerformed
 
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_SairActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
-    private javax.swing.JMenu Opções;
+    private javax.swing.JMenuItem Sair;
     private javax.swing.JButton buttonExcluir;
     private javax.swing.JButton buttonExcluirCliente;
     private javax.swing.JButton buttonNovoCliente;
-    public javax.swing.JButton buttonNovoPedido;
+    private javax.swing.JButton buttonNovoPedido;
     private javax.swing.JButton buttonProcurar;
     private javax.swing.JButton buttonProcurarCliente;
-    public javax.swing.JButton buttonProcurarPedido;
+    private javax.swing.JButton buttonProcurarPedido;
     private javax.swing.JTextField fieldExcluir;
     private javax.swing.JTextField fieldProcurar;
     private javax.swing.JFrame frameExcluirCliente;
     private javax.swing.JFrame frameProcurar;
     private javax.swing.JLabel labelExcluir;
     private javax.swing.JLabel labelProcurar;
+    private javax.swing.JPanel menuPedidos;
     private javax.swing.JMenuBar menuPrincipal;
     private javax.swing.JPanel painelCliente;
-    private javax.swing.JPanel painelPedidos;
-    private javax.swing.JPanel painelPrincipal;
+    private javax.swing.JPanel painelPedido;
     // End of variables declaration//GEN-END:variables
 }
