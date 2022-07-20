@@ -42,7 +42,7 @@ public class Pedido extends javax.swing.JPanel {
             }
         });
     }
-
+    //comment
     private boolean validarPedido() {
         int codigoDigitado = Integer.parseInt(fieldCodigo.getText());
         if (Loja.buscaPedido(codigoDigitado) == null) {
