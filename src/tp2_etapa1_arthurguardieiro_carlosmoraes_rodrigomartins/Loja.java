@@ -14,7 +14,7 @@ import javax.swing.*;
  *
  * @author Carlos
  */
-public class Loja extends JFrame {
+public class Loja extends JFrame implements ComponentListener{
     
     public static Color corFundoEscura = Color.darkGray;
     public static Color corFundoClara = Color.lightGray;
@@ -58,7 +58,33 @@ public class Loja extends JFrame {
             }
         }
         return true;
+    }  
+    
+        
+        
+    @Override
+    public void componentResized(ComponentEvent e) {
+        System.out.println("resise" + e.getComponent().getName());
     }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        System.out.println("moved" + e.getComponent());
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        System.out.println("shown" + e.getComponent());
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        if (e.getComponent().getName().equals("containerPedido"))
+        {
+            menuPedidos.setVisible(true);
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,7 +116,7 @@ public class Loja extends JFrame {
         Sair = new javax.swing.JMenuItem();
 
         frameProcurar.setSize(new java.awt.Dimension(400, 250));
-        frameProcurar.getContentPane().setLayout(new java.awt.GridLayout());
+        frameProcurar.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         labelProcurar.setText("jLabel1");
         frameProcurar.getContentPane().add(labelProcurar);
@@ -189,7 +215,7 @@ public class Loja extends JFrame {
         buttonNovoPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonNovoPedido.setMargin(new java.awt.Insets(2, 20, 2, 20));
         buttonNovoPedido.setMaximumSize(new java.awt.Dimension(200, 200));
-        buttonNovoPedido.setName("Novo Cliente"); // NOI18N
+        buttonNovoPedido.setName("Novo Pedido"); // NOI18N
         buttonNovoPedido.setPreferredSize(new java.awt.Dimension(100, 40));
         buttonNovoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +231,7 @@ public class Loja extends JFrame {
         buttonProcurarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonProcurarPedido.setMargin(new java.awt.Insets(2, 20, 2, 20));
         buttonProcurarPedido.setMaximumSize(new java.awt.Dimension(200, 200));
-        buttonProcurarPedido.setName("Novo Cliente"); // NOI18N
+        buttonProcurarPedido.setName("Procurar Pedido"); // NOI18N
         buttonProcurarPedido.setPreferredSize(new java.awt.Dimension(100, 40));
         buttonProcurarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,8 +272,9 @@ public class Loja extends JFrame {
 
     private void buttonNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoPedidoActionPerformed
         Pedido novo = new Pedido();
-        menuPedidos.setVisible(false);
         novo.setVisible(true);
+        menuPedidos.setVisible(false);
+        novo.addComponentListener(this);
         painelPedido.add(novo);
         novo.iniciarCadastro(() -> {   
             novo.setVisible(false);
@@ -339,4 +366,5 @@ public class Loja extends JFrame {
     private javax.swing.JPanel painelCliente;
     private javax.swing.JPanel painelPedido;
     // End of variables declaration//GEN-END:variables
+
 }

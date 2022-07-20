@@ -4,6 +4,8 @@
  */
 package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,6 +13,7 @@ import javax.swing.JOptionPane;
  * @author Carlos
  */
 public class Pedido extends javax.swing.JPanel {
+
 
     private int codProduto;
     private int codPedido;
