@@ -92,17 +92,22 @@ public class Loja extends JFrame implements ComponentListener {
         fieldProcurar = new javax.swing.JTextField();
         buttonProcurar = new javax.swing.JButton();
         frameExcluirCliente = new javax.swing.JFrame();
-        labelExcluir = new javax.swing.JLabel();
-        fieldExcluir = new javax.swing.JTextField();
-        buttonExcluir = new javax.swing.JButton();
+        labelAlterar = new javax.swing.JLabel();
+        fieldAlterar = new javax.swing.JTextField();
+        buttonAlterar = new javax.swing.JButton();
         frameExcluirPedido = new javax.swing.JFrame();
         labelExcluirPedido = new javax.swing.JLabel();
         fieldExcluirPedido = new javax.swing.JTextField();
         buttonExcluirOK = new javax.swing.JButton();
+        frameAlterar = new javax.swing.JFrame();
+        labelExcluir1 = new javax.swing.JLabel();
+        fieldExcluir1 = new javax.swing.JTextField();
+        buttonExcluir1 = new javax.swing.JButton();
         painelCliente = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
         buttonProcurarCliente = new javax.swing.JButton();
         buttonExcluirCliente = new javax.swing.JButton();
+        buttonAlterarCliente = new javax.swing.JButton();
         painelPedido = new javax.swing.JPanel();
         menuPedidos = new javax.swing.JPanel();
         buttonNovoPedido = new javax.swing.JButton();
@@ -156,14 +161,14 @@ public class Loja extends JFrame implements ComponentListener {
         frameExcluirCliente.setSize(new java.awt.Dimension(400, 250));
         frameExcluirCliente.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        labelExcluir.setText("jLabel1");
-        frameExcluirCliente.getContentPane().add(labelExcluir);
+        labelAlterar.setText("jLabel1");
+        frameExcluirCliente.getContentPane().add(labelAlterar);
 
-        fieldExcluir.setText("jTextField1");
-        frameExcluirCliente.getContentPane().add(fieldExcluir);
+        fieldAlterar.setText("jTextField1");
+        frameExcluirCliente.getContentPane().add(fieldAlterar);
 
-        buttonExcluir.setText("OK");
-        frameExcluirCliente.getContentPane().add(buttonExcluir);
+        buttonAlterar.setText("OK");
+        frameExcluirCliente.getContentPane().add(buttonAlterar);
 
         frameExcluirPedido.setTitle("Procurar:");
         frameExcluirPedido.setBackground(Loja.corFundoEscura);
@@ -205,6 +210,18 @@ public class Loja extends JFrame implements ComponentListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameExcluirPedido.getContentPane().add(buttonExcluirOK, gridBagConstraints);
 
+        frameAlterar.setSize(new java.awt.Dimension(400, 250));
+        frameAlterar.getContentPane().setLayout(new java.awt.GridLayout());
+
+        labelExcluir1.setText("jLabel1");
+        frameAlterar.getContentPane().add(labelExcluir1);
+
+        fieldExcluir1.setText("jTextField1");
+        frameAlterar.getContentPane().add(fieldExcluir1);
+
+        buttonExcluir1.setText("OK");
+        frameAlterar.getContentPane().add(buttonExcluir1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja");
         setBackground(Loja.corFundoEscura);
@@ -212,7 +229,7 @@ public class Loja extends JFrame implements ComponentListener {
         getContentPane().setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         painelCliente.setBackground(Loja.corFundoEscura);
-        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corDestaque)); // NOI18N
+        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
         painelCliente.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
@@ -264,10 +281,26 @@ public class Loja extends JFrame implements ComponentListener {
         });
         painelCliente.add(buttonExcluirCliente);
 
+        buttonAlterarCliente.setBackground(Loja.corFundoClara);
+        buttonAlterarCliente.setForeground(Loja.corFonteEscura);
+        buttonAlterarCliente.setText("Alterar Cliente");
+        buttonAlterarCliente.setAlignmentX(0.5F);
+        buttonAlterarCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonAlterarCliente.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonAlterarCliente.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonAlterarCliente.setName("Novo Cliente"); // NOI18N
+        buttonAlterarCliente.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonAlterarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAlterarClienteActionPerformed(evt);
+            }
+        });
+        painelCliente.add(buttonAlterarCliente);
+
         getContentPane().add(painelCliente);
 
         painelPedido.setBackground(Loja.corFundoEscura);
-        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
+        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corFonteClara)); // NOI18N
         painelPedido.setPreferredSize(new java.awt.Dimension(450, 200));
         painelPedido.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
@@ -435,13 +468,13 @@ public class Loja extends JFrame implements ComponentListener {
     private void buttonExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirClienteActionPerformed
         frameExcluirCliente.setVisible(true);
         frameExcluirCliente.setTitle("Excluir cliente");
-        labelExcluir.setText("Digite o cpf: ");
-        fieldExcluir.setText("");
-        buttonExcluir.addActionListener((e) -> {
-            if (!Loja.confirmaCadastro(fieldExcluir.getText())) {
+        labelAlterar.setText("Digite o cpf: ");
+        fieldAlterar.setText("");
+        buttonAlterar.addActionListener((e) -> {
+            if (!Loja.confirmaCadastro(fieldAlterar.getText())) {
                 int indice = 0;
                 for (Cliente cl : clientes) {
-                    if (cl.getCpf().equals(fieldExcluir.getText())) {
+                    if (cl.getCpf().equals(fieldAlterar.getText())) {
                         indice = clientes.indexOf(cl);
                     }
                 }
@@ -521,11 +554,33 @@ public class Loja extends JFrame implements ComponentListener {
         });
     }//GEN-LAST:event_buttonEditarPedidoActionPerformed
 
+    private void buttonAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarClienteActionPerformed
+        frameAlterar.setVisible(true);
+        frameAlterar.setTitle("Alterar dados");
+        labelAlterar.setText("Digite o cpf: ");
+        fieldAlterar.setText("");
+        buttonAlterar.addActionListener((e) -> {
+            if(!Loja.confirmaCadastro(fieldAlterar.getText())){
+                for(Cliente cl: clientes){
+                    if(cl.getCpf().equals(fieldAlterar.getText())){
+                        cl.alterarCadastro();
+                    }
+                }
+                
+            } else{
+                JOptionPane.showMessageDialog(null, "CPF não encontrado.");
+                System.out.println("cpf nao encontrado");
+            }
+        });
+    }//GEN-LAST:event_buttonAlterarClienteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
     private javax.swing.JMenuItem Sair;
+    private javax.swing.JButton buttonAlterar;
+    private javax.swing.JButton buttonAlterarCliente;
     private javax.swing.JButton buttonEditarPedido;
-    private javax.swing.JButton buttonExcluir;
+    private javax.swing.JButton buttonExcluir1;
     private javax.swing.JButton buttonExcluirCliente;
     private javax.swing.JButton buttonExcluirOK;
     private javax.swing.JButton buttonExcluirPedido;
@@ -534,13 +589,16 @@ public class Loja extends JFrame implements ComponentListener {
     private javax.swing.JButton buttonProcurar;
     private javax.swing.JButton buttonProcurarCliente;
     private javax.swing.JButton buttonProcurarPedido;
-    private javax.swing.JTextField fieldExcluir;
+    private javax.swing.JTextField fieldAlterar;
+    private javax.swing.JTextField fieldExcluir1;
     private javax.swing.JTextField fieldExcluirPedido;
     private javax.swing.JTextField fieldProcurar;
+    private javax.swing.JFrame frameAlterar;
     private javax.swing.JFrame frameExcluirCliente;
     private javax.swing.JFrame frameExcluirPedido;
     private javax.swing.JFrame frameProcurar;
-    private javax.swing.JLabel labelExcluir;
+    private javax.swing.JLabel labelAlterar;
+    private javax.swing.JLabel labelExcluir1;
     private javax.swing.JLabel labelExcluirPedido;
     private javax.swing.JLabel labelProcurar;
     private javax.swing.JPanel menuPedidos;
