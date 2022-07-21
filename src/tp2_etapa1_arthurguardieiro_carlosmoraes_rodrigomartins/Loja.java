@@ -70,11 +70,16 @@ public class Loja extends JFrame {
         labelExcluir = new javax.swing.JLabel();
         fieldExcluir = new javax.swing.JTextField();
         buttonExcluir = new javax.swing.JButton();
+        frameAlterar = new javax.swing.JFrame();
+        labelAlterar = new javax.swing.JLabel();
+        fieldAlterar = new javax.swing.JTextField();
+        buttonAltera = new javax.swing.JButton();
         painelPrincipal = new javax.swing.JPanel();
         painelCliente = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
         buttonProcurarCliente = new javax.swing.JButton();
         buttonExcluirCliente = new javax.swing.JButton();
+        buttonAlterar = new javax.swing.JButton();
         painelPedidos = new javax.swing.JPanel();
         buttonNovoPedido = new javax.swing.JButton();
         buttonProcurarPedido = new javax.swing.JButton();
@@ -95,7 +100,7 @@ public class Loja extends JFrame {
         frameProcurar.getContentPane().add(buttonProcurar);
 
         frameExcluirCliente.setSize(new java.awt.Dimension(400, 250));
-        frameExcluirCliente.getContentPane().setLayout(new java.awt.GridLayout());
+        frameExcluirCliente.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         labelExcluir.setText("jLabel1");
         frameExcluirCliente.getContentPane().add(labelExcluir);
@@ -105,6 +110,18 @@ public class Loja extends JFrame {
 
         buttonExcluir.setText("OK");
         frameExcluirCliente.getContentPane().add(buttonExcluir);
+
+        frameAlterar.setSize(new java.awt.Dimension(400, 250));
+        frameAlterar.getContentPane().setLayout(new java.awt.GridLayout());
+
+        labelAlterar.setText("jLabel1");
+        frameAlterar.getContentPane().add(labelAlterar);
+
+        fieldAlterar.setText("jTextField1");
+        frameAlterar.getContentPane().add(fieldAlterar);
+
+        buttonAltera.setText("OK");
+        frameAlterar.getContentPane().add(buttonAltera);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja");
@@ -163,6 +180,21 @@ public class Loja extends JFrame {
             }
         });
         painelCliente.add(buttonExcluirCliente);
+
+        buttonAlterar.setBackground(new java.awt.Color(153, 153, 153));
+        buttonAlterar.setText("Alterar dados");
+        buttonAlterar.setAlignmentX(0.5F);
+        buttonAlterar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonAlterar.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonAlterar.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonAlterar.setName("Novo Cliente"); // NOI18N
+        buttonAlterar.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAlterarActionPerformed(evt);
+            }
+        });
+        painelCliente.add(buttonAlterar);
 
         painelPrincipal.add(painelCliente);
 
@@ -287,9 +319,31 @@ public class Loja extends JFrame {
         });
     }//GEN-LAST:event_buttonExcluirClienteActionPerformed
 
+    private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
+        frameAlterar.setVisible(true);
+        frameAlterar.setTitle("Alterar dados");
+        labelAlterar.setText("Digite o cpf: ");
+        fieldAlterar.setText("");
+        buttonAltera.addActionListener((e) -> {
+            if(!Loja.confirmaCadastro(fieldAlterar.getText())){
+                for(Cliente cl: clientes){
+                    if(cl.getCpf().equals(fieldAlterar.getText())){
+                        cl.alterarCadastro();
+                    }
+                }
+                
+            } else{
+                JOptionPane.showMessageDialog(null, "CPF não encontrado.");
+                System.out.println("cpf nao encontrado");
+            }
+        });
+    }//GEN-LAST:event_buttonAlterarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
     private javax.swing.JMenu Opções;
+    private javax.swing.JButton buttonAltera;
+    private javax.swing.JButton buttonAlterar;
     private javax.swing.JButton buttonExcluir;
     private javax.swing.JButton buttonExcluirCliente;
     private javax.swing.JButton buttonNovoCliente;
@@ -297,10 +351,13 @@ public class Loja extends JFrame {
     private javax.swing.JButton buttonProcurar;
     private javax.swing.JButton buttonProcurarCliente;
     public javax.swing.JButton buttonProcurarPedido;
+    private javax.swing.JTextField fieldAlterar;
     private javax.swing.JTextField fieldExcluir;
     private javax.swing.JTextField fieldProcurar;
+    private javax.swing.JFrame frameAlterar;
     private javax.swing.JFrame frameExcluirCliente;
     private javax.swing.JFrame frameProcurar;
+    private javax.swing.JLabel labelAlterar;
     private javax.swing.JLabel labelExcluir;
     private javax.swing.JLabel labelProcurar;
     private javax.swing.JMenuBar menuPrincipal;

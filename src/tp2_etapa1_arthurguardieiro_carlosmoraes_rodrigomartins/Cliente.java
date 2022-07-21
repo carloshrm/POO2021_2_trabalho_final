@@ -13,15 +13,15 @@ import javax.swing.JOptionPane;
  */
 public class Cliente extends javax.swing.JFrame {
 
-    public String getCpf() {
-        return cpf;
-    }
-
     private String nome;
     private String cpf;
     private String endereco;
     private String celular;
     private ArrayList<Pedido> pedidosFeitos;
+    
+        public String getCpf() {
+        return cpf;
+    }
 
     public Cliente() {
         initComponents();
@@ -39,6 +39,27 @@ public class Cliente extends javax.swing.JFrame {
                 clientes.add(this);
             }
         });
+    }
+    
+    public void alterarCadastro(){
+        frameAlterar.setVisible(true);
+        frameAlterar.setSize(500, 370);
+        frameAlterar.setTitle("Alterar cadastro");
+        bAlterar.addActionListener((e) -> {
+            String cpfDigitado = fieldCpfAlterar.getText();
+            if(Loja.confirmaCadastro(cpfDigitado)){
+                this.altera(fieldNomeAlterar.getText(), cpfDigitado, fieldEnderecoAlterar.getText(), fieldCelularAlterar.getText());
+                JOptionPane.showMessageDialog(null, "Alteração feita");
+            }
+            JOptionPane.showMessageDialog(null, "CPF já cadastrado");
+        });
+    }
+    
+    private void altera(String nome, String cpf, String endereco, String celular){
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cpf = cpf;
+        this.celular = celular;
     }
 
     private boolean validarCadastro() {
@@ -77,6 +98,17 @@ public class Cliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        frameAlterar = new javax.swing.JFrame();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        fieldNomeAlterar = new javax.swing.JTextField();
+        bAlterar = new javax.swing.JButton();
+        fieldCpfAlterar = new javax.swing.JTextField();
+        fieldEnderecoAlterar = new javax.swing.JTextField();
+        fieldCelularAlterar = new javax.swing.JTextField();
+        confirmaCadastro1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -97,6 +129,94 @@ public class Cliente extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        frameAlterar.setPreferredSize(new java.awt.Dimension(500, 370));
+
+        jLabel5.setText("Nome");
+
+        jLabel6.setText("Cpf");
+
+        jLabel7.setText("Celular");
+
+        jLabel8.setText("Endereco");
+
+        fieldNomeAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldNomeAlterarActionPerformed(evt);
+            }
+        });
+
+        bAlterar.setText("Atualizar dados");
+        bAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAlterarActionPerformed(evt);
+            }
+        });
+
+        fieldCpfAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCpfAlterarActionPerformed(evt);
+            }
+        });
+
+        fieldEnderecoAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldEnderecoAlterarActionPerformed(evt);
+            }
+        });
+
+        fieldCelularAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCelularAlterarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout frameAlterarLayout = new javax.swing.GroupLayout(frameAlterar.getContentPane());
+        frameAlterar.getContentPane().setLayout(frameAlterarLayout);
+        frameAlterarLayout.setHorizontalGroup(
+            frameAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frameAlterarLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addGroup(frameAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(frameAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(confirmaCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldNomeAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldCpfAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldEnderecoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldCelularAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(134, Short.MAX_VALUE))
+        );
+        frameAlterarLayout.setVerticalGroup(
+            frameAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frameAlterarLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(frameAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldNomeAlterar))
+                .addGap(18, 18, 18)
+                .addGroup(frameAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldCpfAlterar))
+                .addGap(18, 18, 18)
+                .addGroup(frameAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldEnderecoAlterar))
+                .addGap(18, 18, 18)
+                .addGroup(frameAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldCelularAlterar))
+                .addGap(18, 18, 18)
+                .addComponent(bAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(confirmaCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jLabel1.setText("Nome");
@@ -208,6 +328,26 @@ public class Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTCelularActionPerformed
 
+    private void fieldNomeAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNomeAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldNomeAlterarActionPerformed
+
+    private void bAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bAlterarActionPerformed
+
+    private void fieldCpfAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCpfAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldCpfAlterarActionPerformed
+
+    private void fieldEnderecoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldEnderecoAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldEnderecoAlterarActionPerformed
+
+    private void fieldCelularAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCelularAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldCelularAlterarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -248,12 +388,23 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JTextField JTCpf;
     private javax.swing.JTextField JTEndereco;
     private javax.swing.JTextField JTNome;
+    private javax.swing.JButton bAlterar;
     private javax.swing.JButton bCadastrar;
     private javax.swing.JLabel confirmaCadastro;
+    private javax.swing.JLabel confirmaCadastro1;
+    private javax.swing.JTextField fieldCelularAlterar;
+    private javax.swing.JTextField fieldCpfAlterar;
+    private javax.swing.JTextField fieldEnderecoAlterar;
+    private javax.swing.JTextField fieldNomeAlterar;
+    private javax.swing.JFrame frameAlterar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
@@ -263,6 +414,6 @@ public class Cliente extends javax.swing.JFrame {
 
     @Override
     public String toString() {
-        return String.format("Nome: %s Celular: %s", nome, celular);
+        return String.format("Nome: %s, cpf: %s, celular: %s", nome, cpf, celular);
     }
 }
