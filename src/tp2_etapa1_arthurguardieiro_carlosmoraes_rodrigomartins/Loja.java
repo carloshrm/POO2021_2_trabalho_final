@@ -91,23 +91,24 @@ public class Loja extends JFrame implements ComponentListener {
         labelProcurar = new javax.swing.JLabel();
         fieldProcurar = new javax.swing.JTextField();
         buttonProcurar = new javax.swing.JButton();
-        frameExcluirCliente = new javax.swing.JFrame();
-        labelAlterar = new javax.swing.JLabel();
-        fieldAlterar = new javax.swing.JTextField();
-        buttonAlterar = new javax.swing.JButton();
         frameExcluirPedido = new javax.swing.JFrame();
         labelExcluirPedido = new javax.swing.JLabel();
         fieldExcluirPedido = new javax.swing.JTextField();
         buttonExcluirOK = new javax.swing.JButton();
         frameAlterar = new javax.swing.JFrame();
-        labelExcluir1 = new javax.swing.JLabel();
-        fieldExcluir1 = new javax.swing.JTextField();
-        buttonExcluir1 = new javax.swing.JButton();
+        labelAlterar = new javax.swing.JLabel();
+        fieldAlterar = new javax.swing.JTextField();
+        buttonAlterar = new javax.swing.JButton();
+        frameExcluirCliente = new javax.swing.JFrame();
+        labelExcluirCliente = new javax.swing.JLabel();
+        fieldExcluirCliente = new javax.swing.JTextField();
+        buttonExcluirCl = new javax.swing.JButton();
         painelCliente = new javax.swing.JPanel();
+        menuClientes = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
         buttonProcurarCliente = new javax.swing.JButton();
-        buttonExcluirCliente = new javax.swing.JButton();
         buttonAlterarCliente = new javax.swing.JButton();
+        buttonExcluirCliente = new javax.swing.JButton();
         painelPedido = new javax.swing.JPanel();
         menuPedidos = new javax.swing.JPanel();
         buttonNovoPedido = new javax.swing.JButton();
@@ -158,18 +159,6 @@ public class Loja extends JFrame implements ComponentListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameProcurar.getContentPane().add(buttonProcurar, gridBagConstraints);
 
-        frameExcluirCliente.setSize(new java.awt.Dimension(400, 250));
-        frameExcluirCliente.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
-
-        labelAlterar.setText("jLabel1");
-        frameExcluirCliente.getContentPane().add(labelAlterar);
-
-        fieldAlterar.setText("jTextField1");
-        frameExcluirCliente.getContentPane().add(fieldAlterar);
-
-        buttonAlterar.setText("OK");
-        frameExcluirCliente.getContentPane().add(buttonAlterar);
-
         frameExcluirPedido.setTitle("Procurar:");
         frameExcluirPedido.setBackground(Loja.corFundoEscura);
         frameExcluirPedido.setBounds(new java.awt.Rectangle(200, 200, 300, 200));
@@ -210,17 +199,85 @@ public class Loja extends JFrame implements ComponentListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameExcluirPedido.getContentPane().add(buttonExcluirOK, gridBagConstraints);
 
+        frameAlterar.setTitle("Procurar:");
+        frameAlterar.setBackground(Loja.corFundoEscura);
+        frameAlterar.setBounds(new java.awt.Rectangle(200, 200, 300, 200));
+        frameAlterar.setName("frameProcurar"); // NOI18N
         frameAlterar.setSize(new java.awt.Dimension(400, 250));
-        frameAlterar.getContentPane().setLayout(new java.awt.GridLayout());
+        frameAlterar.getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        labelExcluir1.setText("jLabel1");
-        frameAlterar.getContentPane().add(labelExcluir1);
+        labelAlterar.setText("jLabel1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        frameAlterar.getContentPane().add(labelAlterar, gridBagConstraints);
 
-        fieldExcluir1.setText("jTextField1");
-        frameAlterar.getContentPane().add(fieldExcluir1);
+        fieldAlterar.setText("jTextField1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        frameAlterar.getContentPane().add(fieldAlterar, gridBagConstraints);
 
-        buttonExcluir1.setText("OK");
-        frameAlterar.getContentPane().add(buttonExcluir1);
+        buttonAlterar.setBackground(Loja.corFundoClara);
+        buttonAlterar.setForeground(Loja.corFonteEscura);
+        buttonAlterar.setText("OK");
+        buttonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAlterarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        frameAlterar.getContentPane().add(buttonAlterar, gridBagConstraints);
+
+        frameExcluirCliente.setTitle("Procurar:");
+        frameExcluirCliente.setBackground(Loja.corFundoEscura);
+        frameExcluirCliente.setBounds(new java.awt.Rectangle(200, 200, 300, 200));
+        frameExcluirCliente.setName("frameProcurar"); // NOI18N
+        frameExcluirCliente.setSize(new java.awt.Dimension(400, 250));
+        frameExcluirCliente.getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        labelExcluirCliente.setText("jLabel1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        frameExcluirCliente.getContentPane().add(labelExcluirCliente, gridBagConstraints);
+
+        fieldExcluirCliente.setText("jTextField1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        frameExcluirCliente.getContentPane().add(fieldExcluirCliente, gridBagConstraints);
+
+        buttonExcluirCl.setBackground(Loja.corFundoClara);
+        buttonExcluirCl.setForeground(Loja.corFonteEscura);
+        buttonExcluirCl.setText("OK");
+        buttonExcluirCl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirClActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        frameExcluirCliente.getContentPane().add(buttonExcluirCl, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja");
@@ -231,7 +288,23 @@ public class Loja extends JFrame implements ComponentListener {
         painelCliente.setBackground(Loja.corFundoEscura);
         painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
+        painelCliente.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                painelClienteComponentResized(evt);
+            }
+        });
         painelCliente.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        menuClientes.setBackground(new java.awt.Color(153, 153, 153));
+        menuClientes.setOpaque(false);
+        menuClientes.setPreferredSize(new java.awt.Dimension(300, 200));
+        menuClientes.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                menuClientesAncestorResized(evt);
+            }
+        });
 
         buttonNovoCliente.setBackground(Loja.corFundoClara);
         buttonNovoCliente.setForeground(Loja.corFonteEscura);
@@ -247,7 +320,7 @@ public class Loja extends JFrame implements ComponentListener {
                 buttonNovoClienteActionPerformed(evt);
             }
         });
-        painelCliente.add(buttonNovoCliente);
+        menuClientes.add(buttonNovoCliente);
 
         buttonProcurarCliente.setBackground(Loja.corFundoClara);
         buttonProcurarCliente.setForeground(Loja.corFonteEscura);
@@ -263,23 +336,7 @@ public class Loja extends JFrame implements ComponentListener {
                 buttonProcurarClienteActionPerformed(evt);
             }
         });
-        painelCliente.add(buttonProcurarCliente);
-
-        buttonExcluirCliente.setBackground(Loja.corFundoClara);
-        buttonExcluirCliente.setForeground(Loja.corFonteEscura);
-        buttonExcluirCliente.setText("Excluir Cliente");
-        buttonExcluirCliente.setAlignmentX(0.5F);
-        buttonExcluirCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        buttonExcluirCliente.setMargin(new java.awt.Insets(2, 20, 2, 20));
-        buttonExcluirCliente.setMaximumSize(new java.awt.Dimension(200, 200));
-        buttonExcluirCliente.setName("Novo Cliente"); // NOI18N
-        buttonExcluirCliente.setPreferredSize(new java.awt.Dimension(100, 40));
-        buttonExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExcluirClienteActionPerformed(evt);
-            }
-        });
-        painelCliente.add(buttonExcluirCliente);
+        menuClientes.add(buttonProcurarCliente);
 
         buttonAlterarCliente.setBackground(Loja.corFundoClara);
         buttonAlterarCliente.setForeground(Loja.corFonteEscura);
@@ -295,7 +352,25 @@ public class Loja extends JFrame implements ComponentListener {
                 buttonAlterarClienteActionPerformed(evt);
             }
         });
-        painelCliente.add(buttonAlterarCliente);
+        menuClientes.add(buttonAlterarCliente);
+
+        buttonExcluirCliente.setBackground(Loja.corFundoClara);
+        buttonExcluirCliente.setForeground(Loja.corFonteEscura);
+        buttonExcluirCliente.setText("Excluir Cliente");
+        buttonExcluirCliente.setAlignmentX(0.5F);
+        buttonExcluirCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonExcluirCliente.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonExcluirCliente.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonExcluirCliente.setName("Novo Cliente"); // NOI18N
+        buttonExcluirCliente.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirClienteActionPerformed(evt);
+            }
+        });
+        menuClientes.add(buttonExcluirCliente);
+
+        painelCliente.add(menuClientes);
 
         getContentPane().add(painelCliente);
 
@@ -406,7 +481,16 @@ public class Loja extends JFrame implements ComponentListener {
 
     private void buttonNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoClienteActionPerformed
         Cliente novoCadastro = new Cliente();
-        novoCadastro.iniciarCadastro(clientes);
+        novoCadastro.addComponentListener(this);
+        novoCadastro.setVisible(true);
+        menuClientes.setVisible(false);
+        painelCliente.add(novoCadastro);
+        novoCadastro.iniciarCadastro(() -> {
+            novoCadastro.setVisible(false);
+            painelCliente.remove(novoCadastro);
+            menuClientes.setVisible(true);
+            clientes.add(novoCadastro);
+        });
     }//GEN-LAST:event_buttonNovoClienteActionPerformed
 
     private void buttonNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoPedidoActionPerformed
@@ -468,13 +552,13 @@ public class Loja extends JFrame implements ComponentListener {
     private void buttonExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirClienteActionPerformed
         frameExcluirCliente.setVisible(true);
         frameExcluirCliente.setTitle("Excluir cliente");
-        labelAlterar.setText("Digite o cpf: ");
-        fieldAlterar.setText("");
-        buttonAlterar.addActionListener((e) -> {
-            if (!Loja.confirmaCadastro(fieldAlterar.getText())) {
+        labelExcluirCliente.setText("Digite o cpf: ");
+        fieldExcluirCliente.setText("");
+        buttonExcluirCl.addActionListener((e) -> {
+            if (!Loja.confirmaCadastro(fieldExcluirCliente.getText())) {
                 int indice = 0;
                 for (Cliente cl : clientes) {
-                    if (cl.getCpf().equals(fieldAlterar.getText())) {
+                    if (cl.getCpf().equals(fieldExcluirCliente.getText())) {
                         indice = clientes.indexOf(cl);
                     }
                 }
@@ -523,10 +607,6 @@ public class Loja extends JFrame implements ComponentListener {
 
     }//GEN-LAST:event_menuPedidosAncestorResized
 
-    private void buttonExcluirOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirOKActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonExcluirOKActionPerformed
-
     private void buttonEditarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarPedidoActionPerformed
         frameProcurar.setVisible(true);
         frameProcurar.setTitle("Editar Pedido: ");
@@ -574,13 +654,33 @@ public class Loja extends JFrame implements ComponentListener {
         });
     }//GEN-LAST:event_buttonAlterarClienteActionPerformed
 
+    private void painelClienteComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_painelClienteComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_painelClienteComponentResized
+
+    private void buttonExcluirOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirOKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonExcluirOKActionPerformed
+
+    private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonAlterarActionPerformed
+
+    private void buttonExcluirClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirClActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonExcluirClActionPerformed
+
+    private void menuClientesAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuClientesAncestorResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuClientesAncestorResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JButton buttonAlterar;
     private javax.swing.JButton buttonAlterarCliente;
     private javax.swing.JButton buttonEditarPedido;
-    private javax.swing.JButton buttonExcluir1;
+    private javax.swing.JButton buttonExcluirCl;
     private javax.swing.JButton buttonExcluirCliente;
     private javax.swing.JButton buttonExcluirOK;
     private javax.swing.JButton buttonExcluirPedido;
@@ -590,7 +690,7 @@ public class Loja extends JFrame implements ComponentListener {
     private javax.swing.JButton buttonProcurarCliente;
     private javax.swing.JButton buttonProcurarPedido;
     private javax.swing.JTextField fieldAlterar;
-    private javax.swing.JTextField fieldExcluir1;
+    private javax.swing.JTextField fieldExcluirCliente;
     private javax.swing.JTextField fieldExcluirPedido;
     private javax.swing.JTextField fieldProcurar;
     private javax.swing.JFrame frameAlterar;
@@ -598,9 +698,10 @@ public class Loja extends JFrame implements ComponentListener {
     private javax.swing.JFrame frameExcluirPedido;
     private javax.swing.JFrame frameProcurar;
     private javax.swing.JLabel labelAlterar;
-    private javax.swing.JLabel labelExcluir1;
+    private javax.swing.JLabel labelExcluirCliente;
     private javax.swing.JLabel labelExcluirPedido;
     private javax.swing.JLabel labelProcurar;
+    private javax.swing.JPanel menuClientes;
     private javax.swing.JPanel menuPedidos;
     private javax.swing.JMenuBar menuPrincipal;
     private javax.swing.JPanel painelCliente;
