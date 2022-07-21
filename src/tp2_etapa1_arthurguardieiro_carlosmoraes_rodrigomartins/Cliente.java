@@ -48,17 +48,17 @@ public class Cliente extends javax.swing.JPanel {
     }
     
     public void alterarCadastro(){
-        frameAlterar.setVisible(true);
-        frameAlterar.setSize(500, 370);
-        frameAlterar.setTitle("Alterar cadastro");
-        bCadastrar.addActionListener((e) -> {
-            String cpfDigitado = fieldCpfAlterar.getText();
-            if(Loja.confirmaCadastro(cpfDigitado)){
-                this.altera(fieldNomeAlterar.getText(), cpfDigitado, fieldEnderecoAlterar.getText(), fieldCelularAlterar.getText());
-                JOptionPane.showMessageDialog(null, "Alteração feita");
-            }
-            JOptionPane.showMessageDialog(null, "CPF já cadastrado");
-        });
+//        frameAlterar.setVisible(true);
+//        frameAlterar.setSize(500, 370);
+//        frameAlterar.setTitle("Alterar cadastro");
+//        bCadastrar.addActionListener((e) -> {
+//            String cpfDigitado = fieldCpfAlterar.getText();
+//            if(Loja.confirmaCadastro(cpfDigitado)){
+//                this.altera(fieldNomeAlterar.getText(), cpfDigitado, fieldEnderecoAlterar.getText(), fieldCelularAlterar.getText());
+//                JOptionPane.showMessageDialog(null, "Alteração feita");
+//            }
+//            JOptionPane.showMessageDialog(null, "CPF já cadastrado");
+//        });
     }
     
     private void altera(String nome, String cpf, String endereco, String celular){
