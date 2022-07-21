@@ -14,8 +14,8 @@ import javax.swing.*;
  *
  * @author Carlos
  */
-public class Loja extends JFrame implements ComponentListener{
-    
+public class Loja extends JFrame implements ComponentListener {
+
     public static Color corFundoEscura = Color.darkGray;
     public static Color corFundoClara = Color.lightGray;
     public static Color corFonteClara = Color.white;
@@ -24,6 +24,7 @@ public class Loja extends JFrame implements ComponentListener{
 
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Produto> produtos = new ArrayList<>();
 
     /**
      * Creates new form Loja
@@ -40,12 +41,28 @@ public class Loja extends JFrame implements ComponentListener{
                 System.out.println(e);
             }
         });
+        adicionarExemplosProdutos();
+    }
+    
+    private void adicionarExemplosProdutos() {
+        produtos.add(new Produto("P1", 100, "Prod 1"));
+        produtos.add(new Produto("P2", 50, "Prod 2"));
+        produtos.add(new Produto("P3", 200, "Prod 3"));
     }
 
     public static Pedido buscaPedido(int codigo) {
         for (Pedido pd : pedidos) {
             if (pd.getCodigo() == codigo) {
                 return pd;
+            }
+        }
+        return null;
+    }
+
+    public static Cliente buscaCliente(String cpf) {
+        for (Cliente cl : clientes) {
+            if (cl.getCpf().equalsIgnoreCase(cpf)) {
+                return cl;
             }
         }
         return null;
@@ -58,33 +75,7 @@ public class Loja extends JFrame implements ComponentListener{
             }
         }
         return true;
-    }  
-    
-        
-        
-    @Override
-    public void componentResized(ComponentEvent e) {
-        System.out.println("resise" + e.getComponent().getName());
     }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-        System.out.println("moved" + e.getComponent());
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-        System.out.println("shown" + e.getComponent());
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-        if (e.getComponent().getName().equals("containerPedido"))
-        {
-            menuPedidos.setVisible(true);
-        }
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,6 +85,7 @@ public class Loja extends JFrame implements ComponentListener{
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         frameProcurar = new javax.swing.JFrame();
         labelProcurar = new javax.swing.JLabel();
@@ -103,6 +95,10 @@ public class Loja extends JFrame implements ComponentListener{
         labelExcluir = new javax.swing.JLabel();
         fieldExcluir = new javax.swing.JTextField();
         buttonExcluir = new javax.swing.JButton();
+        frameExcluirPedido = new javax.swing.JFrame();
+        labelExcluirPedido = new javax.swing.JLabel();
+        fieldExcluirPedido = new javax.swing.JTextField();
+        buttonExcluirOK = new javax.swing.JButton();
         painelCliente = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
         buttonProcurarCliente = new javax.swing.JButton();
@@ -111,21 +107,51 @@ public class Loja extends JFrame implements ComponentListener{
         menuPedidos = new javax.swing.JPanel();
         buttonNovoPedido = new javax.swing.JButton();
         buttonProcurarPedido = new javax.swing.JButton();
+        buttonExcluirPedido = new javax.swing.JButton();
+        buttonEditarPedido = new javax.swing.JButton();
         menuPrincipal = new javax.swing.JMenuBar();
         Arquivo = new javax.swing.JMenu();
         Sair = new javax.swing.JMenuItem();
 
+        frameProcurar.setTitle("Procurar:");
+        frameProcurar.setBackground(Loja.corFundoEscura);
+        frameProcurar.setBounds(new java.awt.Rectangle(200, 200, 300, 200));
+        frameProcurar.setName("frameProcurar"); // NOI18N
         frameProcurar.setSize(new java.awt.Dimension(400, 250));
-        frameProcurar.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+        frameProcurar.getContentPane().setLayout(new java.awt.GridBagLayout());
 
         labelProcurar.setText("jLabel1");
-        frameProcurar.getContentPane().add(labelProcurar);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        frameProcurar.getContentPane().add(labelProcurar, gridBagConstraints);
 
         fieldProcurar.setText("jTextField1");
-        frameProcurar.getContentPane().add(fieldProcurar);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        frameProcurar.getContentPane().add(fieldProcurar, gridBagConstraints);
 
+        buttonProcurar.setBackground(Loja.corFundoClara);
+        buttonProcurar.setForeground(Loja.corFonteEscura);
         buttonProcurar.setText("OK");
-        frameProcurar.getContentPane().add(buttonProcurar);
+        buttonProcurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonProcurarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        frameProcurar.getContentPane().add(buttonProcurar, gridBagConstraints);
 
         frameExcluirCliente.setSize(new java.awt.Dimension(400, 250));
         frameExcluirCliente.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -138,6 +164,46 @@ public class Loja extends JFrame implements ComponentListener{
 
         buttonExcluir.setText("OK");
         frameExcluirCliente.getContentPane().add(buttonExcluir);
+
+        frameExcluirPedido.setTitle("Procurar:");
+        frameExcluirPedido.setBackground(Loja.corFundoEscura);
+        frameExcluirPedido.setBounds(new java.awt.Rectangle(200, 200, 300, 200));
+        frameExcluirPedido.setName("frameProcurar"); // NOI18N
+        frameExcluirPedido.setSize(new java.awt.Dimension(400, 250));
+        frameExcluirPedido.getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        labelExcluirPedido.setText("jLabel1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        frameExcluirPedido.getContentPane().add(labelExcluirPedido, gridBagConstraints);
+
+        fieldExcluirPedido.setText("jTextField1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        frameExcluirPedido.getContentPane().add(fieldExcluirPedido, gridBagConstraints);
+
+        buttonExcluirOK.setBackground(Loja.corFundoClara);
+        buttonExcluirOK.setForeground(Loja.corFonteEscura);
+        buttonExcluirOK.setText("OK");
+        buttonExcluirOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirOKActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        frameExcluirPedido.getContentPane().add(buttonExcluirOK, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja");
@@ -207,6 +273,14 @@ public class Loja extends JFrame implements ComponentListener{
 
         menuPedidos.setBackground(new java.awt.Color(153, 153, 153));
         menuPedidos.setOpaque(false);
+        menuPedidos.setPreferredSize(new java.awt.Dimension(300, 200));
+        menuPedidos.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                menuPedidosAncestorResized(evt);
+            }
+        });
 
         buttonNovoPedido.setBackground(Loja.corFundoClara);
         buttonNovoPedido.setForeground(Loja.corFonteEscura);
@@ -240,6 +314,38 @@ public class Loja extends JFrame implements ComponentListener{
         });
         menuPedidos.add(buttonProcurarPedido);
 
+        buttonExcluirPedido.setBackground(Loja.corFundoClara);
+        buttonExcluirPedido.setForeground(Loja.corFonteEscura);
+        buttonExcluirPedido.setText("Excluir Pedido");
+        buttonExcluirPedido.setAlignmentX(0.5F);
+        buttonExcluirPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonExcluirPedido.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonExcluirPedido.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonExcluirPedido.setName("Excluir Pedido"); // NOI18N
+        buttonExcluirPedido.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonExcluirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirPedidoActionPerformed(evt);
+            }
+        });
+        menuPedidos.add(buttonExcluirPedido);
+
+        buttonEditarPedido.setBackground(Loja.corFundoClara);
+        buttonEditarPedido.setForeground(Loja.corFonteEscura);
+        buttonEditarPedido.setText("Editar Pedido");
+        buttonEditarPedido.setAlignmentX(0.5F);
+        buttonEditarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonEditarPedido.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonEditarPedido.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonEditarPedido.setName("Procurar Pedido"); // NOI18N
+        buttonEditarPedido.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonEditarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarPedidoActionPerformed(evt);
+            }
+        });
+        menuPedidos.add(buttonEditarPedido);
+
         painelPedido.add(menuPedidos);
 
         getContentPane().add(painelPedido);
@@ -272,16 +378,16 @@ public class Loja extends JFrame implements ComponentListener{
 
     private void buttonNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoPedidoActionPerformed
         Pedido novo = new Pedido();
+        novo.addComponentListener(this);
         novo.setVisible(true);
         menuPedidos.setVisible(false);
-        novo.addComponentListener(this);
         painelPedido.add(novo);
-        novo.iniciarCadastro(() -> {   
+        novo.iniciarCadastro(() -> {
             novo.setVisible(false);
             painelPedido.remove(novo);
             menuPedidos.setVisible(true);
-            pedidos.add(novo);            
-        });        
+            pedidos.add(novo);
+        });
     }//GEN-LAST:event_buttonNovoPedidoActionPerformed
 
     private void buttonProcurarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarPedidoActionPerformed
@@ -289,12 +395,21 @@ public class Loja extends JFrame implements ComponentListener{
         frameProcurar.setTitle("Procurar Pedido: ");
         labelProcurar.setText("Codigo do pedido: ");
         fieldProcurar.setText("");
-        buttonProcurar.addActionListener((e) -> {
-            Pedido encontrado = null;
-            for (Pedido pd : pedidos) {
+        buttonProcurar.setAction(new AbstractAction("Procurar") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Pedido encontrado = null;
                 encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
                 if (encontrado != null) {
-                    encontrado.mostrarInfo();
+                    frameProcurar.setVisible(false);
+                    JFrame popUp = new JFrame(encontrado.getName());
+                    popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                    popUp.add(encontrado);
+                    encontrado.mostrarInfo(() -> {
+                        popUp.dispose();
+                    }, "Pedido Encontrado: ");
+                    popUp.setVisible(true);
+                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
                 }
@@ -308,12 +423,11 @@ public class Loja extends JFrame implements ComponentListener{
         labelProcurar.setText("cpf do cliente: ");
         fieldProcurar.setText("");
         buttonProcurar.addActionListener((e) -> {
-            for (Cliente cl : clientes) {
-                if (cl.getCpf().equalsIgnoreCase(fieldProcurar.getText())) {
-                    cl.mostrarInfo();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
-                }
+            Cliente encontrado = buscaCliente(fieldProcurar.getText());
+            if (encontrado != null) {
+                encontrado.mostrarInfo();
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
             }
         });
     }//GEN-LAST:event_buttonProcurarClienteActionPerformed
@@ -324,17 +438,17 @@ public class Loja extends JFrame implements ComponentListener{
         labelExcluir.setText("Digite o cpf: ");
         fieldExcluir.setText("");
         buttonExcluir.addActionListener((e) -> {
-            if(!Loja.confirmaCadastro(fieldExcluir.getText())){
-                int indice=0;
-                for(Cliente cl: clientes){
-                    if(cl.getCpf().equals(fieldExcluir.getText())){
+            if (!Loja.confirmaCadastro(fieldExcluir.getText())) {
+                int indice = 0;
+                for (Cliente cl : clientes) {
+                    if (cl.getCpf().equals(fieldExcluir.getText())) {
                         indice = clientes.indexOf(cl);
                     }
                 }
-                System.out.println("Excluido "+ clientes.get(indice));
+                System.out.println("Excluido " + clientes.get(indice));
                 clientes.remove(indice);
                 JOptionPane.showMessageDialog(null, "Cliente excluido.");
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(null, "CPF não encontrado.");
                 System.out.println("cpf nao encontrado");
             }
@@ -345,21 +459,89 @@ public class Loja extends JFrame implements ComponentListener{
         System.exit(0);
     }//GEN-LAST:event_SairActionPerformed
 
+    private void buttonProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonProcurarActionPerformed
+
+    private void buttonExcluirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirPedidoActionPerformed
+        // TODO add your handling code here:
+        frameProcurar.setVisible(true);
+        frameProcurar.setTitle("Excluir Pedido: ");
+        labelProcurar.setText("Codigo do pedido: ");
+        fieldProcurar.setText("");
+        buttonProcurar.setAction(new AbstractAction("Excluir") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Pedido encontrado = null;
+                encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
+                if (encontrado != null) {
+                    pedidos.remove(encontrado);
+                    frameProcurar.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Pedido Excluido.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                }
+            }
+        });
+    }//GEN-LAST:event_buttonExcluirPedidoActionPerformed
+
+    private void menuPedidosAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuPedidosAncestorResized
+        menuPedidos.setPreferredSize(painelPedido.getSize());
+
+    }//GEN-LAST:event_menuPedidosAncestorResized
+
+    private void buttonExcluirOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirOKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonExcluirOKActionPerformed
+
+    private void buttonEditarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarPedidoActionPerformed
+        frameProcurar.setVisible(true);
+        frameProcurar.setTitle("Editar Pedido: ");
+        labelProcurar.setText("Codigo do pedido: ");
+        fieldProcurar.setText("");
+        buttonProcurar.setAction(new AbstractAction("Procurar") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Pedido encontrado = null;
+                encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
+                if (encontrado != null) {
+                    frameProcurar.setVisible(false);
+                    JFrame popUp = new JFrame(encontrado.getName());
+                    popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                    popUp.add(encontrado);
+                    encontrado.mostrarInfo(() -> {
+                        popUp.dispose();
+                    }, "Editar Pedido: ");
+                    popUp.setVisible(true);
+                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                }
+            }
+        });
+    }//GEN-LAST:event_buttonEditarPedidoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
     private javax.swing.JMenuItem Sair;
+    private javax.swing.JButton buttonEditarPedido;
     private javax.swing.JButton buttonExcluir;
     private javax.swing.JButton buttonExcluirCliente;
+    private javax.swing.JButton buttonExcluirOK;
+    private javax.swing.JButton buttonExcluirPedido;
     private javax.swing.JButton buttonNovoCliente;
     private javax.swing.JButton buttonNovoPedido;
     private javax.swing.JButton buttonProcurar;
     private javax.swing.JButton buttonProcurarCliente;
     private javax.swing.JButton buttonProcurarPedido;
     private javax.swing.JTextField fieldExcluir;
+    private javax.swing.JTextField fieldExcluirPedido;
     private javax.swing.JTextField fieldProcurar;
     private javax.swing.JFrame frameExcluirCliente;
+    private javax.swing.JFrame frameExcluirPedido;
     private javax.swing.JFrame frameProcurar;
     private javax.swing.JLabel labelExcluir;
+    private javax.swing.JLabel labelExcluirPedido;
     private javax.swing.JLabel labelProcurar;
     private javax.swing.JPanel menuPedidos;
     private javax.swing.JMenuBar menuPrincipal;
@@ -367,4 +549,26 @@ public class Loja extends JFrame implements ComponentListener{
     private javax.swing.JPanel painelPedido;
     // End of variables declaration//GEN-END:variables
 
+    // Implementação da interface ComponentListener
+    @Override
+    public void componentResized(ComponentEvent e) {
+        //
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        //
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        // 
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        if (e.getComponent().getName().equals("containerPedido")) {
+            menuPedidos.setVisible(true);
+        }
+    }
 }

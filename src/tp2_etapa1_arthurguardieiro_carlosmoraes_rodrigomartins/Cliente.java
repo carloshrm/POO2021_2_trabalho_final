@@ -15,8 +15,8 @@ public class Cliente extends javax.swing.JFrame {
 
     public String getCpf() {
         return cpf;
-    }
-
+    }    
+    
     private String nome;
     private String cpf;
     private String endereco;
@@ -65,6 +65,10 @@ public class Cliente extends javax.swing.JFrame {
         JTCpf.setText(cpf);
         JTEndereco.setText(endereco);
         JTNome.setText(nome);
+    }
+    
+    public void cadastrarPedido(Pedido p) {
+        pedidosFeitos.add(p);
     }
 
     /**
