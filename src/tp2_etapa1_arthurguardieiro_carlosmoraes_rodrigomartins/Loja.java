@@ -14,7 +14,7 @@ import javax.swing.*;
  *
  * @author Carlos
  */
-public class Loja extends JFrame implements ComponentListener {
+public class Loja extends JFrame {
 
     public static Color corFundoEscura = Color.darkGray;
     public static Color corFundoClara = Color.lightGray;
@@ -43,11 +43,11 @@ public class Loja extends JFrame implements ComponentListener {
         });
         adicionarExemplosProdutos();
     }
-    
+
     private void adicionarExemplosProdutos() {
-        produtos.add(new Produto("P1", 100, "Prod 1"));
-        produtos.add(new Produto("P2", 50, "Prod 2"));
-        produtos.add(new Produto("P3", 200, "Prod 3"));
+        produtos.add(new Produto("P1", 11.22, "Prod 1"));
+        produtos.add(new Produto("P2", 9.99, "Prod 2"));
+        produtos.add(new Produto("P3", 33.44, "Prod 3"));
     }
 
     public static Pedido buscaPedido(int codigo) {
@@ -63,6 +63,15 @@ public class Loja extends JFrame implements ComponentListener {
         for (Cliente cl : clientes) {
             if (cl.getCpf().equalsIgnoreCase(cpf)) {
                 return cl;
+            }
+        }
+        return null;
+    }
+
+    public static Produto buscaProduto(int cod) {
+        for (Produto pr : produtos) {
+            if (pr.getCodigo() == cod) {
+                return pr;
             }
         }
         return null;
@@ -481,7 +490,6 @@ public class Loja extends JFrame implements ComponentListener {
 
     private void buttonNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoClienteActionPerformed
         Cliente novoCadastro = new Cliente();
-        novoCadastro.addComponentListener(this);
         novoCadastro.setVisible(true);
         menuClientes.setVisible(false);
         painelCliente.add(novoCadastro);
@@ -495,7 +503,6 @@ public class Loja extends JFrame implements ComponentListener {
 
     private void buttonNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoPedidoActionPerformed
         Pedido novo = new Pedido();
-        novo.addComponentListener(this);
         novo.setVisible(true);
         menuPedidos.setVisible(false);
         painelPedido.add(novo);
@@ -581,7 +588,6 @@ public class Loja extends JFrame implements ComponentListener {
     }//GEN-LAST:event_buttonProcurarActionPerformed
 
     private void buttonExcluirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirPedidoActionPerformed
-        // TODO add your handling code here:
         frameProcurar.setVisible(true);
         frameProcurar.setTitle("Excluir Pedido: ");
         labelProcurar.setText("Codigo do pedido: ");
@@ -604,7 +610,6 @@ public class Loja extends JFrame implements ComponentListener {
 
     private void menuPedidosAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuPedidosAncestorResized
         menuPedidos.setPreferredSize(painelPedido.getSize());
-
     }//GEN-LAST:event_menuPedidosAncestorResized
 
     private void buttonEditarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarPedidoActionPerformed
@@ -708,26 +713,4 @@ public class Loja extends JFrame implements ComponentListener {
     private javax.swing.JPanel painelPedido;
     // End of variables declaration//GEN-END:variables
 
-    // Implementação da interface ComponentListener
-    @Override
-    public void componentResized(ComponentEvent e) {
-        //
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-        //
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-        // 
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-        if (e.getComponent().getName().equals("containerPedido")) {
-            menuPedidos.setVisible(true);
-        }
-    }
 }

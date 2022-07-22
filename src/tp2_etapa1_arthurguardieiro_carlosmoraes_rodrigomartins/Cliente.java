@@ -69,29 +69,30 @@ public class Cliente extends javax.swing.JPanel {
     }
 
     private boolean validarCadastro() {
-        String cpfDigitado = JTCpf.getText();
-        if (Loja.confirmaCadastro(cpfDigitado)) {
-            this.cpf = cpfDigitado;
-            this.nome = JTNome.getText();
-            this.endereco = JTEndereco.getText();
-            this.celular = JTCelular.getText();
-            confirmaCadastro.setText("cadastro realizado");
-            JOptionPane.showMessageDialog(null, "cadastro realizado");
-            setVisible(false);
-            return true;
-        } else {
-            confirmaCadastro.setText("cpf já utilizado");
-            JOptionPane.showMessageDialog(null, "cadastro inválido", "alerta", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+//        String cpfDigitado = JTCpf.getText();
+//        if (Loja.confirmaCadastro(cpfDigitado)) {
+//            this.cpf = cpfDigitado;
+//            this.nome = JTNome.getText();
+//            this.endereco = JTEndereco.getText();
+//            this.celular = JTCelular.getText();
+//            confirmaCadastro.setText("cadastro realizado");
+//            JOptionPane.showMessageDialog(null, "cadastro realizado");
+//            setVisible(false);
+//            return true;
+//        } else {
+//            confirmaCadastro.setText("cpf já utilizado");
+//            JOptionPane.showMessageDialog(null, "cadastro inválido", "alerta", JOptionPane.ERROR_MESSAGE);
+//            return false;
+       // }
+       return false;
     }
 
     public void mostrarInfo() {
         setVisible(true);
-        JTCelular.setText(celular);
-        JTCpf.setText(cpf);
-        JTEndereco.setText(endereco);
-        JTNome.setText(nome);
+//        JTCelular.setText(celular);
+//        JTCpf.setText(cpf);
+//        JTEndereco.setText(endereco);
+//        JTNome.setText(nome);
     }
     
     public void cadastrarPedido(Pedido p) {
