@@ -5,6 +5,7 @@
 package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.*;
@@ -65,6 +66,7 @@ public class Pedido extends javax.swing.JPanel {
                 this.data = fieldData.getText();
                 this.cliente = cli;
                 cli.cadastrarPedido(this);
+                fieldCodigo.setEnabled(false);
                 JOptionPane.showMessageDialog(null, "Cadastro OK");
                 return true;
             } else {
@@ -81,15 +83,14 @@ public class Pedido extends javax.swing.JPanel {
         return true;
     }
 
-    public void mostrarInfo(Runnable callback, String msgLabel) {
+    public void editarInfo(Runnable callback) {
         setVisible(true);
-        pedidoTitulo.setText(msgLabel);
+        pedidoTitulo.setText("Editar Pedido: ");
         fieldCodigo.setText(String.format("%d", codPedido));
-        fieldCodigo.setEnabled(false);
         fieldData.setText(String.format("%s", data));
         fieldProduto.setText(String.format("%d", codProduto));
         fieldQuantidade.setText(String.format("%d", quantidade));
-        fieldPreco.setText(String.format("%.2f", Loja.buscaProduto(codProduto).getPreco() * quantidade));
+        fieldPreco.setText(String.format("%.2f", preco));
         buttonPedidoCCL.setVisible(false);
         buttonPedidoOK.setAction(new AbstractAction("OK") {
             @Override
@@ -103,6 +104,24 @@ public class Pedido extends javax.swing.JPanel {
         });
     }
 
+    public void mostrarInfo(Runnable callback) {
+        setVisible(true);
+        pedidoTitulo.setText("Informações do pedido: ");
+        fieldCodigo.setText(String.format("%d", codPedido));
+        fieldData.setText(String.format("%s", data));
+        fieldProduto.setText(String.format("%d", codProduto));
+        fieldQuantidade.setText(String.format("%d", quantidade));
+        fieldPreco.setText(String.format("%.2f", preco));
+        buttonPedidoCCL.setVisible(false);
+        buttonPedidoOK.setAction(new AbstractAction("OK") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.run();
+                setVisible(false);
+            }
+        });
+    }
+
     public void setPreco() {
         if (codProduto != 0) {
             preco = quantidade * Loja.buscaProduto(codProduto).getPreco();
@@ -110,7 +129,7 @@ public class Pedido extends javax.swing.JPanel {
             preco = 0;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -159,6 +178,7 @@ public class Pedido extends javax.swing.JPanel {
         labelCodigo.setAlignmentY(0.2F);
         labelCodigo.setMaximumSize(new java.awt.Dimension(300, 30));
         labelCodigo.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelCodigo.setName(""); // NOI18N
         labelCodigo.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(labelCodigo);
 
@@ -166,6 +186,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldCodigo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldCodigo.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldCodigo.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldCodigo.setName("fieldCodigo"); // NOI18N
         fieldCodigo.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(fieldCodigo);
 
@@ -175,6 +196,7 @@ public class Pedido extends javax.swing.JPanel {
         labelCliente.setAlignmentY(0.2F);
         labelCliente.setMaximumSize(new java.awt.Dimension(300, 30));
         labelCliente.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelCliente.setName(""); // NOI18N
         labelCliente.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(labelCliente);
 
@@ -182,6 +204,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldCliente.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldCliente.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldCliente.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldCliente.setName("fieldCliente"); // NOI18N
         fieldCliente.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(fieldCliente);
 
@@ -191,6 +214,7 @@ public class Pedido extends javax.swing.JPanel {
         labelProduto.setAlignmentY(0.2F);
         labelProduto.setMaximumSize(new java.awt.Dimension(300, 30));
         labelProduto.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelProduto.setName(""); // NOI18N
         labelProduto.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(labelProduto);
 
@@ -198,6 +222,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldProduto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldProduto.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldProduto.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldProduto.setName("fieldProduto"); // NOI18N
         fieldProduto.setPreferredSize(new java.awt.Dimension(300, 20));
         fieldProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -212,6 +237,7 @@ public class Pedido extends javax.swing.JPanel {
         labelQtd.setAlignmentY(0.2F);
         labelQtd.setMaximumSize(new java.awt.Dimension(300, 30));
         labelQtd.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelQtd.setName(""); // NOI18N
         labelQtd.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(labelQtd);
 
@@ -220,6 +246,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldQuantidade.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldQuantidade.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldQuantidade.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldQuantidade.setName("fieldQuantidade"); // NOI18N
         fieldQuantidade.setPreferredSize(new java.awt.Dimension(300, 20));
         fieldQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -234,6 +261,7 @@ public class Pedido extends javax.swing.JPanel {
         labelPreco.setAlignmentY(0.2F);
         labelPreco.setMaximumSize(new java.awt.Dimension(300, 30));
         labelPreco.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelPreco.setName(""); // NOI18N
         labelPreco.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(labelPreco);
 
@@ -243,6 +271,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldPreco.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldPreco.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldPreco.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldPreco.setName("fieldPreco"); // NOI18N
         fieldPreco.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(fieldPreco);
 
@@ -252,12 +281,14 @@ public class Pedido extends javax.swing.JPanel {
         labelData.setAlignmentY(0.2F);
         labelData.setMaximumSize(new java.awt.Dimension(300, 30));
         labelData.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelData.setName(""); // NOI18N
         labelData.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(labelData);
 
         fieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/y"))));
         fieldData.setText("dd/mm/aa");
         fieldData.setToolTipText("Formato: 01/12/2022");
+        fieldData.setName("fieldData"); // NOI18N
         panelEntradas.add(fieldData);
 
         add(panelEntradas);
@@ -310,7 +341,7 @@ public class Pedido extends javax.swing.JPanel {
             if (val <= 0 || p == null) {
                 fieldProduto.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             } else {
-                labelProduto.setText(labelProduto.getText() + p.getNome());
+                labelProduto.setText("Produto: " + p.getNome());
                 fieldProduto.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara));
             }
         } catch (NumberFormatException e) {

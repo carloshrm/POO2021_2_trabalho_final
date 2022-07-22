@@ -74,10 +74,6 @@ public class Loja extends JFrame {
         labelProcurar = new javax.swing.JLabel();
         fieldProcurar = new javax.swing.JTextField();
         buttonProcurar = new javax.swing.JButton();
-        frameExcluirPedido = new javax.swing.JFrame();
-        labelExcluirPedido = new javax.swing.JLabel();
-        fieldExcluirPedido = new javax.swing.JTextField();
-        buttonExcluirOK = new javax.swing.JButton();
         frameAlterar = new javax.swing.JFrame();
         labelAlterar = new javax.swing.JLabel();
         fieldAlterar = new javax.swing.JTextField();
@@ -86,6 +82,10 @@ public class Loja extends JFrame {
         labelExcluirCliente = new javax.swing.JLabel();
         fieldExcluirCliente = new javax.swing.JTextField();
         buttonExcluirCl = new javax.swing.JButton();
+        painelAux = new javax.swing.JPanel();
+        labelPainelAux = new javax.swing.JLabel();
+        fieldPainelAux = new javax.swing.JTextField();
+        buttonPainelAux = new javax.swing.JButton();
         painelCliente = new javax.swing.JPanel();
         menuClientes = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
@@ -141,46 +141,6 @@ public class Loja extends JFrame {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameProcurar.getContentPane().add(buttonProcurar, gridBagConstraints);
-
-        frameExcluirPedido.setTitle("Procurar:");
-        frameExcluirPedido.setBackground(Loja.corFundoEscura);
-        frameExcluirPedido.setBounds(new java.awt.Rectangle(200, 200, 300, 200));
-        frameExcluirPedido.setName("frameProcurar"); // NOI18N
-        frameExcluirPedido.setSize(new java.awt.Dimension(400, 250));
-        frameExcluirPedido.getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        labelExcluirPedido.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        frameExcluirPedido.getContentPane().add(labelExcluirPedido, gridBagConstraints);
-
-        fieldExcluirPedido.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 10;
-        frameExcluirPedido.getContentPane().add(fieldExcluirPedido, gridBagConstraints);
-
-        buttonExcluirOK.setBackground(Loja.corFundoClara);
-        buttonExcluirOK.setForeground(Loja.corFonteEscura);
-        buttonExcluirOK.setText("OK");
-        buttonExcluirOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExcluirOKActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        frameExcluirPedido.getContentPane().add(buttonExcluirOK, gridBagConstraints);
 
         frameAlterar.setTitle("Procurar:");
         frameAlterar.setBackground(Loja.corFundoEscura);
@@ -262,6 +222,20 @@ public class Loja extends JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameExcluirCliente.getContentPane().add(buttonExcluirCl, gridBagConstraints);
 
+        labelPainelAux.setText("jLabel1");
+        painelAux.add(labelPainelAux);
+        painelAux.add(fieldPainelAux);
+
+        buttonPainelAux.setBackground(Loja.corFundoClara);
+        buttonPainelAux.setForeground(Loja.corFonteEscura);
+        buttonPainelAux.setText("OK");
+        buttonPainelAux.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPainelAuxActionPerformed(evt);
+            }
+        });
+        painelAux.add(buttonPainelAux);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja");
         setBackground(Loja.corFundoEscura);
@@ -269,7 +243,7 @@ public class Loja extends JFrame {
         getContentPane().setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         painelCliente.setBackground(Loja.corFundoEscura);
-        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corDestaque)); // NOI18N
+        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
         painelCliente.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -358,7 +332,7 @@ public class Loja extends JFrame {
         getContentPane().add(painelCliente);
 
         painelPedido.setBackground(Loja.corFundoEscura);
-        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corFonteClara)); // NOI18N
+        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
         painelPedido.setPreferredSize(new java.awt.Dimension(450, 200));
         painelPedido.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
@@ -517,7 +491,7 @@ public class Loja extends JFrame {
                     popUp.add(encontrado);
                     encontrado.mostrarInfo(() -> {
                         popUp.dispose();
-                    }, "Pedido Encontrado: ");
+                    });
                     popUp.setVisible(true);
                     popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 } else {
@@ -535,8 +509,7 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Cliente encontrado = null;
-                encontrado = buscaCliente(fieldProcurar.getText());
+                Cliente encontrado = buscaCliente(fieldProcurar.getText());
                 if (encontrado != null) {
                     frameProcurar.setVisible(false);
                     JFrame popUp = new JFrame(encontrado.getName());
@@ -613,16 +586,15 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Pedido encontrado = null;
-                encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
+                Pedido encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
                 if (encontrado != null) {
                     frameProcurar.setVisible(false);
                     JFrame popUp = new JFrame(encontrado.getName());
                     popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
                     popUp.add(encontrado);
-                    encontrado.mostrarInfo(() -> {
+                    encontrado.editarInfo(() -> {
                         popUp.dispose();
-                    }, "Editar Pedido: ");
+                    });
                     popUp.setVisible(true);
                     popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 } else {
@@ -640,8 +612,7 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Cliente encontrado = null;
-                encontrado = buscaCliente(fieldProcurar.getText());
+                Cliente encontrado = buscaCliente(fieldProcurar.getText());
                 if (encontrado != null) {
                     frameProcurar.setVisible(false);
                     JFrame popUp = new JFrame(encontrado.getName());
@@ -663,21 +634,21 @@ public class Loja extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_painelClienteComponentResized
 
-    private void buttonExcluirOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirOKActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonExcluirOKActionPerformed
-
     private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonAlterarActionPerformed
+
+    private void menuClientesAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuClientesAncestorResized
+        menuClientes.setPreferredSize(painelCliente.getSize());
+    }//GEN-LAST:event_menuClientesAncestorResized
 
     private void buttonExcluirClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirClActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonExcluirClActionPerformed
 
-    private void menuClientesAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuClientesAncestorResized
+    private void buttonPainelAuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPainelAuxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_menuClientesAncestorResized
+    }//GEN-LAST:event_buttonPainelAuxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
@@ -687,28 +658,28 @@ public class Loja extends JFrame {
     private javax.swing.JButton buttonEditarPedido;
     private javax.swing.JButton buttonExcluirCl;
     private javax.swing.JButton buttonExcluirCliente;
-    private javax.swing.JButton buttonExcluirOK;
     private javax.swing.JButton buttonExcluirPedido;
     private javax.swing.JButton buttonNovoCliente;
     private javax.swing.JButton buttonNovoPedido;
+    private javax.swing.JButton buttonPainelAux;
     private javax.swing.JButton buttonProcurar;
     private javax.swing.JButton buttonProcurarCliente;
     private javax.swing.JButton buttonProcurarPedido;
     private javax.swing.JTextField fieldAlterar;
     private javax.swing.JTextField fieldExcluirCliente;
-    private javax.swing.JTextField fieldExcluirPedido;
+    private javax.swing.JTextField fieldPainelAux;
     private javax.swing.JTextField fieldProcurar;
     private javax.swing.JFrame frameAlterar;
     private javax.swing.JFrame frameExcluirCliente;
-    private javax.swing.JFrame frameExcluirPedido;
     private javax.swing.JFrame frameProcurar;
     private javax.swing.JLabel labelAlterar;
     private javax.swing.JLabel labelExcluirCliente;
-    private javax.swing.JLabel labelExcluirPedido;
+    private javax.swing.JLabel labelPainelAux;
     private javax.swing.JLabel labelProcurar;
     private javax.swing.JPanel menuClientes;
     private javax.swing.JPanel menuPedidos;
     private javax.swing.JMenuBar menuPrincipal;
+    private javax.swing.JPanel painelAux;
     private javax.swing.JPanel painelCliente;
     private javax.swing.JPanel painelPedido;
     // End of variables declaration//GEN-END:variables
