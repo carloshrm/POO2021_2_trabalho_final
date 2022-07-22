@@ -28,12 +28,13 @@ public class Cliente extends javax.swing.JPanel {
 
     public String getCpf() {
         return cpf;
-    }   
+    } 
+    
     
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
-        pedidoTitulo.setText("Novo pedido: ");
-        buttonPedidoOK.setAction(new AbstractAction("Cadastrar") {
+        clienteTitulo.setText("Novo cliente: ");
+        buttonClienteCadastrar.setAction(new AbstractAction("Cadastrar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -47,21 +48,8 @@ public class Cliente extends javax.swing.JPanel {
         });
     }
     
-    public void alterarCadastro(){
-        frameAlterar.setVisible(true);
-        frameAlterar.setSize(500, 370);
-        frameAlterar.setTitle("Alterar cadastro");
-        bCadastrar.addActionListener((e) -> {
-            String cpfDigitado = fieldCpfAlterar.getText();
-            if(Loja.confirmaCadastro(cpfDigitado)){
-                this.altera(fieldNomeAlterar.getText(), cpfDigitado, fieldEnderecoAlterar.getText(), fieldCelularAlterar.getText());
-                JOptionPane.showMessageDialog(null, "Alteração feita");
-            }
-            JOptionPane.showMessageDialog(null, "CPF já cadastrado");
-        });
-    }
     
-    private void altera(String nome, String cpf, String endereco, String celular){
+    public void altera(String nome, String cpf, String endereco, String celular){
         this.nome = nome;
         this.endereco = endereco;
         this.cpf = cpf;
@@ -69,29 +57,47 @@ public class Cliente extends javax.swing.JPanel {
     }
 
     private boolean validarCadastro() {
-        String cpfDigitado = JTCpf.getText();
+        String cpfDigitado = fieldCpf.getText();
         if (Loja.confirmaCadastro(cpfDigitado)) {
             this.cpf = cpfDigitado;
-            this.nome = JTNome.getText();
-            this.endereco = JTEndereco.getText();
-            this.celular = JTCelular.getText();
-            confirmaCadastro.setText("cadastro realizado");
+            this.nome = fieldNome.getText();
+            this.endereco = fieldEndereco.getText();
+            this.celular = fieldCelular.getText();
             JOptionPane.showMessageDialog(null, "cadastro realizado");
             setVisible(false);
             return true;
         } else {
-            confirmaCadastro.setText("cpf já utilizado");
             JOptionPane.showMessageDialog(null, "cadastro inválido", "alerta", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
+    
+    public boolean validarEdicao() {
+        this.nome = fieldNome.getText();
+        this.cpf = fieldCpf.getText();
+        this.endereco = fieldEndereco.getText();
+        this.celular = fieldCelular.getText();
+        return true;
+    }
 
-    public void mostrarInfo() {
+    public void mostrarInfo(Runnable callback, String msgLabel) {
         setVisible(true);
-        JTCelular.setText(celular);
-        JTCpf.setText(cpf);
-        JTEndereco.setText(endereco);
-        JTNome.setText(nome);
+        clienteTitulo.setText(msgLabel);
+        fieldNome.setText(String.format("%d", nome));
+        fieldCpf.setText(cpf);
+        fieldEndereco.setText(String.format("%s", endereco));
+        fieldCelular.setText(String.format("%d", celular));
+        buttonClienteCancelar.setVisible(false);
+        buttonClienteCadastrar.setAction(new AbstractAction("OK") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarEdicao()) {
+                    callback.run();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Valores invalidos");
+                }
+            }
+        });
     }
     
     public void cadastrarPedido(Pedido p) {
@@ -108,114 +114,116 @@ public class Cliente extends javax.swing.JPanel {
     private void initComponents() {
 
         panelTitulo = new javax.swing.JPanel();
-        pedidoTitulo = new javax.swing.JLabel();
+        clienteTitulo = new javax.swing.JLabel();
         panelEntradas = new javax.swing.JPanel();
-        labelCodigo = new javax.swing.JLabel();
-        fieldCodigo = new javax.swing.JTextField();
-        labelCliente = new javax.swing.JLabel();
-        fieldCliente = new javax.swing.JTextField();
-        labelProduto = new javax.swing.JLabel();
-        fieldProduto = new javax.swing.JTextField();
-        labelQtd = new javax.swing.JLabel();
-        fieldQtd = new javax.swing.JTextField();
-        panelMenuPedido = new javax.swing.JPanel();
-        buttonPedidoOK = new javax.swing.JButton();
-        buttonPedidoCCL = new javax.swing.JButton();
+        labelNome = new javax.swing.JLabel();
+        fieldNome = new javax.swing.JTextField();
+        labelCpf = new javax.swing.JLabel();
+        fieldCpf = new javax.swing.JTextField();
+        labelEndereco = new javax.swing.JLabel();
+        fieldEndereco = new javax.swing.JTextField();
+        labelCelular = new javax.swing.JLabel();
+        fieldCelular = new javax.swing.JTextField();
+        panelMenuCliente = new javax.swing.JPanel();
+        buttonClienteCadastrar = new javax.swing.JButton();
+        buttonClienteCancelar = new javax.swing.JButton();
+
+        setBackground(Loja.corFundoEscura);
 
         panelTitulo.setOpaque(false);
         panelTitulo.setPreferredSize(new java.awt.Dimension(400, 30));
 
-        pedidoTitulo.setForeground(Loja.corFonteClara);
-        panelTitulo.add(pedidoTitulo);
+        clienteTitulo.setForeground(Loja.corFonteClara);
+        panelTitulo.add(clienteTitulo);
 
         panelEntradas.setName("panelPedido"); // NOI18N
         panelEntradas.setOpaque(false);
         panelEntradas.setPreferredSize(new java.awt.Dimension(400, 250));
         panelEntradas.setLayout(new java.awt.GridLayout(6, 0, 0, 10));
 
-        labelCodigo.setForeground(Loja.corFonteClara);
-        labelCodigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCodigo.setText("Codigo do Pedido: ");
-        labelCodigo.setAlignmentY(0.2F);
-        labelCodigo.setMaximumSize(new java.awt.Dimension(300, 30));
-        labelCodigo.setMinimumSize(new java.awt.Dimension(200, 30));
-        labelCodigo.setPreferredSize(new java.awt.Dimension(300, 20));
-        panelEntradas.add(labelCodigo);
+        labelNome.setForeground(Loja.corFonteClara);
+        labelNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelNome.setText("Nome:");
+        labelNome.setAlignmentY(0.2F);
+        labelNome.setMaximumSize(new java.awt.Dimension(300, 30));
+        labelNome.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelNome.setPreferredSize(new java.awt.Dimension(300, 20));
+        panelEntradas.add(labelNome);
 
-        fieldCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldCodigo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        fieldCodigo.setMaximumSize(new java.awt.Dimension(300, 30));
-        fieldCodigo.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldCodigo.setPreferredSize(new java.awt.Dimension(300, 20));
-        panelEntradas.add(fieldCodigo);
+        fieldNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fieldNome.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        fieldNome.setMaximumSize(new java.awt.Dimension(300, 30));
+        fieldNome.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldNome.setPreferredSize(new java.awt.Dimension(300, 20));
+        panelEntradas.add(fieldNome);
 
-        labelCliente.setForeground(Loja.corFonteClara);
-        labelCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCliente.setText("CPF do Cliente:");
-        labelCliente.setAlignmentY(0.2F);
-        labelCliente.setMaximumSize(new java.awt.Dimension(300, 30));
-        labelCliente.setMinimumSize(new java.awt.Dimension(200, 30));
-        labelCliente.setPreferredSize(new java.awt.Dimension(300, 20));
-        panelEntradas.add(labelCliente);
+        labelCpf.setForeground(Loja.corFonteClara);
+        labelCpf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelCpf.setText("CPF:");
+        labelCpf.setAlignmentY(0.2F);
+        labelCpf.setMaximumSize(new java.awt.Dimension(300, 30));
+        labelCpf.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelCpf.setPreferredSize(new java.awt.Dimension(300, 20));
+        panelEntradas.add(labelCpf);
 
-        fieldCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldCliente.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        fieldCliente.setMaximumSize(new java.awt.Dimension(300, 30));
-        fieldCliente.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldCliente.setPreferredSize(new java.awt.Dimension(300, 20));
-        panelEntradas.add(fieldCliente);
+        fieldCpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fieldCpf.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        fieldCpf.setMaximumSize(new java.awt.Dimension(300, 30));
+        fieldCpf.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldCpf.setPreferredSize(new java.awt.Dimension(300, 20));
+        panelEntradas.add(fieldCpf);
 
-        labelProduto.setForeground(Loja.corFonteClara);
-        labelProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelProduto.setText("Codigo do Produto: ");
-        labelProduto.setAlignmentY(0.2F);
-        labelProduto.setMaximumSize(new java.awt.Dimension(300, 30));
-        labelProduto.setMinimumSize(new java.awt.Dimension(200, 30));
-        labelProduto.setPreferredSize(new java.awt.Dimension(300, 20));
-        panelEntradas.add(labelProduto);
+        labelEndereco.setForeground(Loja.corFonteClara);
+        labelEndereco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelEndereco.setText("Endereco: ");
+        labelEndereco.setAlignmentY(0.2F);
+        labelEndereco.setMaximumSize(new java.awt.Dimension(300, 30));
+        labelEndereco.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelEndereco.setPreferredSize(new java.awt.Dimension(300, 20));
+        panelEntradas.add(labelEndereco);
 
-        fieldProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldProduto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        fieldProduto.setMaximumSize(new java.awt.Dimension(300, 30));
-        fieldProduto.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldProduto.setPreferredSize(new java.awt.Dimension(300, 20));
-        panelEntradas.add(fieldProduto);
+        fieldEndereco.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fieldEndereco.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        fieldEndereco.setMaximumSize(new java.awt.Dimension(300, 30));
+        fieldEndereco.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldEndereco.setPreferredSize(new java.awt.Dimension(300, 20));
+        panelEntradas.add(fieldEndereco);
 
-        labelQtd.setForeground(Loja.corFonteClara);
-        labelQtd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelQtd.setText("Quantidade: ");
-        labelQtd.setAlignmentY(0.2F);
-        labelQtd.setMaximumSize(new java.awt.Dimension(300, 30));
-        labelQtd.setMinimumSize(new java.awt.Dimension(200, 30));
-        labelQtd.setPreferredSize(new java.awt.Dimension(300, 20));
-        panelEntradas.add(labelQtd);
+        labelCelular.setForeground(Loja.corFonteClara);
+        labelCelular.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelCelular.setText("Celular:");
+        labelCelular.setAlignmentY(0.2F);
+        labelCelular.setMaximumSize(new java.awt.Dimension(300, 30));
+        labelCelular.setMinimumSize(new java.awt.Dimension(200, 30));
+        labelCelular.setPreferredSize(new java.awt.Dimension(300, 20));
+        panelEntradas.add(labelCelular);
 
-        fieldQtd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldQtd.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        fieldQtd.setMaximumSize(new java.awt.Dimension(300, 30));
-        fieldQtd.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldQtd.setPreferredSize(new java.awt.Dimension(300, 20));
-        panelEntradas.add(fieldQtd);
+        fieldCelular.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fieldCelular.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        fieldCelular.setMaximumSize(new java.awt.Dimension(300, 30));
+        fieldCelular.setMinimumSize(new java.awt.Dimension(200, 30));
+        fieldCelular.setPreferredSize(new java.awt.Dimension(300, 20));
+        panelEntradas.add(fieldCelular);
 
-        panelMenuPedido.setOpaque(false);
-        panelMenuPedido.setPreferredSize(new java.awt.Dimension(400, 30));
-        panelMenuPedido.setRequestFocusEnabled(false);
-        panelMenuPedido.setLayout(new java.awt.GridLayout(0, 2, 50, 0));
+        panelMenuCliente.setOpaque(false);
+        panelMenuCliente.setPreferredSize(new java.awt.Dimension(400, 30));
+        panelMenuCliente.setRequestFocusEnabled(false);
+        panelMenuCliente.setLayout(new java.awt.GridLayout(0, 2, 50, 0));
 
-        buttonPedidoOK.setBackground(Loja.corFundoEscura);
-        buttonPedidoOK.setForeground(Loja.corFonteClara);
-        buttonPedidoOK.setText("OK");
-        panelMenuPedido.add(buttonPedidoOK);
+        buttonClienteCadastrar.setBackground(Loja.corFundoEscura);
+        buttonClienteCadastrar.setForeground(Loja.corFonteClara);
+        buttonClienteCadastrar.setText("Cadastrar");
+        panelMenuCliente.add(buttonClienteCadastrar);
 
-        buttonPedidoCCL.setBackground(Loja.corFundoEscura);
-        buttonPedidoCCL.setForeground(Loja.corFonteClara);
-        buttonPedidoCCL.setText("Cancela");
-        buttonPedidoCCL.addActionListener(new java.awt.event.ActionListener() {
+        buttonClienteCancelar.setBackground(Loja.corFundoEscura);
+        buttonClienteCancelar.setForeground(Loja.corFonteClara);
+        buttonClienteCancelar.setText("Cancelar");
+        buttonClienteCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPedidoCCLActionPerformed(evt);
+                buttonClienteCancelarActionPerformed(evt);
             }
         });
-        panelMenuPedido.add(buttonPedidoCCL);
+        panelMenuCliente.add(buttonClienteCancelar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -226,25 +234,25 @@ public class Cliente extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelMenuPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelMenuCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
+                .addGap(16, 16, 16)
                 .addComponent(panelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(panelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelMenuPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelMenuCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonPedidoCCLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPedidoCCLActionPerformed
+    private void buttonClienteCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClienteCancelarActionPerformed
         setVisible(false);
-    }//GEN-LAST:event_buttonPedidoCCLActionPerformed
+    }//GEN-LAST:event_buttonClienteCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,28 +290,21 @@ public class Cliente extends javax.swing.JPanel {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonPedidoCCL;
-    private javax.swing.JButton buttonPedidoOK;
-    private javax.swing.JTextField fieldCliente;
-    private javax.swing.JTextField fieldCodigo;
-    private javax.swing.JTextField fieldProduto;
-    private javax.swing.JTextField fieldQtd;
-    private javax.swing.JLabel labelCliente;
-    private javax.swing.JLabel labelCodigo;
-    private javax.swing.JLabel labelProduto;
-    private javax.swing.JLabel labelQtd;
+    private javax.swing.JButton buttonClienteCadastrar;
+    private javax.swing.JButton buttonClienteCancelar;
+    private javax.swing.JLabel clienteTitulo;
+    private javax.swing.JTextField fieldCelular;
+    private javax.swing.JTextField fieldCpf;
+    private javax.swing.JTextField fieldEndereco;
+    private javax.swing.JTextField fieldNome;
+    private javax.swing.JLabel labelCelular;
+    private javax.swing.JLabel labelCpf;
+    private javax.swing.JLabel labelEndereco;
+    private javax.swing.JLabel labelNome;
     private javax.swing.JPanel panelEntradas;
-    private javax.swing.JPanel panelMenuPedido;
+    private javax.swing.JPanel panelMenuCliente;
     private javax.swing.JPanel panelTitulo;
-    private javax.swing.JLabel pedidoTitulo;
     // End of variables declaration//GEN-END:variables
 
-    private void setDefaultCloseOperation() {
-        //
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Nome: %s Celular: %s", nome, celular);
-    }
+    
 }

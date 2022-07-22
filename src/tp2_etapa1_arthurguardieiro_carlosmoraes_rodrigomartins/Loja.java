@@ -542,7 +542,15 @@ public class Loja extends JFrame implements ComponentListener {
         buttonProcurar.addActionListener((e) -> {
             Cliente encontrado = buscaCliente(fieldProcurar.getText());
             if (encontrado != null) {
-                encontrado.mostrarInfo();
+                frameProcurar.setVisible(false);
+                JFrame popUp = new JFrame(encontrado.getName());
+                    popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                    popUp.add(encontrado);
+                    encontrado.mostrarInfo(() -> {
+                        popUp.dispose();
+                    }, "Cliente encontrado: ");
+                    popUp.setVisible(true);
+                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             } else {
                 JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
             }
@@ -639,17 +647,24 @@ public class Loja extends JFrame implements ComponentListener {
         frameAlterar.setTitle("Alterar dados");
         labelAlterar.setText("Digite o cpf: ");
         fieldAlterar.setText("");
-        buttonAlterar.addActionListener((e) -> {
-            if(!Loja.confirmaCadastro(fieldAlterar.getText())){
-                for(Cliente cl: clientes){
-                    if(cl.getCpf().equals(fieldAlterar.getText())){
-                        cl.alterarCadastro();
-                    }
+        buttonAlterar.setAction(new AbstractAction("Procurar") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Cliente encontrado = null;
+                encontrado = buscaCliente(fieldAlterar.getText());
+                if (encontrado != null) {
+                    frameAlterar.setVisible(false);
+                    JFrame popUp = new JFrame(encontrado.getCpf());
+                    popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                    popUp.add(encontrado);
+                    encontrado.mostrarInfo(() -> {
+                        popUp.dispose();
+                    }, "Editar Pedido: ");
+                    popUp.setVisible(true);
+                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
                 }
-                
-            } else{
-                JOptionPane.showMessageDialog(null, "CPF não encontrado.");
-                System.out.println("cpf nao encontrado");
             }
         });
     }//GEN-LAST:event_buttonAlterarClienteActionPerformed

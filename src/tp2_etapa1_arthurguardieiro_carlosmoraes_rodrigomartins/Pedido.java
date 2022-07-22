@@ -132,6 +132,7 @@ public class Pedido extends javax.swing.JPanel {
         buttonPedidoCCL = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
+        setToolTipText("");
         setMinimumSize(new java.awt.Dimension(0, 0));
         setName("containerPedido"); // NOI18N
         setPreferredSize(new java.awt.Dimension(500, 500));
