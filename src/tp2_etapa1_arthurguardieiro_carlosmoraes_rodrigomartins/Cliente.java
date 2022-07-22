@@ -16,6 +16,7 @@ public class Cliente extends javax.swing.JPanel {
     Cliente() {
         initComponents();
         setVisible(false);
+        pedidosFeitos = new ArrayList<>();
     }
 
     public String getCpf() {
@@ -73,10 +74,10 @@ public class Cliente extends javax.swing.JPanel {
     public void mostrarInfo(Runnable callback, String msgLabel) {
         setVisible(true);
         clienteTitulo.setText(msgLabel);
-        fieldNome.setText(String.format("%d", nome));
+        fieldNome.setText(nome);
         fieldCpf.setText(cpf);
-        fieldEndereco.setText(String.format("%s", endereco));
-        fieldCelular.setText(String.format("%d", celular));
+        fieldEndereco.setText(endereco);
+        fieldCelular.setText(celular);
         buttonClienteCancelar.setVisible(false);
         buttonClienteCadastrar.setAction(new AbstractAction("OK") {
             @Override

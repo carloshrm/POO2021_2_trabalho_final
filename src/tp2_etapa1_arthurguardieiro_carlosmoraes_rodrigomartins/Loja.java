@@ -548,7 +548,7 @@ public class Loja extends JFrame {
                     popUp.setVisible(true);
                     popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                    JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
                 }
             }
         });

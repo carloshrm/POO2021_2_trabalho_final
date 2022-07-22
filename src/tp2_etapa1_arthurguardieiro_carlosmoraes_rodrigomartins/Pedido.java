@@ -57,6 +57,7 @@ public class Pedido extends javax.swing.JPanel {
         int codigoDigitado = Integer.parseInt(fieldCodigo.getText());
         if (Loja.buscaPedido(codigoDigitado) == null) {
             Cliente cli = Loja.buscaCliente(fieldCliente.getText());
+            System.out.println(cli.toString());
             if (cli != null) {
                 this.codPedido = codigoDigitado;
                 this.codProduto = Integer.parseInt(fieldProduto.getText());
