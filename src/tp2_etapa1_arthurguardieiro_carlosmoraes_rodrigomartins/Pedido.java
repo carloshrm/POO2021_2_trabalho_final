@@ -152,13 +152,17 @@ public class Pedido extends javax.swing.JPanel {
         buttonPedidoCCL = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
-        setMinimumSize(null);
         setName("containerPedido"); // NOI18N
         setPreferredSize(new java.awt.Dimension(500, 500));
         setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
 
         panelTitulo.setOpaque(false);
         panelTitulo.setPreferredSize(new java.awt.Dimension(400, 30));
+        panelTitulo.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panelTituloComponentShown(evt);
+            }
+        });
 
         pedidoTitulo.setForeground(Loja.corFonteClara);
         panelTitulo.add(pedidoTitulo);
@@ -349,6 +353,10 @@ public class Pedido extends javax.swing.JPanel {
             fieldProduto.setText("");
         }
     }//GEN-LAST:event_fieldProdutoKeyReleased
+
+    private void panelTituloComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelTituloComponentShown
+        // passar mostrar info pra ca
+    }//GEN-LAST:event_panelTituloComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

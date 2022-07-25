@@ -233,7 +233,7 @@ public class Loja extends JFrame {
         painelCliente.setBackground(Loja.corFundoEscura);
         painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
-        painelCliente.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+        painelCliente.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         menuClientes.setBackground(new java.awt.Color(153, 153, 153));
         menuClientes.setOpaque(false);
@@ -317,7 +317,7 @@ public class Loja extends JFrame {
         painelPedido.setBackground(Loja.corFundoEscura);
         painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
         painelPedido.setPreferredSize(new java.awt.Dimension(450, 200));
-        painelPedido.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+        painelPedido.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         menuPedidos.setBackground(new java.awt.Color(153, 153, 153));
         menuPedidos.setOpaque(false);
@@ -401,7 +401,7 @@ public class Loja extends JFrame {
         painelProdutos.setBackground(Loja.corFundoEscura);
         painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
         painelProdutos.setPreferredSize(new java.awt.Dimension(450, 200));
-        painelProdutos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+        painelProdutos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         menuProdutos.setBackground(new java.awt.Color(153, 153, 153));
         menuProdutos.setOpaque(false);
@@ -683,7 +683,7 @@ public class Loja extends JFrame {
                 if (encontrado != null) {
                     frameProcurar.setVisible(false);
                     JFrame popUp = new JFrame(encontrado.getName());
-                    popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                    popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
                     popUp.add(encontrado);
                     encontrado.mostrarInfo(() -> {
                         popUp.dispose();
@@ -729,19 +729,79 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_buttonNovoProdutoActionPerformed
 
     private void buttonProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarProdutoActionPerformed
-        // TODO add your handling code here:
+        frameProcurar.setVisible(true);
+        frameProcurar.setTitle("Procurar Produto: ");
+        labelProcurar.setText("Codigo do produto: ");
+        fieldProcurar.setText("");
+        buttonProcurar.setAction(new AbstractAction("Procurar") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
+                if (encontrado != null) {
+                    frameProcurar.setVisible(false);
+                    JFrame popUp = new JFrame(encontrado.getName());
+                    popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
+                    popUp.add(encontrado);
+                    encontrado.mostrarInfo(() -> {
+                        popUp.dispose();
+                    });
+                    popUp.setVisible(true);
+                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                }
+            }
+        });
     }//GEN-LAST:event_buttonProcurarProdutoActionPerformed
 
     private void buttonExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirProdutoActionPerformed
-        // TODO add your handling code here:
+        frameProcurar.setVisible(true);
+        frameProcurar.setTitle("Excluir produto: ");
+        labelProcurar.setText("Codigo do produto: ");
+        fieldProcurar.setText("");
+        buttonProcurar.setAction(new AbstractAction("Excluir") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
+                if (encontrado != null) {
+                    produtos.remove(encontrado);
+                    frameProcurar.setVisible(false);
+                    JOptionPane.showMessageDialog(null, String.format("Produto Nome %s Cod %d foi excluido.", encontrado.getNome(), encontrado.getCodigo()));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                }
+            }
+        });
     }//GEN-LAST:event_buttonExcluirProdutoActionPerformed
 
     private void buttonEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarProdutoActionPerformed
-        // TODO add your handling code here:
+        frameProcurar.setVisible(true);
+        frameProcurar.setTitle("Editar produto: ");
+        labelProcurar.setText("Codigo do produto: ");
+        fieldProcurar.setText("");
+        buttonProcurar.setAction(new AbstractAction("Editar") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
+                if (encontrado != null) {
+                    frameProcurar.setVisible(false);
+                    JFrame popUp = new JFrame(encontrado.getName());
+                    popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
+                    popUp.add(encontrado);
+                    encontrado.editarInfo(() -> {
+                        popUp.dispose();
+                    });
+                    popUp.setVisible(true);
+                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                }
+            }
+        });
     }//GEN-LAST:event_buttonEditarProdutoActionPerformed
 
     private void menuProdutosAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuProdutosAncestorResized
-        // TODO add your handling code here:
+        menuProdutos.setPreferredSize(painelProdutos.getSize());
     }//GEN-LAST:event_menuProdutosAncestorResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

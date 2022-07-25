@@ -26,6 +26,8 @@ public class Produto extends javax.swing.JPanel {
         this.preco = preco;
         this.descricao = descricao;
         this.codigo = controleCodigo++;
+        initComponents();
+        setVisible(false);
     }
 
     public int getCodigo() {
@@ -42,7 +44,13 @@ public class Produto extends javax.swing.JPanel {
 
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
-        pedidoTitulo.setText("Novo produto: ");
+        produtoTitulo.setText("Novo produto: ");
+        buttonProdutoCCL.setAction(new AbstractAction("Cancela") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controleCodigo--;
+            }
+        });
         buttonProdutoOK.setAction(new AbstractAction("Cadastrar") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,8 +65,52 @@ public class Produto extends javax.swing.JPanel {
         });
     }
 
+    public void mostrarInfo(Runnable callback) {
+        setVisible(true);
+        produtoTitulo.setText("Informações do Produto: ");
+        fieldCodigo.setText(String.format("%d", codigo));
+        fieldNome.setText(String.format("%s", nome));
+        fieldPreco.setText(String.format("R$%.2f", preco));
+        fieldDesc.setText(String.format("%s", descricao));
+        buttonProdutoCCL.setVisible(false);
+        buttonProdutoOK.setAction(new AbstractAction("OK") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.run();
+                setVisible(false);
+            }
+        });
+    }
+
     public boolean validarProduto() {
         return true;
+    }
+
+    public boolean validarEdicao() {
+        this.nome = fieldNome.getText();
+        this.descricao = fieldDesc.getText();
+        this.preco = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
+        return true;
+    }
+
+    public void editarInfo(Runnable callback) {
+        setVisible(true);
+        produtoTitulo.setText("Editar Produto: ");
+        fieldCodigo.setText(String.format("%d", codigo));
+        fieldNome.setText(String.format("%s", nome));
+        fieldPreco.setText(String.format("R$%.2f", preco));
+        fieldDesc.setText(String.format("%s", descricao));
+        buttonProdutoCCL.setVisible(false);
+        buttonProdutoOK.setAction(new AbstractAction("OK") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validarEdicao()) {
+                    callback.run();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Valores invalidos");
+                }
+            }
+        });
     }
 
     @Override
@@ -71,7 +123,7 @@ public class Produto extends javax.swing.JPanel {
     private void initComponents() {
 
         panelTitulo = new javax.swing.JPanel();
-        pedidoTitulo = new javax.swing.JLabel();
+        produtoTitulo = new javax.swing.JLabel();
         panelEntradas = new javax.swing.JPanel();
         labelCodigo = new javax.swing.JLabel();
         fieldCodigo = new javax.swing.JTextField();
@@ -93,8 +145,8 @@ public class Produto extends javax.swing.JPanel {
         panelTitulo.setOpaque(false);
         panelTitulo.setPreferredSize(new java.awt.Dimension(400, 30));
 
-        pedidoTitulo.setForeground(Loja.corFonteClara);
-        panelTitulo.add(pedidoTitulo);
+        produtoTitulo.setForeground(Loja.corFonteClara);
+        panelTitulo.add(produtoTitulo);
 
         add(panelTitulo);
 
@@ -213,7 +265,17 @@ public class Produto extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonProdutoCCLActionPerformed
 
     private void fieldPrecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldPrecoKeyReleased
-
+        try {
+            double valorDigitado = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
+            if (valorDigitado < 0) {
+            } else {
+                fieldPreco.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
+                preco = valorDigitado;
+            }
+        } catch (NumberFormatException e) {
+                fieldPreco.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+            fieldPreco.setText("");
+        }
     }//GEN-LAST:event_fieldPrecoKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,6 +292,6 @@ public class Produto extends javax.swing.JPanel {
     private javax.swing.JPanel painelMenuProduto;
     private javax.swing.JPanel panelEntradas;
     private javax.swing.JPanel panelTitulo;
-    private javax.swing.JLabel pedidoTitulo;
+    private javax.swing.JLabel produtoTitulo;
     // End of variables declaration//GEN-END:variables
 }
