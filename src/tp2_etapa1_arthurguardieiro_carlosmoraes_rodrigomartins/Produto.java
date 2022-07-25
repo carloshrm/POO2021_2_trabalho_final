@@ -115,7 +115,7 @@ public class Produto extends javax.swing.JPanel {
 
     @Override
     public String toString() {
-        return String.format("\n Produto Cod %d - Nome: %s Preço: %.2f \nDescrição: %s", codigo, nome, preco, descricao);
+        return String.format("\nNome: %s Preço unit.: %.2f", nome, preco);
     }
 
     @SuppressWarnings("unchecked")
@@ -273,7 +273,7 @@ public class Produto extends javax.swing.JPanel {
                 preco = valorDigitado;
             }
         } catch (NumberFormatException e) {
-                fieldPreco.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+            fieldPreco.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             fieldPreco.setText("");
         }
     }//GEN-LAST:event_fieldPrecoKeyReleased
