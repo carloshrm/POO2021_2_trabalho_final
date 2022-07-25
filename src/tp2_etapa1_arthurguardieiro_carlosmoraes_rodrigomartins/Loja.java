@@ -82,10 +82,6 @@ public class Loja extends JFrame {
         labelExcluirCliente = new javax.swing.JLabel();
         fieldExcluirCliente = new javax.swing.JTextField();
         buttonExcluirCl = new javax.swing.JButton();
-        painelAux = new javax.swing.JPanel();
-        labelPainelAux = new javax.swing.JLabel();
-        fieldPainelAux = new javax.swing.JTextField();
-        buttonPainelAux = new javax.swing.JButton();
         painelCliente = new javax.swing.JPanel();
         menuClientes = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
@@ -98,6 +94,12 @@ public class Loja extends JFrame {
         buttonProcurarPedido = new javax.swing.JButton();
         buttonExcluirPedido = new javax.swing.JButton();
         buttonEditarPedido = new javax.swing.JButton();
+        painelProdutos = new javax.swing.JPanel();
+        menuProdutos = new javax.swing.JPanel();
+        buttonNovoProduto = new javax.swing.JButton();
+        buttonProcurarProduto = new javax.swing.JButton();
+        buttonExcluirProduto = new javax.swing.JButton();
+        buttonEditarProduto = new javax.swing.JButton();
         menuPrincipal = new javax.swing.JMenuBar();
         Arquivo = new javax.swing.JMenu();
         Sair = new javax.swing.JMenuItem();
@@ -222,20 +224,6 @@ public class Loja extends JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameExcluirCliente.getContentPane().add(buttonExcluirCl, gridBagConstraints);
 
-        labelPainelAux.setText("jLabel1");
-        painelAux.add(labelPainelAux);
-        painelAux.add(fieldPainelAux);
-
-        buttonPainelAux.setBackground(Loja.corFundoClara);
-        buttonPainelAux.setForeground(Loja.corFonteEscura);
-        buttonPainelAux.setText("OK");
-        buttonPainelAux.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPainelAuxActionPerformed(evt);
-            }
-        });
-        painelAux.add(buttonPainelAux);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja");
         setBackground(Loja.corFundoEscura);
@@ -245,11 +233,6 @@ public class Loja extends JFrame {
         painelCliente.setBackground(Loja.corFundoEscura);
         painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
-        painelCliente.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                painelClienteComponentResized(evt);
-            }
-        });
         painelCliente.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
         menuClientes.setBackground(new java.awt.Color(153, 153, 153));
@@ -414,6 +397,90 @@ public class Loja extends JFrame {
         painelPedido.add(menuPedidos);
 
         getContentPane().add(painelPedido);
+
+        painelProdutos.setBackground(Loja.corFundoEscura);
+        painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
+        painelProdutos.setPreferredSize(new java.awt.Dimension(450, 200));
+        painelProdutos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        menuProdutos.setBackground(new java.awt.Color(153, 153, 153));
+        menuProdutos.setOpaque(false);
+        menuProdutos.setPreferredSize(new java.awt.Dimension(300, 200));
+        menuProdutos.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                menuProdutosAncestorResized(evt);
+            }
+        });
+
+        buttonNovoProduto.setBackground(Loja.corFundoClara);
+        buttonNovoProduto.setForeground(Loja.corFonteEscura);
+        buttonNovoProduto.setText("Novo Produto");
+        buttonNovoProduto.setAlignmentX(0.5F);
+        buttonNovoProduto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonNovoProduto.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonNovoProduto.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonNovoProduto.setName("Novo Pedido"); // NOI18N
+        buttonNovoProduto.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonNovoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNovoProdutoActionPerformed(evt);
+            }
+        });
+        menuProdutos.add(buttonNovoProduto);
+
+        buttonProcurarProduto.setBackground(Loja.corFundoClara);
+        buttonProcurarProduto.setForeground(Loja.corFonteEscura);
+        buttonProcurarProduto.setText("Procurar Produto");
+        buttonProcurarProduto.setAlignmentX(0.5F);
+        buttonProcurarProduto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonProcurarProduto.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonProcurarProduto.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonProcurarProduto.setName("Procurar Pedido"); // NOI18N
+        buttonProcurarProduto.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonProcurarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonProcurarProdutoActionPerformed(evt);
+            }
+        });
+        menuProdutos.add(buttonProcurarProduto);
+
+        buttonExcluirProduto.setBackground(Loja.corFundoClara);
+        buttonExcluirProduto.setForeground(Loja.corFonteEscura);
+        buttonExcluirProduto.setText("Excluir Produto");
+        buttonExcluirProduto.setAlignmentX(0.5F);
+        buttonExcluirProduto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonExcluirProduto.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonExcluirProduto.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonExcluirProduto.setName("Excluir Pedido"); // NOI18N
+        buttonExcluirProduto.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonExcluirProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirProdutoActionPerformed(evt);
+            }
+        });
+        menuProdutos.add(buttonExcluirProduto);
+
+        buttonEditarProduto.setBackground(Loja.corFundoClara);
+        buttonEditarProduto.setForeground(Loja.corFonteEscura);
+        buttonEditarProduto.setText("Editar Produto");
+        buttonEditarProduto.setAlignmentX(0.5F);
+        buttonEditarProduto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonEditarProduto.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonEditarProduto.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonEditarProduto.setName("Procurar Pedido"); // NOI18N
+        buttonEditarProduto.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonEditarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarProdutoActionPerformed(evt);
+            }
+        });
+        menuProdutos.add(buttonEditarProduto);
+
+        painelProdutos.add(menuProdutos);
+
+        getContentPane().add(painelProdutos);
 
         menuPrincipal.setBackground(Loja.corFundoEscura);
         menuPrincipal.setForeground(Loja.corFonteClara);
@@ -605,10 +672,10 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_buttonEditarPedidoActionPerformed
 
     private void buttonAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarClienteActionPerformed
-        frameAlterar.setVisible(true);
-        frameAlterar.setTitle("Alterar dados");
-        labelAlterar.setText("Digite o cpf: ");
-        fieldAlterar.setText("");
+        frameProcurar.setVisible(true);
+        frameProcurar.setTitle("Alterar dados");
+        labelProcurar.setText("Digite o cpf: ");
+        fieldProcurar.setText("");
         buttonProcurar.setAction(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -630,10 +697,6 @@ public class Loja extends JFrame {
         });
     }//GEN-LAST:event_buttonAlterarClienteActionPerformed
 
-    private void painelClienteComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_painelClienteComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_painelClienteComponentResized
-
     private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonAlterarActionPerformed
@@ -646,9 +709,40 @@ public class Loja extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonExcluirClActionPerformed
 
-    private void buttonPainelAuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPainelAuxActionPerformed
+    private void buttonNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoProdutoActionPerformed
+        Produto novoProduto = new Produto();
+        novoProduto.setVisible(true);
+        novoProduto.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                menuProdutos.setVisible(true);
+            }
+        });
+        menuProdutos.setVisible(false);
+        painelProdutos.add(novoProduto);
+        novoProduto.iniciarCadastro(() -> {
+            novoProduto.setVisible(false);
+            painelProdutos.remove(novoProduto);
+            menuProdutos.setVisible(true);
+            produtos.add(novoProduto);
+        });
+    }//GEN-LAST:event_buttonNovoProdutoActionPerformed
+
+    private void buttonProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarProdutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonPainelAuxActionPerformed
+    }//GEN-LAST:event_buttonProcurarProdutoActionPerformed
+
+    private void buttonExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonExcluirProdutoActionPerformed
+
+    private void buttonEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonEditarProdutoActionPerformed
+
+    private void menuProdutosAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuProdutosAncestorResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuProdutosAncestorResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
@@ -656,32 +750,34 @@ public class Loja extends JFrame {
     private javax.swing.JButton buttonAlterar;
     private javax.swing.JButton buttonAlterarCliente;
     private javax.swing.JButton buttonEditarPedido;
+    private javax.swing.JButton buttonEditarProduto;
     private javax.swing.JButton buttonExcluirCl;
     private javax.swing.JButton buttonExcluirCliente;
     private javax.swing.JButton buttonExcluirPedido;
+    private javax.swing.JButton buttonExcluirProduto;
     private javax.swing.JButton buttonNovoCliente;
     private javax.swing.JButton buttonNovoPedido;
-    private javax.swing.JButton buttonPainelAux;
+    private javax.swing.JButton buttonNovoProduto;
     private javax.swing.JButton buttonProcurar;
     private javax.swing.JButton buttonProcurarCliente;
     private javax.swing.JButton buttonProcurarPedido;
+    private javax.swing.JButton buttonProcurarProduto;
     private javax.swing.JTextField fieldAlterar;
     private javax.swing.JTextField fieldExcluirCliente;
-    private javax.swing.JTextField fieldPainelAux;
     private javax.swing.JTextField fieldProcurar;
     private javax.swing.JFrame frameAlterar;
     private javax.swing.JFrame frameExcluirCliente;
     private javax.swing.JFrame frameProcurar;
     private javax.swing.JLabel labelAlterar;
     private javax.swing.JLabel labelExcluirCliente;
-    private javax.swing.JLabel labelPainelAux;
     private javax.swing.JLabel labelProcurar;
     private javax.swing.JPanel menuClientes;
     private javax.swing.JPanel menuPedidos;
     private javax.swing.JMenuBar menuPrincipal;
-    private javax.swing.JPanel painelAux;
+    private javax.swing.JPanel menuProdutos;
     private javax.swing.JPanel painelCliente;
     private javax.swing.JPanel painelPedido;
+    private javax.swing.JPanel painelProdutos;
     // End of variables declaration//GEN-END:variables
 
 }

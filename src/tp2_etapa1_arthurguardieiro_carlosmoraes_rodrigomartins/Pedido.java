@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.AbstractAction;
 import javax.swing.*;
 import javax.swing.JOptionPane;
-import javax.swing.event.*;
 
-/**
- *
- * @author Carlos
- */
 public class Pedido extends javax.swing.JPanel {
 
     private int codProduto;
@@ -25,16 +18,20 @@ public class Pedido extends javax.swing.JPanel {
     private String data;
     private Cliente cliente;
 
-    /**
-     * Creates new form Pedido
-     */
     Pedido() {
         initComponents();
         setVisible(false);
+        setDataHoje();
+        quantidade = 1;
     }
 
     public int getCodigo() {
         return codPedido;
+    }
+
+    public void setDataHoje() {
+        data = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        fieldData.setText(data);
     }
 
     public void iniciarCadastro(Runnable callback) {
@@ -123,8 +120,9 @@ public class Pedido extends javax.swing.JPanel {
     }
 
     public void setPreco() {
-        if (codProduto != 0) {
+        if (codProduto >= 0) {
             preco = quantidade * Loja.buscaProduto(codProduto).getPreco();
+            fieldPreco.setText(String.format("R$%.2f", preco));
         } else {
             preco = 0;
         }
@@ -154,7 +152,7 @@ public class Pedido extends javax.swing.JPanel {
         buttonPedidoCCL = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
-        setMinimumSize(new java.awt.Dimension(0, 0));
+        setMinimumSize(null);
         setName("containerPedido"); // NOI18N
         setPreferredSize(new java.awt.Dimension(500, 500));
         setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
@@ -327,27 +325,29 @@ public class Pedido extends javax.swing.JPanel {
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             } else {
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara));
+                quantidade = val;
+                setPreco();
             }
         } catch (NumberFormatException e) {
             fieldQuantidade.setText("");
         }
-        setPreco();
     }//GEN-LAST:event_fieldQuantidadeKeyReleased
 
     private void fieldProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldProdutoKeyReleased
         try {
             int val = Integer.parseInt(fieldProduto.getText());
             Produto p = Loja.buscaProduto(val);
-            if (val <= 0 || p == null) {
+            if (val < 0 || p == null) {
                 fieldProduto.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             } else {
                 labelProduto.setText("Produto: " + p.getNome());
-                fieldProduto.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara));
+                fieldProduto.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
+                codProduto = val;
+                setPreco();
             }
         } catch (NumberFormatException e) {
             fieldProduto.setText("");
         }
-        setPreco();
     }//GEN-LAST:event_fieldProdutoKeyReleased
 
 
