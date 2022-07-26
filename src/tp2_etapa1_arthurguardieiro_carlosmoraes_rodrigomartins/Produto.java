@@ -57,6 +57,7 @@ public class Produto extends javax.swing.JPanel {
                 try {
                     if (validarProduto()) {
                         callback.run();
+                        setVisible(false);
                     }
                 } catch (IllegalArgumentException err) {
                     JOptionPane.showMessageDialog(null, err.getMessage());
@@ -68,10 +69,6 @@ public class Produto extends javax.swing.JPanel {
     public void mostrarInfo(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Informações do Produto: ");
-        fieldCodigo.setText(String.format("%d", codigo));
-        fieldNome.setText(String.format("%s", nome));
-        fieldPreco.setText(String.format("R$%.2f", preco));
-        fieldDesc.setText(String.format("%s", descricao));
         buttonProdutoCCL.setVisible(false);
         buttonProdutoOK.setAction(new AbstractAction("OK") {
             @Override
@@ -83,7 +80,7 @@ public class Produto extends javax.swing.JPanel {
     }
 
     public boolean validarProduto() {
-        return true;
+        return (nome != null && preco > 0);
     }
 
     public boolean validarEdicao() {
@@ -96,10 +93,6 @@ public class Produto extends javax.swing.JPanel {
     public void editarInfo(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Editar Produto: ");
-        fieldCodigo.setText(String.format("%d", codigo));
-        fieldNome.setText(String.format("%s", nome));
-        fieldPreco.setText(String.format("R$%.2f", preco));
-        fieldDesc.setText(String.format("%s", descricao));
         buttonProdutoCCL.setVisible(false);
         buttonProdutoOK.setAction(new AbstractAction("OK") {
             @Override
@@ -140,6 +133,11 @@ public class Produto extends javax.swing.JPanel {
         setBackground(Loja.corFundoEscura);
         setName("containerProduto"); // NOI18N
         setPreferredSize(new java.awt.Dimension(500, 500));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
 
         panelTitulo.setOpaque(false);
@@ -192,6 +190,11 @@ public class Produto extends javax.swing.JPanel {
         fieldNome.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldNome.setName("fieldNome"); // NOI18N
         fieldNome.setPreferredSize(new java.awt.Dimension(300, 20));
+        fieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldNomeKeyReleased(evt);
+            }
+        });
         panelEntradas.add(fieldNome);
 
         labelPreco.setForeground(Loja.corFonteClara);
@@ -267,7 +270,7 @@ public class Produto extends javax.swing.JPanel {
     private void fieldPrecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldPrecoKeyReleased
         try {
             double valorDigitado = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
-            if (valorDigitado < 0) {
+            if (valorDigitado <= 0) {
             } else {
                 fieldPreco.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
                 preco = valorDigitado;
@@ -275,8 +278,27 @@ public class Produto extends javax.swing.JPanel {
         } catch (NumberFormatException e) {
             fieldPreco.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             fieldPreco.setText("");
+            preco = 0;
         }
     }//GEN-LAST:event_fieldPrecoKeyReleased
+
+    private void fieldNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNomeKeyReleased
+        if (fieldNome.getText().length() > 0 && fieldNome.getText().length() < 40) {
+            fieldNome.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
+            nome = fieldNome.getText();
+        } else {
+            fieldNome.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+            nome = null;
+        }
+    }//GEN-LAST:event_fieldNomeKeyReleased
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        fieldCodigo.setText(String.format("%d", codigo));
+        fieldNome.setText(String.format("%s", nome));
+        fieldPreco.setText(String.format("R$%.2f", preco));
+        fieldDesc.setText(String.format("%s", descricao));
+        System.out.println("aaa");
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonProdutoCCL;

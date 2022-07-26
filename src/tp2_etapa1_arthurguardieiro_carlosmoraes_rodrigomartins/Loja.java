@@ -86,8 +86,8 @@ public class Loja extends JFrame {
         menuClientes = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
         buttonProcurarCliente = new javax.swing.JButton();
-        buttonAlterarCliente = new javax.swing.JButton();
         buttonExcluirCliente = new javax.swing.JButton();
+        buttonAlterarCliente = new javax.swing.JButton();
         painelPedido = new javax.swing.JPanel();
         menuPedidos = new javax.swing.JPanel();
         buttonNovoPedido = new javax.swing.JButton();
@@ -228,11 +228,17 @@ public class Loja extends JFrame {
         setTitle("Loja");
         setBackground(Loja.corFundoEscura);
         setName("frameLoja"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1400, 200));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         painelCliente.setBackground(Loja.corFundoEscura);
         painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
+        painelCliente.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                painelClienteComponentAdded(evt);
+            }
+        });
         painelCliente.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         menuClientes.setBackground(new java.awt.Color(153, 153, 153));
@@ -278,22 +284,6 @@ public class Loja extends JFrame {
         });
         menuClientes.add(buttonProcurarCliente);
 
-        buttonAlterarCliente.setBackground(Loja.corFundoClara);
-        buttonAlterarCliente.setForeground(Loja.corFonteEscura);
-        buttonAlterarCliente.setText("Alterar Cliente");
-        buttonAlterarCliente.setAlignmentX(0.5F);
-        buttonAlterarCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        buttonAlterarCliente.setMargin(new java.awt.Insets(2, 20, 2, 20));
-        buttonAlterarCliente.setMaximumSize(new java.awt.Dimension(200, 200));
-        buttonAlterarCliente.setName("Novo Cliente"); // NOI18N
-        buttonAlterarCliente.setPreferredSize(new java.awt.Dimension(100, 40));
-        buttonAlterarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAlterarClienteActionPerformed(evt);
-            }
-        });
-        menuClientes.add(buttonAlterarCliente);
-
         buttonExcluirCliente.setBackground(Loja.corFundoClara);
         buttonExcluirCliente.setForeground(Loja.corFonteEscura);
         buttonExcluirCliente.setText("Excluir Cliente");
@@ -310,13 +300,34 @@ public class Loja extends JFrame {
         });
         menuClientes.add(buttonExcluirCliente);
 
+        buttonAlterarCliente.setBackground(Loja.corFundoClara);
+        buttonAlterarCliente.setForeground(Loja.corFonteEscura);
+        buttonAlterarCliente.setText("Alterar Cliente");
+        buttonAlterarCliente.setAlignmentX(0.5F);
+        buttonAlterarCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonAlterarCliente.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonAlterarCliente.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonAlterarCliente.setName("Novo Cliente"); // NOI18N
+        buttonAlterarCliente.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonAlterarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAlterarClienteActionPerformed(evt);
+            }
+        });
+        menuClientes.add(buttonAlterarCliente);
+
         painelCliente.add(menuClientes);
 
         getContentPane().add(painelCliente);
 
         painelPedido.setBackground(Loja.corFundoEscura);
-        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
-        painelPedido.setPreferredSize(new java.awt.Dimension(450, 200));
+        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
+        painelPedido.setPreferredSize(new java.awt.Dimension(600, 200));
+        painelPedido.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                painelPedidoComponentAdded(evt);
+            }
+        });
         painelPedido.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         menuPedidos.setBackground(new java.awt.Color(153, 153, 153));
@@ -401,6 +412,11 @@ public class Loja extends JFrame {
         painelProdutos.setBackground(Loja.corFundoEscura);
         painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
         painelProdutos.setPreferredSize(new java.awt.Dimension(450, 200));
+        painelProdutos.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                painelProdutosComponentAdded(evt);
+            }
+        });
         painelProdutos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         menuProdutos.setBackground(new java.awt.Color(153, 153, 153));
@@ -524,7 +540,6 @@ public class Loja extends JFrame {
 
     private void buttonNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoPedidoActionPerformed
         Pedido novoPedido = new Pedido();
-        novoPedido.setVisible(true);
         novoPedido.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentHidden(ComponentEvent e) {
@@ -534,11 +549,10 @@ public class Loja extends JFrame {
         menuPedidos.setVisible(false);
         painelPedido.add(novoPedido);
         novoPedido.iniciarCadastro(() -> {
-            novoPedido.setVisible(false);
             painelPedido.remove(novoPedido);
-            menuPedidos.setVisible(true);
             pedidos.add(novoPedido);
         });
+        
     }//GEN-LAST:event_buttonNovoPedidoActionPerformed
 
     private void buttonProcurarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarPedidoActionPerformed
@@ -711,7 +725,6 @@ public class Loja extends JFrame {
 
     private void buttonNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoProdutoActionPerformed
         Produto novoProduto = new Produto();
-        novoProduto.setVisible(true);
         novoProduto.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentHidden(ComponentEvent e) {
@@ -803,6 +816,18 @@ public class Loja extends JFrame {
     private void menuProdutosAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuProdutosAncestorResized
         menuProdutos.setPreferredSize(painelProdutos.getSize());
     }//GEN-LAST:event_menuProdutosAncestorResized
+
+    private void painelPedidoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_painelPedidoComponentAdded
+        painelPedido.setPreferredSize(evt.getChild().getPreferredSize());
+    }//GEN-LAST:event_painelPedidoComponentAdded
+
+    private void painelClienteComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_painelClienteComponentAdded
+        painelCliente.setPreferredSize(evt.getChild().getPreferredSize());
+    }//GEN-LAST:event_painelClienteComponentAdded
+
+    private void painelProdutosComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_painelProdutosComponentAdded
+        painelProdutos.setPreferredSize(evt.getChild().getPreferredSize());
+    }//GEN-LAST:event_painelProdutosComponentAdded
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
