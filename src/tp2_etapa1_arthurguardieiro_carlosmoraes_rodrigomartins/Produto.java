@@ -18,7 +18,6 @@ public class Produto extends javax.swing.JPanel {
     Produto() {
         this.codigo = controleCodigo++;
         initComponents();
-        setVisible(false);
     }
 
     public Produto(String nome, double preco, String descricao) {
@@ -297,7 +296,6 @@ public class Produto extends javax.swing.JPanel {
         fieldNome.setText(String.format("%s", nome));
         fieldPreco.setText(String.format("R$%.2f", preco));
         fieldDesc.setText(String.format("%s", descricao));
-        System.out.println("aaa");
     }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

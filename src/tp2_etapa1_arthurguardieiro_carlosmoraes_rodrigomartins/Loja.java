@@ -33,9 +33,9 @@ public class Loja extends JFrame {
     }
 
     private void adicionarExemplosProdutos() {
-        produtos.add(new Produto("P1", 11.22, "Prod 1"));
-        produtos.add(new Produto("P2", 9.99, "Prod 2"));
-        produtos.add(new Produto("P3", 33.44, "Prod 3"));
+        produtos.add(new Produto("Produto 1", 11.22, "P1"));
+        produtos.add(new Produto("Produto 2", 9.99, "Produto 2"));
+        produtos.add(new Produto("Produto", 33.44, "Produto exemplo, codigo numero 3 e descrição longa"));
     }
 
     public static Pedido buscaPedido(int codigo) {
@@ -521,7 +521,6 @@ public class Loja extends JFrame {
 
     private void buttonNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoClienteActionPerformed
         Cliente novoCliente = new Cliente();
-        novoCliente.setVisible(true);
         novoCliente.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentHidden(ComponentEvent e) {
@@ -533,7 +532,6 @@ public class Loja extends JFrame {
         novoCliente.iniciarCadastro(() -> {
             novoCliente.setVisible(false);
             painelCliente.remove(novoCliente);
-            menuClientes.setVisible(true);
             clientes.add(novoCliente);
         });
     }//GEN-LAST:event_buttonNovoClienteActionPerformed
@@ -738,7 +736,7 @@ public class Loja extends JFrame {
             painelProdutos.remove(novoProduto);
             menuProdutos.setVisible(true);
             produtos.add(novoProduto);
-        });
+        });       
     }//GEN-LAST:event_buttonNovoProdutoActionPerformed
 
     private void buttonProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarProdutoActionPerformed

@@ -15,8 +15,8 @@ public class Cliente extends javax.swing.JPanel {
 
     Cliente() {
         initComponents();
-        setVisible(false);
         pedidosFeitos = new ArrayList<>();
+        buttonClienteCancelar.setVisible(false);
     }
 
     public String getCpf() {
@@ -26,18 +26,21 @@ public class Cliente extends javax.swing.JPanel {
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
         clienteTitulo.setText("Novo cliente: ");
+        buttonClienteCancelar.setVisible(true);
         buttonClienteCadastrar.setAction(new AbstractAction("Cadastrar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (validarCadastro()) {
                         callback.run();
+                        setVisible(false);
                     }
                 } catch (IllegalArgumentException err) {
                     JOptionPane.showMessageDialog(null, err.getMessage());
                 }
             }
-        });
+        });       
+
     }
 
     public void altera(String nome, String cpf, String endereco, String celular) {
@@ -125,21 +128,26 @@ public class Cliente extends javax.swing.JPanel {
         buttonClienteCancelar = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
+        setPreferredSize(new java.awt.Dimension(400, 600));
 
+        panelTitulo.setForeground(Loja.corFonteClara);
         panelTitulo.setOpaque(false);
         panelTitulo.setPreferredSize(new java.awt.Dimension(400, 30));
 
         clienteTitulo.setForeground(Loja.corFonteClara);
         panelTitulo.add(clienteTitulo);
 
+        add(panelTitulo);
+
+        panelEntradas.setForeground(Loja.corFonteClara);
         panelEntradas.setName("panelPedido"); // NOI18N
         panelEntradas.setOpaque(false);
-        panelEntradas.setPreferredSize(new java.awt.Dimension(400, 250));
-        panelEntradas.setLayout(new java.awt.GridLayout(6, 0, 0, 10));
+        panelEntradas.setPreferredSize(new java.awt.Dimension(400, 200));
+        panelEntradas.setLayout(new java.awt.GridLayout(5, 0, 0, 10));
 
         labelNome.setForeground(Loja.corFonteClara);
         labelNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelNome.setText("Nome:");
+        labelNome.setText("Nome: ");
         labelNome.setAlignmentY(0.2F);
         labelNome.setMaximumSize(new java.awt.Dimension(300, 30));
         labelNome.setMinimumSize(new java.awt.Dimension(200, 30));
@@ -155,7 +163,7 @@ public class Cliente extends javax.swing.JPanel {
 
         labelCpf.setForeground(Loja.corFonteClara);
         labelCpf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCpf.setText("CPF:");
+        labelCpf.setText("CPF do Cliente:");
         labelCpf.setAlignmentY(0.2F);
         labelCpf.setMaximumSize(new java.awt.Dimension(300, 30));
         labelCpf.setMinimumSize(new java.awt.Dimension(200, 30));
@@ -187,7 +195,7 @@ public class Cliente extends javax.swing.JPanel {
 
         labelCelular.setForeground(Loja.corFonteClara);
         labelCelular.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCelular.setText("Celular:");
+        labelCelular.setText("Celular: ");
         labelCelular.setAlignmentY(0.2F);
         labelCelular.setMaximumSize(new java.awt.Dimension(300, 30));
         labelCelular.setMinimumSize(new java.awt.Dimension(200, 30));
@@ -201,6 +209,9 @@ public class Cliente extends javax.swing.JPanel {
         fieldCelular.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(fieldCelular);
 
+        add(panelEntradas);
+
+        panelMenuCliente.setForeground(Loja.corFonteClara);
         panelMenuCliente.setOpaque(false);
         panelMenuCliente.setPreferredSize(new java.awt.Dimension(400, 30));
         panelMenuCliente.setRequestFocusEnabled(false);
@@ -208,12 +219,12 @@ public class Cliente extends javax.swing.JPanel {
 
         buttonClienteCadastrar.setBackground(Loja.corFundoEscura);
         buttonClienteCadastrar.setForeground(Loja.corFonteClara);
-        buttonClienteCadastrar.setText("Cadastrar");
+        buttonClienteCadastrar.setText("OK");
         panelMenuCliente.add(buttonClienteCadastrar);
 
         buttonClienteCancelar.setBackground(Loja.corFundoEscura);
         buttonClienteCancelar.setForeground(Loja.corFonteClara);
-        buttonClienteCancelar.setText("Cancelar");
+        buttonClienteCancelar.setText("Cancela");
         buttonClienteCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonClienteCancelarActionPerformed(evt);
@@ -221,29 +232,7 @@ public class Cliente extends javax.swing.JPanel {
         });
         panelMenuCliente.add(buttonClienteCancelar);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelMenuCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(107, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(panelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelMenuCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
-        );
+        add(panelMenuCliente);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonClienteCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClienteCancelarActionPerformed
@@ -251,8 +240,6 @@ public class Cliente extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonClienteCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-
-    // Variables declaration - do not modify                     
     private javax.swing.JButton buttonClienteCadastrar;
     private javax.swing.JButton buttonClienteCancelar;
     private javax.swing.JLabel clienteTitulo;
@@ -265,10 +252,8 @@ public class Cliente extends javax.swing.JPanel {
     private javax.swing.JLabel labelEndereco;
     private javax.swing.JLabel labelNome;
     private javax.swing.JPanel panelEntradas;
-    private javax.swing.JPanel panelMenuPedido;
     private javax.swing.JPanel panelMenuCliente;
     private javax.swing.JPanel panelTitulo;
-    private javax.swing.JLabel pedidoTitulo;
     // End of variables declaration//GEN-END:variables
 
     private void setDefaultCloseOperation() {

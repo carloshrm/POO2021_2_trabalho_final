@@ -32,7 +32,7 @@ public class Pedido extends javax.swing.JPanel {
         setVisible(true);  
         pedidoTitulo.setText("Novo pedido: ");
         buttonPedidoCCL.setVisible(true);
-        buttonPedidoOK.setAction(new AbstractAction("Cadastrar") {
+        buttonPedidoOK.setAction(new AbstractAction("Confirmar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
