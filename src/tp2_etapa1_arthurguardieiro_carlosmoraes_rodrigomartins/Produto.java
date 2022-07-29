@@ -8,23 +8,20 @@ import javax.swing.JOptionPane;
 
 public class Produto extends javax.swing.JPanel {
 
-    private static int controleCodigo = 0;
-
     private int codigo;
     private String nome;
     private double preco;
     private String descricao;
 
     Produto() {
-        this.codigo = controleCodigo++;
         initComponents();
     }
 
-    public Produto(String nome, double preco, String descricao) {
+    public Produto(String nome, double preco, String descricao, int cod) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
-        this.codigo = controleCodigo++;
+        this.codigo = cod;
         initComponents();
         setVisible(false);
     }
@@ -47,7 +44,7 @@ public class Produto extends javax.swing.JPanel {
         buttonProdutoCCL.setAction(new AbstractAction("Cancela") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controleCodigo--;
+                setVisible(false);
             }
         });
         buttonProdutoOK.setAction(new AbstractAction("Cadastrar") {
@@ -79,12 +76,16 @@ public class Produto extends javax.swing.JPanel {
     }
 
     public boolean validarProduto() {
-        if (nome != null && preco > 0) {
-            JOptionPane.showMessageDialog(null, "Produto cadastrado");
-            return true;
+        Produto p = Loja.buscaProduto(Integer.parseInt(fieldCodigo.getText()));
+        if (p != null) {
+            throw new IllegalArgumentException("Já existe um produto com esse código.");
         } else {
-            JOptionPane.showMessageDialog(null, "Informações invalidas", "alerta", JOptionPane.ERROR_MESSAGE);
-            return false;
+            if (nome != null && preco > 0) {
+                JOptionPane.showMessageDialog(null, "Produto cadastrado");
+                return true;
+            } else {
+                throw new IllegalArgumentException("O preço deve ser um valor positivo.");
+            }
         }
     }
 
@@ -168,15 +169,17 @@ public class Produto extends javax.swing.JPanel {
         labelCodigo.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(labelCodigo);
 
-        fieldCodigo.setEditable(false);
         fieldCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldCodigo.setText(String.format("%d", codigo)
-        );
         fieldCodigo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldCodigo.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldCodigo.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldCodigo.setName("fieldCodigo"); // NOI18N
         fieldCodigo.setPreferredSize(new java.awt.Dimension(300, 20));
+        fieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldCodigoKeyReleased(evt);
+            }
+        });
         panelEntradas.add(fieldCodigo);
 
         labelNome.setForeground(Loja.corFonteClara);
@@ -304,6 +307,18 @@ public class Produto extends javax.swing.JPanel {
         fieldDesc.setText(String.format("%s", descricao));
         System.out.println(evt);
     }//GEN-LAST:event_formComponentShown
+
+    private void fieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCodigoKeyReleased
+        try {
+            int val = Integer.parseInt(fieldCodigo.getText());
+            fieldCodigo.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
+            codigo = val;
+        } catch (NumberFormatException e) {
+            fieldCodigo.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+            fieldCodigo.setText("");
+            codigo = -1;
+        }
+    }//GEN-LAST:event_fieldCodigoKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonProdutoCCL;

@@ -33,9 +33,9 @@ public class Loja extends JFrame {
     }
 
     private void adicionarExemplosProdutos() {
-        produtos.add(new Produto("Produto 1", 11.22, "P1"));
-        produtos.add(new Produto("Produto 2", 9.99, "Produto 2"));
-        produtos.add(new Produto("Produto", 33.44, "Produto exemplo, codigo numero 3 e descrição longa"));
+        produtos.add(new Produto("Produto 1", 11.22, "P1", 0));
+        produtos.add(new Produto("Produto 2", 9.99, "Produto 2", 1));
+        produtos.add(new Produto("Produto", 33.44, "Produto exemplo, codigo numero 3 e descrição longa", 2));
     }
 
     public static Pedido buscaPedido(int codigo) {
@@ -550,7 +550,7 @@ public class Loja extends JFrame {
             painelPedido.remove(novoPedido);
             pedidos.add(novoPedido);
         });
-        
+
     }//GEN-LAST:event_buttonNovoPedidoActionPerformed
 
     private void buttonProcurarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarPedidoActionPerformed
@@ -736,7 +736,7 @@ public class Loja extends JFrame {
             painelProdutos.remove(novoProduto);
             menuProdutos.setVisible(true);
             produtos.add(novoProduto);
-        });       
+        });
     }//GEN-LAST:event_buttonNovoProdutoActionPerformed
 
     private void buttonProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarProdutoActionPerformed
