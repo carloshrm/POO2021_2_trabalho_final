@@ -79,7 +79,13 @@ public class Produto extends javax.swing.JPanel {
     }
 
     public boolean validarProduto() {
-        return (nome != null && preco > 0);
+        if (nome != null && preco > 0) {
+            JOptionPane.showMessageDialog(null, "Produto cadastrado");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Informações invalidas", "alerta", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     public boolean validarEdicao() {
@@ -296,6 +302,7 @@ public class Produto extends javax.swing.JPanel {
         fieldNome.setText(String.format("%s", nome));
         fieldPreco.setText(String.format("R$%.2f", preco));
         fieldDesc.setText(String.format("%s", descricao));
+        System.out.println(evt);
     }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

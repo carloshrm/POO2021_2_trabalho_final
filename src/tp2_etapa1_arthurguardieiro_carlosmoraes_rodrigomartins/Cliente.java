@@ -39,8 +39,7 @@ public class Cliente extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, err.getMessage());
                 }
             }
-        });       
-
+        });
     }
 
     public void altera(String nome, String cpf, String endereco, String celular) {
@@ -128,7 +127,7 @@ public class Cliente extends javax.swing.JPanel {
         buttonClienteCancelar = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
-        setPreferredSize(new java.awt.Dimension(400, 600));
+        setPreferredSize(new java.awt.Dimension(600, 500));
 
         panelTitulo.setForeground(Loja.corFonteClara);
         panelTitulo.setOpaque(false);
@@ -263,5 +262,5 @@ public class Cliente extends javax.swing.JPanel {
     @Override
     public String toString() {
         return String.format("Nome: %s Celular: %s", nome, celular);
-    }      
+    }
 }

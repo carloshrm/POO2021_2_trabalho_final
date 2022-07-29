@@ -530,8 +530,8 @@ public class Loja extends JFrame {
         menuClientes.setVisible(false);
         painelCliente.add(novoCliente);
         novoCliente.iniciarCadastro(() -> {
-            novoCliente.setVisible(false);
             painelCliente.remove(novoCliente);
+            menuClientes.setVisible(true);
             clientes.add(novoCliente);
         });
     }//GEN-LAST:event_buttonNovoClienteActionPerformed
@@ -779,7 +779,7 @@ public class Loja extends JFrame {
                     frameProcurar.setVisible(false);
                     JOptionPane.showMessageDialog(null, String.format("Produto Nome %s Cod %d foi excluido.", encontrado.getNome(), encontrado.getCodigo()));
                 } else {
-                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                    JOptionPane.showMessageDialog(null, "Produto não encontrado.");
                 }
             }
         });
@@ -805,7 +805,7 @@ public class Loja extends JFrame {
                     popUp.setVisible(true);
                     popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                    JOptionPane.showMessageDialog(null, "Produto não encontrado.");
                 }
             }
         });
