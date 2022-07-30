@@ -81,6 +81,8 @@ public class Produto extends javax.swing.JPanel {
             throw new IllegalArgumentException("Já existe um produto com esse código.");
         } else {
             if (nome != null && preco > 0) {
+                this.codigo = Integer.parseInt(fieldCodigo.getText());
+                this.descricao = fieldDesc.getText();
                 JOptionPane.showMessageDialog(null, "Produto cadastrado");
                 return true;
             } else {
@@ -92,7 +94,7 @@ public class Produto extends javax.swing.JPanel {
     public boolean validarEdicao() {
         Produto existente = Loja.buscaProduto(Integer.parseInt(fieldCodigo.getText()));
         if (existente == this) {
-            codigo = Integer.parseInt(fieldCodigo.getText());
+            this.codigo = Integer.parseInt(fieldCodigo.getText());
             this.nome = fieldNome.getText();
             this.descricao = fieldDesc.getText();
             this.preco = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
