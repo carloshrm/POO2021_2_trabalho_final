@@ -12,7 +12,7 @@ import javax.swing.*;
  */
 public class TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins {
 
-    
+    // Versão 30/07, 17:45
     public static void main(String[] args) {
         JFrame janelaPrincipal = new Loja();
 

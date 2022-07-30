@@ -29,7 +29,7 @@ public class Pedido extends javax.swing.JPanel {
     }
 
     public void iniciarCadastro(Runnable callback) {
-        setVisible(true);  
+        setVisible(true);
         pedidoTitulo.setText("Novo pedido: ");
         buttonPedidoCCL.setVisible(true);
         buttonPedidoOK.setAction(new AbstractAction("Confirmar") {
@@ -48,22 +48,26 @@ public class Pedido extends javax.swing.JPanel {
     }
 
     private boolean validarPedido() {
-        int codigoDigitado = Integer.parseInt(fieldCodigo.getText());
-        if (Loja.buscaPedido(codigoDigitado) == null) {
-            if (cliente != null) {
-                this.codPedido = codigoDigitado;
-                this.quantidade = Integer.parseInt(fieldQuantidade.getText());
-                this.data = fieldData.getText();
-                cliente.cadastrarPedido(this);
-                fieldCodigo.setEnabled(false);
-                JOptionPane.showMessageDialog(null, "Cadastro OK");
-                buttonPedidoCCL.setVisible(false);
-                return true;
-            } else {
-                throw new IllegalArgumentException("Cliente não encontrado");
-            }
+        if (fieldProdutoCod.getText().length() <= 0) {
+            throw new IllegalArgumentException("Digite o codigo de um produto");
         } else {
-            throw new IllegalArgumentException("Já existe um pedido com o o codigo digitado.");
+            int codigoDigitado = Integer.parseInt(fieldCodigo.getText());
+            if (Loja.buscaPedido(codigoDigitado) == null) {
+                if (cliente != null) {
+                    this.codPedido = codigoDigitado;
+                    this.quantidade = Integer.parseInt(fieldQuantidade.getText());
+                    this.data = fieldData.getText();
+                    cliente.cadastrarPedido(this);
+                    fieldCodigo.setEnabled(false);
+                    JOptionPane.showMessageDialog(null, "Cadastro OK");
+                    buttonPedidoCCL.setVisible(false);
+                    return true;
+                } else {
+                    throw new IllegalArgumentException("Cliente não encontrado");
+                }
+            } else {
+                throw new IllegalArgumentException("Já existe um pedido com o o codigo digitado.");
+            }
         }
     }
 
@@ -176,6 +180,11 @@ public class Pedido extends javax.swing.JPanel {
         fieldCodigo.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldCodigo.setName("fieldCodigo"); // NOI18N
         fieldCodigo.setPreferredSize(new java.awt.Dimension(300, 20));
+        fieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldCodigoKeyReleased(evt);
+            }
+        });
         panelEntradas.add(fieldCodigo);
 
         labelClienteCPF.setForeground(Loja.corFonteClara);
@@ -422,6 +431,10 @@ public class Pedido extends javax.swing.JPanel {
         fieldQuantidade.setText(String.format("%d", quantidade));
         fieldPreco.setText(String.format("%.2f", preco));
     }//GEN-LAST:event_formComponentShown
+
+    private void fieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCodigoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldCodigoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
