@@ -90,10 +90,16 @@ public class Produto extends javax.swing.JPanel {
     }
 
     public boolean validarEdicao() {
-        this.nome = fieldNome.getText();
-        this.descricao = fieldDesc.getText();
-        this.preco = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
-        return true;
+        Produto existente = Loja.buscaProduto(Integer.parseInt(fieldCodigo.getText()));
+        if (existente == this) {
+            codigo = Integer.parseInt(fieldCodigo.getText());
+            this.nome = fieldNome.getText();
+            this.descricao = fieldDesc.getText();
+            this.preco = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
+            return true;
+        } else {
+            throw new IllegalArgumentException("Codigo invalido");
+        }
     }
 
     public void editarInfo(Runnable callback) {
@@ -305,19 +311,18 @@ public class Produto extends javax.swing.JPanel {
         fieldNome.setText(String.format("%s", nome));
         fieldPreco.setText(String.format("R$%.2f", preco));
         fieldDesc.setText(String.format("%s", descricao));
-        System.out.println(evt);
     }//GEN-LAST:event_formComponentShown
 
     private void fieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCodigoKeyReleased
         try {
             int val = Integer.parseInt(fieldCodigo.getText());
             fieldCodigo.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
-            codigo = val;
         } catch (NumberFormatException e) {
             fieldCodigo.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             fieldCodigo.setText("");
             codigo = -1;
         }
+
     }//GEN-LAST:event_fieldCodigoKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

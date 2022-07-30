@@ -57,11 +57,9 @@ public class Cliente extends javax.swing.JPanel {
             this.endereco = fieldEndereco.getText();
             this.celular = fieldCelular.getText();
             JOptionPane.showMessageDialog(null, "cadastro realizado");
-            setVisible(false);
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "cadastro inválido", "alerta", JOptionPane.ERROR_MESSAGE);
-            return false;
+            throw new IllegalArgumentException("Já existe um cliente com esse CPF.");
         }
     }
 
