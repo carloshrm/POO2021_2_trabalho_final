@@ -35,22 +35,18 @@ public class Cliente extends javax.swing.JPanel {
                         callback.run();
                         setVisible(false);
                     }
-                } catch (IllegalArgumentException err) {
-                    JOptionPane.showMessageDialog(null, err.getMessage());
+                } catch (CpfInvalidoException er) {
+                    JOptionPane.showMessageDialog(null, er.getMessage());
                 }
             }
         });
     }
 
-    public void altera(String nome, String cpf, String endereco, String celular) {
-        this.nome = nome;
-        this.endereco = endereco;
-        this.cpf = cpf;
-        this.celular = celular;
-    }
-
     private boolean validarCadastro() {
         String cpfDigitado = fieldCpf.getText();
+        if(cpfDigitado.length() != 11){
+            throw new CpfInvalidoException("Cpf com numero de caracteres invalido");
+        }
         if (Loja.buscaCliente(cpfDigitado) == null) {
             this.cpf = cpfDigitado;
             this.nome = fieldNome.getText();
@@ -59,11 +55,19 @@ public class Cliente extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "cadastro realizado");
             return true;
         } else {
-            throw new IllegalArgumentException("Já existe um cliente com esse CPF.");
+            throw new CpfInvalidoException("Já existe um cliente com esse CPF.");
         }
     }
 
     public boolean validarEdicao() {
+        if(fieldCpf.getText().length() != 11){
+            throw new CpfInvalidoException("Cpf com numero de carcteres invalido");
+        }
+        if(!cpf.equals(fieldCpf.getText())){
+            if(Loja.buscaCpf(fieldCpf.getText())){
+                throw new CpfInvalidoException("Cpf ja cadastrado");
+            }
+        }
         this.nome = fieldNome.getText();
         this.cpf = fieldCpf.getText();
         this.endereco = fieldEndereco.getText();
@@ -82,10 +86,11 @@ public class Cliente extends javax.swing.JPanel {
         buttonClienteCadastrar.setAction(new AbstractAction("OK") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (validarEdicao()) {
+                try{ 
+                    if(validarEdicao()) {
                     callback.run();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Valores invalidos");
+                }} catch(CpfInvalidoException er) {
+                    JOptionPane.showMessageDialog(null, er.getMessage());
                 }
             }
         });
@@ -259,6 +264,6 @@ public class Cliente extends javax.swing.JPanel {
 
     @Override
     public String toString() {
-        return String.format("Nome: %s Celular: %s", nome, celular);
+        return String.format("Nome: %s Celular: %s Cpf: %s", nome, celular, cpf);
     }
 }
