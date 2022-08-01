@@ -23,12 +23,6 @@ public class Loja extends JFrame {
         setBounds(0, 0, 1280, 720);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                System.out.println(e);
-            }
-        });
         adicionarExemplosProdutos();
     }
 
@@ -112,8 +106,8 @@ public class Loja extends JFrame {
         buttonEditarProduto = new javax.swing.JButton();
         menuPrincipal = new javax.swing.JMenuBar();
         Arquivo = new javax.swing.JMenu();
-        menuItemSair = new javax.swing.JMenuItem();
         menuItemRelatorio = new javax.swing.JMenuItem();
+        menuItemSair = new javax.swing.JMenuItem();
 
         frameProcurar.setTitle("Procurar:");
         frameProcurar.setBackground(Loja.corFundoEscura);
@@ -531,6 +525,14 @@ public class Loja extends JFrame {
         Arquivo.setForeground(new java.awt.Color(255, 255, 255));
         Arquivo.setText("Arquivo");
 
+        menuItemRelatorio.setText("Gerar Relatorio");
+        menuItemRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRelatorioActionPerformed(evt);
+            }
+        });
+        Arquivo.add(menuItemRelatorio);
+
         menuItemSair.setText("Sair");
         menuItemSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -538,9 +540,6 @@ public class Loja extends JFrame {
             }
         });
         Arquivo.add(menuItemSair);
-
-        menuItemRelatorio.setText("Gerar Relatorio");
-        Arquivo.add(menuItemRelatorio);
 
         menuPrincipal.add(Arquivo);
 
@@ -885,6 +884,10 @@ public class Loja extends JFrame {
             System.out.println(cl.toString());
         }
     }//GEN-LAST:event_buttonTesteActionPerformed
+
+    private void menuItemRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRelatorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemRelatorioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;

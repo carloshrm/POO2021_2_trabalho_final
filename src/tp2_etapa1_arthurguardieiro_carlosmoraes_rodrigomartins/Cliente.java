@@ -266,4 +266,5 @@ public class Cliente extends javax.swing.JPanel {
     public String toString() {
         return String.format("Nome: %s Celular: %s Cpf: %s", nome, celular, cpf);
     }
+
 }
