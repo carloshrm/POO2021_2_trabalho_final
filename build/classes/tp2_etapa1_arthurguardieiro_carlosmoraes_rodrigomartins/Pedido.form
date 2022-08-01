@@ -5,6 +5,9 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
       <Connection code="Loja.corFundoEscura" type="code"/>
     </Property>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[600, 600]"/>
+    </Property>
     <Property name="name" type="java.lang.String" value="containerPedido" noResource="true"/>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[600, 600]"/>
@@ -103,7 +106,7 @@
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[200, 30]"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="fieldCodigo" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="fieldCodigoPedidoIn" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 20]"/>
             </Property>
@@ -148,7 +151,7 @@
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[200, 30]"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="fieldClienteCPF" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="fieldClienteCPFIn" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 20]"/>
             </Property>
@@ -195,9 +198,9 @@
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[200, 30]"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="fieldClienteCPF" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="fieldClienteInfo" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[300, 20]"/>
+              <Dimension value="[300, 40]"/>
             </Property>
           </Properties>
         </Component>
@@ -237,7 +240,7 @@
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[200, 30]"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="fieldProdutoCod" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="fieldCodigoProdutoIn" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 20]"/>
             </Property>
@@ -330,7 +333,7 @@
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[200, 30]"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="fieldQuantidade" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="fieldQuantidadeIn" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 20]"/>
             </Property>
@@ -413,7 +416,7 @@
               <Connection code="data" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Formato: 01/12/2022"/>
-            <Property name="name" type="java.lang.String" value="fieldData" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="fieldDataIn" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fieldDataKeyReleased"/>

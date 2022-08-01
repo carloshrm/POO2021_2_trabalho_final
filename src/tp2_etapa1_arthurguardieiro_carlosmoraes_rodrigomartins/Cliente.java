@@ -77,6 +77,10 @@ public class Cliente extends javax.swing.JPanel {
 
     public void mostrarInfo(Runnable callback, String msgLabel) {
         setVisible(true);
+        for (var pe : pedidosFeitos)
+        {
+            System.out.println(pe.toString());
+        }
         clienteTitulo.setText(msgLabel);
         fieldNome.setText(nome);
         fieldCpf.setText(cpf);

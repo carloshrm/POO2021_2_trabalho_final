@@ -36,7 +36,8 @@ public class Pedido extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (validarPedido()) {
+                    if (validarCampos()) {
+                        cadastrarNoCliente();
                         callback.run();
                         setVisible(false);
                     }
@@ -47,47 +48,39 @@ public class Pedido extends javax.swing.JPanel {
         });
     }
 
-    private boolean validarPedido() {
-        if (fieldProdutoCod.getText().length() <= 0) {
-            throw new IllegalArgumentException("Digite o codigo de um produto");
-        } else {
-            int codigoDigitado = Integer.parseInt(fieldCodigo.getText());
-            if (Loja.buscaPedido(codigoDigitado) == null) {
-                if (cliente != null) {
-                    this.codPedido = codigoDigitado;
-                    this.quantidade = Integer.parseInt(fieldQuantidade.getText());
-                    this.data = fieldData.getText();
-                    cliente.cadastrarPedido(this);
-                    fieldCodigo.setEnabled(false);
-                    JOptionPane.showMessageDialog(null, "Cadastro OK");
-                    buttonPedidoCCL.setVisible(false);
-                    return true;
-                } else {
-                    throw new IllegalArgumentException("Cliente não encontrado");
-                }
-            } else {
-                throw new IllegalArgumentException("Já existe um pedido com o o codigo digitado.");
-            }
-        }
+    private void cadastrarNoCliente() {
+        cliente.cadastrarPedido(this);
+        JOptionPane.showMessageDialog(null, "Cadastro OK");
     }
 
-    public boolean validarEdicao() {
+    public boolean validarCampos() {
+        setCodigo();
+        setCliente();
+        setProduto();
         this.quantidade = Integer.parseInt(fieldQuantidade.getText());
         this.data = fieldData.getText();
+        setPreco();
         return true;
     }
 
     public void editarInfo(Runnable callback) {
         setVisible(true);
         pedidoTitulo.setText("Editar Pedido: ");
-        buttonPedidoCCL.setVisible(true);
+        buttonPedidoCCL.setAction(new AbstractAction("Cancelar") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.run();
+            }
+        });
         buttonPedidoOK.setAction(new AbstractAction("Editar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (validarEdicao()) {
-                    callback.run();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Valores invalidos");
+                try {
+                    if (validarCampos()) {
+                        callback.run();
+                    }
+                } catch (IllegalArgumentException f) {
+                    JOptionPane.showMessageDialog(null, f.getMessage());
                 }
             }
         });
@@ -105,13 +98,44 @@ public class Pedido extends javax.swing.JPanel {
         });
     }
 
-    public void setPreco() {
+    private void setCodigo() {
+        if (fieldProdutoCod.getText().length() <= 0) {
+            throw new IllegalArgumentException("O código não pode ficar em branco.");
+        } else {
+            int codigoDigitado = Integer.parseInt(fieldCodigo.getText());
+            Pedido encontrado = Loja.buscaPedido(codigoDigitado);
+            if (encontrado != null && encontrado != this) {
+                throw new IllegalArgumentException("Já existe um pedido com o o codigo digitado.");
+            } else {
+                this.codPedido = codigoDigitado;
+            }
+        }
+    }
+
+    private void setProduto() {
+        Produto p = Loja.buscaProduto(Integer.parseInt(fieldProdutoCod.getText()));
+        if (p != null) {
+            produto = p;
+        } else {
+            throw new IllegalArgumentException("Produto não encontrado");
+        }
+    }
+
+    private void setCliente() {
+        Cliente c = Loja.buscaCliente(fieldClienteCPF.getText());
+        if (c != null) {
+            cliente = c;
+        } else {
+            throw new IllegalArgumentException("Cliente não encontrado");
+        }
+    }
+
+    private void setPreco() {
         if (produto != null) {
             preco = quantidade * produto.getPreco();
         } else {
             preco = 0;
         }
-        fieldPreco.setText(String.format("R$%.2f", preco));
     }
 
     @SuppressWarnings("unchecked")
@@ -142,6 +166,7 @@ public class Pedido extends javax.swing.JPanel {
         buttonPedidoCCL = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
+        setMinimumSize(new java.awt.Dimension(600, 600));
         setName("containerPedido"); // NOI18N
         setPreferredSize(new java.awt.Dimension(600, 600));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -178,7 +203,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldCodigo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldCodigo.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldCodigo.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldCodigo.setName("fieldCodigo"); // NOI18N
+        fieldCodigo.setName("fieldCodigoPedidoIn"); // NOI18N
         fieldCodigo.setPreferredSize(new java.awt.Dimension(300, 20));
         fieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -201,7 +226,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldClienteCPF.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldClienteCPF.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldClienteCPF.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldClienteCPF.setName("fieldClienteCPF"); // NOI18N
+        fieldClienteCPF.setName("fieldClienteCPFIn"); // NOI18N
         fieldClienteCPF.setPreferredSize(new java.awt.Dimension(300, 20));
         fieldClienteCPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -226,8 +251,8 @@ public class Pedido extends javax.swing.JPanel {
         fieldClienteNome.setFocusable(false);
         fieldClienteNome.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldClienteNome.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldClienteNome.setName("fieldClienteCPF"); // NOI18N
-        fieldClienteNome.setPreferredSize(new java.awt.Dimension(300, 20));
+        fieldClienteNome.setName("fieldClienteInfo"); // NOI18N
+        fieldClienteNome.setPreferredSize(new java.awt.Dimension(300, 40));
         panelEntradas.add(fieldClienteNome);
 
         labelProdutoCod.setForeground(Loja.corFonteClara);
@@ -244,7 +269,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldProdutoCod.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldProdutoCod.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldProdutoCod.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldProdutoCod.setName("fieldProdutoCod"); // NOI18N
+        fieldProdutoCod.setName("fieldCodigoProdutoIn"); // NOI18N
         fieldProdutoCod.setPreferredSize(new java.awt.Dimension(300, 20));
         fieldProdutoCod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -293,7 +318,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldQuantidade.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldQuantidade.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldQuantidade.setMinimumSize(new java.awt.Dimension(200, 30));
-        fieldQuantidade.setName("fieldQuantidade"); // NOI18N
+        fieldQuantidade.setName("fieldQuantidadeIn"); // NOI18N
         fieldQuantidade.setPreferredSize(new java.awt.Dimension(300, 20));
         fieldQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -336,7 +361,7 @@ public class Pedido extends javax.swing.JPanel {
         fieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/y"))));
         fieldData.setText(data);
         fieldData.setToolTipText("Formato: 01/12/2022");
-        fieldData.setName("fieldData"); // NOI18N
+        fieldData.setName("fieldDataIn"); // NOI18N
         fieldData.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 fieldDataKeyReleased(evt);
@@ -380,8 +405,7 @@ public class Pedido extends javax.swing.JPanel {
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             } else {
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara));
-                quantidade = val;
-                setPreco();
+                fieldPreco.setText(String.format("R$%.2f", val * Double.parseDouble(fieldPreco.getText().replace("R$", ""))));
             }
         } catch (NumberFormatException e) {
             fieldQuantidade.setText("");
@@ -391,15 +415,14 @@ public class Pedido extends javax.swing.JPanel {
     private void fieldProdutoCodKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldProdutoCodKeyReleased
         try {
             Produto p = Loja.buscaProduto(Integer.parseInt(fieldProdutoCod.getText()));
-            produto = p;
             if (p == null) {
                 fieldProdutoCod.setBorder(BorderFactory.createLineBorder(Color.red, 2));
                 fieldProdutoNome.setText("Não encontrado");
             } else {
                 fieldProdutoCod.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
-                fieldProdutoNome.setText(produto.toString());
+                fieldProdutoNome.setText(p.toString());
+                fieldPreco.setText(String.format("R$%.2f", quantidade * p.getPreco()));
             }
-            setPreco();
         } catch (NumberFormatException e) {
             fieldProdutoCod.setText("");
         }
@@ -410,10 +433,10 @@ public class Pedido extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldDataKeyReleased
 
     private void fieldClienteCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldClienteCPFKeyReleased
-        cliente = Loja.buscaCliente(fieldClienteCPF.getText());
-        if (cliente != null) {
+        Cliente encontrado = Loja.buscaCliente(fieldClienteCPF.getText());
+        if (encontrado != null) {
             fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
-            fieldClienteNome.setText(cliente.toString());
+            fieldClienteNome.setText(encontrado.toString());
         } else {
             fieldClienteNome.setText("Não encontrado.");
             fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Color.red, 2));
@@ -430,10 +453,15 @@ public class Pedido extends javax.swing.JPanel {
         fieldProdutoCod.setText(produto != null ? String.format("%d", produto.getCodigo()) : "");
         fieldQuantidade.setText(String.format("%d", quantidade));
         fieldPreco.setText(String.format("%.2f", preco));
+
     }//GEN-LAST:event_formComponentShown
 
     private void fieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCodigoKeyReleased
-        // TODO add your handling code here:
+        if (fieldProdutoCod.getText().length() > 0) {
+            fieldProdutoCod.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
+        } else {
+            fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+        }
     }//GEN-LAST:event_fieldCodigoKeyReleased
 
 

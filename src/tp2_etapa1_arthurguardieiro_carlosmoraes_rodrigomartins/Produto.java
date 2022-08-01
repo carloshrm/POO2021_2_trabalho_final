@@ -41,12 +41,6 @@ public class Produto extends javax.swing.JPanel {
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Novo produto: ");
-        buttonProdutoCCL.setAction(new AbstractAction("Cancela") {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
-        });
         buttonProdutoOK.setAction(new AbstractAction("Cadastrar") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,7 +59,12 @@ public class Produto extends javax.swing.JPanel {
     public void mostrarInfo(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Informações do Produto: ");
-        buttonProdutoCCL.setVisible(false);
+        buttonProdutoCCL.setAction(new AbstractAction("OK") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.run();
+            }
+        });
         buttonProdutoOK.setAction(new AbstractAction("OK") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,13 +79,16 @@ public class Produto extends javax.swing.JPanel {
         if (p != null) {
             throw new IllegalArgumentException("Já existe um produto com esse código.");
         } else {
-            if (nome != null && preco > 0) {
+            if (fieldNome.getText().length() > 0) {
+                Double precoDigitado = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
+                this.nome = fieldNome.getText();
                 this.codigo = Integer.parseInt(fieldCodigo.getText());
                 this.descricao = fieldDesc.getText();
+                this.preco = precoDigitado;
                 JOptionPane.showMessageDialog(null, "Produto cadastrado");
                 return true;
             } else {
-                throw new IllegalArgumentException("O preço deve ser um valor positivo.");
+                throw new IllegalArgumentException("O nome não pode ficar em branco");
             }
         }
     }
@@ -289,22 +291,18 @@ public class Produto extends javax.swing.JPanel {
             if (valorDigitado <= 0) {
             } else {
                 fieldPreco.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
-                preco = valorDigitado;
             }
         } catch (NumberFormatException e) {
             fieldPreco.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             fieldPreco.setText("");
-            preco = 0;
         }
     }//GEN-LAST:event_fieldPrecoKeyReleased
 
     private void fieldNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNomeKeyReleased
         if (fieldNome.getText().length() > 0 && fieldNome.getText().length() < 40) {
             fieldNome.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
-            nome = fieldNome.getText();
         } else {
             fieldNome.setBorder(BorderFactory.createLineBorder(Color.red, 2));
-            nome = null;
         }
     }//GEN-LAST:event_fieldNomeKeyReleased
 
@@ -322,7 +320,6 @@ public class Produto extends javax.swing.JPanel {
         } catch (NumberFormatException e) {
             fieldCodigo.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             fieldCodigo.setText("");
-            codigo = -1;
         }
 
     }//GEN-LAST:event_fieldCodigoKeyReleased
