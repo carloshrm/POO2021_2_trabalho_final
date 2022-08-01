@@ -44,7 +44,7 @@ public class Cliente extends javax.swing.JPanel {
 
     private boolean validarCadastro() {
         String cpfDigitado = fieldCpf.getText();
-        if(cpfDigitado.length() != 11){
+        if (cpfDigitado.length() != 11) {
             throw new CpfInvalidoException("Cpf com numero de caracteres invalido");
         }
         if (Loja.buscaCliente(cpfDigitado) == null) {
@@ -60,11 +60,11 @@ public class Cliente extends javax.swing.JPanel {
     }
 
     public boolean validarEdicao() {
-        if(fieldCpf.getText().length() != 11){
+        if (fieldCpf.getText().length() != 11) {
             throw new CpfInvalidoException("Cpf com numero de carcteres invalido");
         }
-        if(!cpf.equals(fieldCpf.getText())){
-            if(Loja.buscaCpf(fieldCpf.getText())){
+        if (!cpf.equals(fieldCpf.getText())) {
+            if (Loja.buscaCpf(fieldCpf.getText())) {
                 throw new CpfInvalidoException("Cpf ja cadastrado");
             }
         }
@@ -77,8 +77,7 @@ public class Cliente extends javax.swing.JPanel {
 
     public void mostrarInfo(Runnable callback, String msgLabel) {
         setVisible(true);
-        for (var pe : pedidosFeitos)
-        {
+        for (var pe : pedidosFeitos) {
             System.out.println(pe.toString());
         }
         clienteTitulo.setText(msgLabel);
@@ -90,10 +89,11 @@ public class Cliente extends javax.swing.JPanel {
         buttonClienteCadastrar.setAction(new AbstractAction("OK") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{ 
-                    if(validarEdicao()) {
-                    callback.run();
-                }} catch(CpfInvalidoException er) {
+                try {
+                    if (validarEdicao()) {
+                        callback.run();
+                    }
+                } catch (CpfInvalidoException er) {
                     JOptionPane.showMessageDialog(null, er.getMessage());
                 }
             }
@@ -261,10 +261,6 @@ public class Cliente extends javax.swing.JPanel {
     private javax.swing.JPanel panelMenuCliente;
     private javax.swing.JPanel panelTitulo;
     // End of variables declaration//GEN-END:variables
-
-    private void setDefaultCloseOperation() {
-        //
-    }
 
     @Override
     public String toString() {

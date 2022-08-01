@@ -59,7 +59,7 @@ public class Produto extends javax.swing.JPanel {
     public void mostrarInfo(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Informações do Produto: ");
-        buttonProdutoCCL.setAction(new AbstractAction("OK") {
+        buttonProdutoCCL.setAction(new AbstractAction("Cancela") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 callback.run();
@@ -109,14 +109,16 @@ public class Produto extends javax.swing.JPanel {
     public void editarInfo(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Editar Produto: ");
-        buttonProdutoCCL.setVisible(false);
+        buttonProdutoCCL.setVisible(true);
         buttonProdutoOK.setAction(new AbstractAction("OK") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (validarEdicao()) {
-                    callback.run();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Valores invalidos");
+                try {
+                    if (validarEdicao()) {
+                        callback.run();
+                    }
+                } catch (IllegalArgumentException f) {
+                    JOptionPane.showMessageDialog(null, f.getMessage());
                 }
             }
         });

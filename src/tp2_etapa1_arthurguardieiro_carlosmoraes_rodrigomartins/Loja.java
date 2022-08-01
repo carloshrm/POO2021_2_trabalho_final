@@ -55,10 +55,10 @@ public class Loja extends JFrame {
         }
         return null;
     }
-    
-    public static boolean buscaCpf(String cpf){
-        for(Cliente cl: clientes){
-            if(cl.getCpf().equals(cpf)){
+
+    public static boolean buscaCpf(String cpf) {
+        for (Cliente cl : clientes) {
+            if (cl.getCpf().equals(cpf)) {
                 return true;
             }
         }
@@ -112,7 +112,8 @@ public class Loja extends JFrame {
         buttonEditarProduto = new javax.swing.JButton();
         menuPrincipal = new javax.swing.JMenuBar();
         Arquivo = new javax.swing.JMenu();
-        Sair = new javax.swing.JMenuItem();
+        menuItemSair = new javax.swing.JMenuItem();
+        menuItemRelatorio = new javax.swing.JMenuItem();
 
         frameProcurar.setTitle("Procurar:");
         frameProcurar.setBackground(Loja.corFundoEscura);
@@ -530,13 +531,16 @@ public class Loja extends JFrame {
         Arquivo.setForeground(new java.awt.Color(255, 255, 255));
         Arquivo.setText("Arquivo");
 
-        Sair.setText("Sair");
-        Sair.addActionListener(new java.awt.event.ActionListener() {
+        menuItemSair.setText("Sair");
+        menuItemSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SairActionPerformed(evt);
+                menuItemSairActionPerformed(evt);
             }
         });
-        Arquivo.add(Sair);
+        Arquivo.add(menuItemSair);
+
+        menuItemRelatorio.setText("Gerar Relatorio");
+        Arquivo.add(menuItemRelatorio);
 
         menuPrincipal.add(Arquivo);
 
@@ -587,20 +591,21 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Pedido encontrado = null;
-                encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
-                if (encontrado != null) {
-                    frameProcurar.setVisible(false);
-                    JFrame popUp = new JFrame(encontrado.getName());
-                    popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
-                    popUp.add(encontrado);
-                    encontrado.mostrarInfo(() -> {
-                        popUp.dispose();
-                    });
-                    popUp.setVisible(true);
-                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                try {
+                    Pedido encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
+                    if (encontrado != null) {
+                        frameProcurar.setVisible(false);
+                        JFrame popUp = new JFrame(encontrado.getName());
+                        popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                        popUp.add(encontrado);
+                        encontrado.mostrarInfo(() -> {
+                            popUp.dispose();
+                        });
+                        popUp.setVisible(true);
+                        popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    }
+                } catch (NumberFormatException f) {
+                    JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
         });
@@ -650,9 +655,9 @@ public class Loja extends JFrame {
         });
     }//GEN-LAST:event_buttonExcluirClienteActionPerformed
 
-    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+    private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_SairActionPerformed
+    }//GEN-LAST:event_menuItemSairActionPerformed
 
     private void buttonProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarActionPerformed
         // TODO add your handling code here:
@@ -666,14 +671,17 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Excluir") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Pedido encontrado = null;
-                encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
-                if (encontrado != null) {
-                    pedidos.remove(encontrado);
-                    frameProcurar.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Pedido Excluido.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                try {
+                    if (fieldProcurar.getText().length() != 0) {
+                        Pedido encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
+                        if (encontrado != null) {
+                            pedidos.remove(encontrado);
+                            frameProcurar.setVisible(false);
+                            JOptionPane.showMessageDialog(null, "Pedido Excluido.");
+                        }
+                    }
+                } catch (NumberFormatException f) {
+                    JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
         });
@@ -691,19 +699,24 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Pedido encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
-                if (encontrado != null) {
-                    frameProcurar.setVisible(false);
-                    JFrame popUp = new JFrame(encontrado.getName());
-                    popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
-                    popUp.add(encontrado);
-                    encontrado.editarInfo(() -> {
-                        popUp.dispose();
-                    });
-                    popUp.setVisible(true);
-                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Pedido não encontrado.");
+                try {
+                    if (fieldProcurar.getText().length() != 0) {
+                        Pedido encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
+                        if (encontrado != null) {
+                            frameProcurar.setVisible(false);
+                            JFrame popUp = new JFrame(encontrado.getName());
+                            popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                            popUp.add(encontrado);
+                            encontrado.editarInfo(() -> {
+                                popUp.dispose();
+                            });
+                            popUp.setVisible(true);
+                            popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                        }
+                    }
+                } catch (NumberFormatException f) {
+                    JOptionPane.showMessageDialog(null, "Codigo invalido");
+
                 }
             }
         });
@@ -717,19 +730,21 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Cliente encontrado = buscaCliente(fieldProcurar.getText());
-                if (encontrado != null) {
-                    frameProcurar.setVisible(false);
-                    JFrame popUp = new JFrame(encontrado.getName());
-                    popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                    popUp.add(encontrado);
-                    encontrado.mostrarInfo(() -> {
-                        popUp.dispose();
-                    }, "Editar Cliente: ");
-                    popUp.setVisible(true);
-                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
+                try {
+                    Cliente encontrado = buscaCliente(fieldProcurar.getText());
+                    if (encontrado != null) {
+                        frameProcurar.setVisible(false);
+                        JFrame popUp = new JFrame(encontrado.getName());
+                        popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
+                        popUp.add(encontrado);
+                        encontrado.mostrarInfo(() -> {
+                            popUp.dispose();
+                        }, "Editar Cliente: ");
+                        popUp.setVisible(true);
+                        popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    }
+                } catch (CpfInvalidoException f) {
+                    JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
         });
@@ -773,19 +788,23 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
-                if (encontrado != null) {
-                    frameProcurar.setVisible(false);
-                    JFrame popUp = new JFrame(encontrado.getName());
-                    popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                    popUp.add(encontrado);
-                    encontrado.mostrarInfo(() -> {
-                        popUp.dispose();
-                    });
-                    popUp.setVisible(true);
-                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                try {
+                    if (fieldProcurar.getText().length() != 0) {
+                        Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
+                        if (encontrado != null) {
+                            frameProcurar.setVisible(false);
+                            JFrame popUp = new JFrame(encontrado.getName());
+                            popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
+                            popUp.add(encontrado);
+                            encontrado.mostrarInfo(() -> {
+                                popUp.dispose();
+                            });
+                            popUp.setVisible(true);
+                            popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                        }
+                    }
+                } catch (NumberFormatException f) {
+                    JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
         });
@@ -799,13 +818,17 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Excluir") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
-                if (encontrado != null) {
-                    produtos.remove(encontrado);
-                    frameProcurar.setVisible(false);
-                    JOptionPane.showMessageDialog(null, String.format("Produto Nome %s Cod %d foi excluido.", encontrado.getNome(), encontrado.getCodigo()));
-                } else {
-                    JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                try {
+                    if (fieldProcurar.getText().length() != 0) {
+                        Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
+                        if (encontrado != null) {
+                            produtos.remove(encontrado);
+                            frameProcurar.setVisible(false);
+                            JOptionPane.showMessageDialog(null, String.format("Produto Nome %s Cod %d foi excluido.", encontrado.getNome(), encontrado.getCodigo()));
+                        }
+                    }
+                } catch (NumberFormatException f) {
+                    JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
         });
@@ -819,19 +842,23 @@ public class Loja extends JFrame {
         buttonProcurar.setAction(new AbstractAction("Editar") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
-                if (encontrado != null) {
-                    frameProcurar.setVisible(false);
-                    JFrame popUp = new JFrame(encontrado.getName());
-                    popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                    popUp.add(encontrado);
-                    encontrado.editarInfo(() -> {
-                        popUp.dispose();
-                    });
-                    popUp.setVisible(true);
-                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                try {
+                    if (fieldProcurar.getText().length() != 0) {
+                        Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
+                        if (encontrado != null) {
+                            frameProcurar.setVisible(false);
+                            JFrame popUp = new JFrame(encontrado.getName());
+                            popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
+                            popUp.add(encontrado);
+                            encontrado.editarInfo(() -> {
+                                popUp.dispose();
+                            });
+                            popUp.setVisible(true);
+                            popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                        }
+                    }
+                } catch (NumberFormatException f) {
+                    JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
         });
@@ -854,14 +881,13 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_painelProdutosComponentAdded
 
     private void buttonTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTesteActionPerformed
-        for(Cliente cl:clientes){
+        for (Cliente cl : clientes) {
             System.out.println(cl.toString());
         }
     }//GEN-LAST:event_buttonTesteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
-    private javax.swing.JMenuItem Sair;
     private javax.swing.JButton buttonAlterar;
     private javax.swing.JButton buttonAlterarCliente;
     private javax.swing.JButton buttonEditarPedido;
@@ -888,6 +914,8 @@ public class Loja extends JFrame {
     private javax.swing.JLabel labelExcluirCliente;
     private javax.swing.JLabel labelProcurar;
     private javax.swing.JPanel menuClientes;
+    private javax.swing.JMenuItem menuItemRelatorio;
+    private javax.swing.JMenuItem menuItemSair;
     private javax.swing.JPanel menuPedidos;
     private javax.swing.JMenuBar menuPrincipal;
     private javax.swing.JPanel menuProdutos;
