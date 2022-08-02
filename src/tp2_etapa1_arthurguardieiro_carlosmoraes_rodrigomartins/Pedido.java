@@ -137,6 +137,10 @@ public class Pedido extends javax.swing.JPanel {
             preco = 0;
         }
     }
+    
+    public String mostrarDados(){
+        return String.format("%s\\%s\\%s\\%s", codPedido, quantidade, preco, data);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

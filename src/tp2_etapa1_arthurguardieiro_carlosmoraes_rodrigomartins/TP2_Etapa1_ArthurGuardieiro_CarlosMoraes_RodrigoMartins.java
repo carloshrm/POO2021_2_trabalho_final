@@ -4,6 +4,7 @@
  */
 package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
+import java.io.IOException;
 import javax.swing.*;
 
 /**
@@ -13,9 +14,9 @@ import javax.swing.*;
 public class TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins {
 
     // Versão 30/07, 17:45
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         JFrame janelaPrincipal = new Loja();
-
+        
     }
     
 }

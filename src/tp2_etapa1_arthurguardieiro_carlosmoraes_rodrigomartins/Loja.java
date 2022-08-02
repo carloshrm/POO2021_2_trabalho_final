@@ -3,6 +3,9 @@ package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -27,6 +30,7 @@ public class Loja extends JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 System.out.println(e);
+                
             }
         });
         adicionarExemplosProdutos();
@@ -73,6 +77,27 @@ public class Loja extends JFrame {
         }
         return null;
     }
+    
+    public static void relatorio() throws FileNotFoundException, IOException{
+        try{ 
+        OutputStream os = new FileOutputStream("relatorio.txt"); // nome do arquivo que será escrito
+        Writer wr = new OutputStreamWriter(os); // criação de um escritor
+        BufferedWriter br = new BufferedWriter(wr); // adiciono a um escritor de buffer
+        br.write("Nome\\Cpf\\Endereco\\Celular\\Pedido(s)");
+        br.newLine();
+        for(Cliente cl:clientes){
+            br.write(cl.mostrarDados());
+            br.newLine();
+        }
+        
+        
+        br.close();
+        } catch(IOException e){
+            e.getMessage();
+        }
+    }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -243,7 +268,7 @@ public class Loja extends JFrame {
         getContentPane().setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         painelCliente.setBackground(Loja.corFundoEscura);
-        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corDestaque)); // NOI18N
+        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
         painelCliente.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -348,7 +373,7 @@ public class Loja extends JFrame {
         getContentPane().add(painelCliente);
 
         painelPedido.setBackground(Loja.corFundoEscura);
-        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
+        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 12), Loja.corFonteClara)); // NOI18N
         painelPedido.setPreferredSize(new java.awt.Dimension(600, 200));
         painelPedido.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -437,7 +462,7 @@ public class Loja extends JFrame {
         getContentPane().add(painelPedido);
 
         painelProdutos.setBackground(Loja.corFundoEscura);
-        painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
+        painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corFonteClara)); // NOI18N
         painelProdutos.setPreferredSize(new java.awt.Dimension(450, 200));
         painelProdutos.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -627,7 +652,7 @@ public class Loja extends JFrame {
                     popUp.add(encontrado);
                     encontrado.mostrarInfo(() -> {
                         popUp.dispose();
-                    }, "Cliente Encontrado: ");
+                    });
                     popUp.setVisible(true);
                     popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 } else {
@@ -737,9 +762,9 @@ public class Loja extends JFrame {
                         JFrame popUp = new JFrame(encontrado.getName());
                         popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
                         popUp.add(encontrado);
-                        encontrado.mostrarInfo(() -> {
+                        encontrado.editarInfo(() -> {
                             popUp.dispose();
-                        }, "Editar Cliente: ");
+                        });
                         popUp.setVisible(true);
                         popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     }
@@ -881,8 +906,10 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_painelProdutosComponentAdded
 
     private void buttonTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTesteActionPerformed
-        for (Cliente cl : clientes) {
-            System.out.println(cl.toString());
+        try {
+            relatorio();
+        } catch (IOException ex) {
+            Logger.getLogger(Loja.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonTesteActionPerformed
 
