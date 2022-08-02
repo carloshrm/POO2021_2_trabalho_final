@@ -3,10 +3,13 @@ package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
-public class Loja extends JFrame {
+public class Loja extends JFrame implements Serializable {
 
     public static Color corFundoEscura = Color.darkGray;
     public static Color corFundoClara = Color.lightGray;
@@ -14,16 +17,62 @@ public class Loja extends JFrame {
     public static Color corFonteEscura = Color.black;
     public static Color corDestaque = Color.white;
 
-    private static ArrayList<Cliente> clientes = new ArrayList<>();
-    private static ArrayList<Pedido> pedidos = new ArrayList<>();
-    private static ArrayList<Produto> produtos = new ArrayList<>();
+    private static ArrayList<Cliente> clientes;
+    private static ArrayList<Pedido> pedidos;
+    private static ArrayList<Produto> produtos;
 
     public Loja() {
         initComponents();
         setBounds(0, 0, 1280, 720);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        adicionarExemplosProdutos();
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                salvarEstado();
+                System.exit(0);
+            }
+        });
+        if (new File("info.dat").exists()) {
+            carregarEstado();
+        } else {
+            clientes = new ArrayList<>();
+            pedidos = new ArrayList<>();
+            produtos = new ArrayList<>();
+        }
+    }
+
+    private void carregarEstado() {
+        try {
+            FileInputStream araquivoIn = new FileInputStream("info.dat");
+            ObjectInputStream objetoIn = new ObjectInputStream(araquivoIn);
+            Produto lido;
+            do {
+                lido = (Produto) objetoIn.readObject();
+                produtos.add(lido);
+            } while (lido != null);
+            
+            objetoIn.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    private void salvarEstado() {
+        try {
+            FileOutputStream araquivoOut = new FileOutputStream("info.dat");
+            ObjectOutputStream objetoOut = new ObjectOutputStream(araquivoOut);
+            for (Produto p : produtos) {
+                objetoOut.writeObject(p);
+            }
+            objetoOut.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex);
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
     }
 
     private void adicionarExemplosProdutos() {
@@ -66,6 +115,23 @@ public class Loja extends JFrame {
             }
         }
         return null;
+    }
+
+    public static void relatorio() throws FileNotFoundException, IOException {
+        try {
+            OutputStream os = new FileOutputStream("relatorio.txt"); // nome do arquivo que será escrito
+            Writer wr = new OutputStreamWriter(os); // criação de um escritor
+            BufferedWriter br = new BufferedWriter(wr); // adiciono a um escritor de buffer
+            br.write("Nome\\Cpf\\Endereco\\Celular\\Pedido(s)");
+            br.newLine();
+            for (Cliente cl : clientes) {
+                br.write(cl.mostrarDados());
+                br.newLine();
+            }
+            br.close();
+        } catch (IOException e) {
+            e.getMessage();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -602,6 +668,8 @@ public class Loja extends JFrame {
                         });
                         popUp.setVisible(true);
                         popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Pedido não encontrado");
                     }
                 } catch (NumberFormatException f) {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
@@ -626,7 +694,7 @@ public class Loja extends JFrame {
                     popUp.add(encontrado);
                     encontrado.mostrarInfo(() -> {
                         popUp.dispose();
-                    }, "Cliente Encontrado: ");
+                    });
                     popUp.setVisible(true);
                     popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 } else {
@@ -678,6 +746,8 @@ public class Loja extends JFrame {
                             frameProcurar.setVisible(false);
                             JOptionPane.showMessageDialog(null, "Pedido Excluido.");
                         }
+                    } else {
+                        throw new NumberFormatException();
                     }
                 } catch (NumberFormatException f) {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
@@ -712,6 +782,8 @@ public class Loja extends JFrame {
                             popUp.setVisible(true);
                             popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Codigo invalido");
                     }
                 } catch (NumberFormatException f) {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
@@ -736,9 +808,9 @@ public class Loja extends JFrame {
                         JFrame popUp = new JFrame(encontrado.getName());
                         popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
                         popUp.add(encontrado);
-                        encontrado.mostrarInfo(() -> {
+                        encontrado.editarInfo(() -> {
                             popUp.dispose();
-                        }, "Editar Cliente: ");
+                        });
                         popUp.setVisible(true);
                         popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     }
@@ -801,6 +873,8 @@ public class Loja extends JFrame {
                             popUp.setVisible(true);
                             popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Codigo invalido");
                     }
                 } catch (NumberFormatException f) {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
@@ -825,6 +899,8 @@ public class Loja extends JFrame {
                             frameProcurar.setVisible(false);
                             JOptionPane.showMessageDialog(null, String.format("Produto Nome %s Cod %d foi excluido.", encontrado.getNome(), encontrado.getCodigo()));
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Codigo invalido");
                     }
                 } catch (NumberFormatException f) {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
@@ -855,6 +931,8 @@ public class Loja extends JFrame {
                             popUp.setVisible(true);
                             popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Codigo invalido");
                     }
                 } catch (NumberFormatException f) {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
@@ -880,8 +958,10 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_painelProdutosComponentAdded
 
     private void buttonTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTesteActionPerformed
-        for (Cliente cl : clientes) {
-            System.out.println(cl.toString());
+        try {
+            relatorio();
+        } catch (IOException ex) {
+            Logger.getLogger(Loja.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonTesteActionPerformed
 

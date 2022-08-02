@@ -2,11 +2,12 @@ package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
-public class Produto extends javax.swing.JPanel {
+public class Produto extends javax.swing.JPanel implements Serializable {
 
     private int codigo;
     private String nome;

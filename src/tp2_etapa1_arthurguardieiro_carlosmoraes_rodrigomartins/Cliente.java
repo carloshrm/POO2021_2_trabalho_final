@@ -1,6 +1,7 @@
 package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
@@ -75,12 +76,12 @@ public class Cliente extends javax.swing.JPanel {
         return true;
     }
 
-    public void mostrarInfo(Runnable callback, String msgLabel) {
+    public void editarInfo(Runnable callback) {
         setVisible(true);
         for (var pe : pedidosFeitos) {
             System.out.println(pe.toString());
         }
-        clienteTitulo.setText(msgLabel);
+        clienteTitulo.setText("Editar cliente: ");
         fieldNome.setText(nome);
         fieldCpf.setText(cpf);
         fieldEndereco.setText(endereco);
@@ -100,6 +101,24 @@ public class Cliente extends javax.swing.JPanel {
         });
     }
 
+    public void mostrarInfo(Runnable callback) {
+        setVisible(true);
+        clienteTitulo.setText("Informações do pedido: ");
+        buttonClienteCancelar.setAction(new AbstractAction("Cancela") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.run();
+            }
+        });
+        buttonClienteCadastrar.setAction(new AbstractAction("Ok") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.run();
+            }
+
+        });
+    }
+
     public static boolean validarCPF(String cpf) {
         final String formato = "^(\\d{3}[[.][-]]){3}\\d{2}$";
         return cpf.matches(formato);
@@ -107,6 +126,24 @@ public class Cliente extends javax.swing.JPanel {
 
     public void cadastrarPedido(Pedido p) {
         pedidosFeitos.add(p);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Nome: %s Celular: %s Cpf: %s %sa", nome, celular, cpf, mostrarPedidos());
+    }
+
+    public StringBuilder mostrarPedidos() {
+        StringBuilder pedidos = new StringBuilder();
+        for (var pd : pedidosFeitos) {
+            pedidos.append(pd.mostrarDados());
+            pedidos.append("\t");
+        }
+        return pedidos;
+    }
+
+    public String mostrarDados() {
+        return String.format("%s\\%s\\%s\\%s\\%s", nome, cpf, endereco, celular, mostrarPedidos());
     }
 
     /**
@@ -261,10 +298,5 @@ public class Cliente extends javax.swing.JPanel {
     private javax.swing.JPanel panelMenuCliente;
     private javax.swing.JPanel panelTitulo;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public String toString() {
-        return String.format("Nome: %s Celular: %s Cpf: %s", nome, celular, cpf);
-    }
 
 }

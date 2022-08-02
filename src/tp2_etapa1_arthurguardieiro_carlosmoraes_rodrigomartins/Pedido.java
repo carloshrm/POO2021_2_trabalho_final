@@ -2,6 +2,7 @@ package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.AbstractAction;
@@ -136,6 +137,10 @@ public class Pedido extends javax.swing.JPanel {
         } else {
             preco = 0;
         }
+    }
+    
+    public String mostrarDados(){
+        return String.format("%s\\%s\\%s\\%s", codPedido, quantidade, preco, data);
     }
 
     @SuppressWarnings("unchecked")
