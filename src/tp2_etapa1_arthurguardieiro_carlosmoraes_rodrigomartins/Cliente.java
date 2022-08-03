@@ -11,7 +11,7 @@ public class Cliente extends javax.swing.JPanel {
     private String cpf;
     private String endereco;
     private String celular;
-    private ArrayList<Pedido> pedidosFeitos;
+    private ArrayList<Pedido> pedidosFeitos = new ArrayList<>();
 
     Cliente() {
         initComponents();
@@ -19,6 +19,16 @@ public class Cliente extends javax.swing.JPanel {
         buttonClienteCancelar.setVisible(false);
     }
 
+    public Cliente(String nome, String cpf, String endereco, String celular){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.celular = celular;
+        
+        initComponents();
+        setVisible(false);
+    }
+    
     public String getCpf() {
         return cpf;
     }
@@ -102,7 +112,11 @@ public class Cliente extends javax.swing.JPanel {
     
     public void mostrarInfo(Runnable callback) {
         setVisible(true);
-        clienteTitulo.setText("Informações do pedido: ");
+        clienteTitulo.setText("Informações do cliente: ");
+        //fieldNome.setText(nome);
+        //fieldCpf.setText(cpf);
+        //fieldEndereco.setText(endereco);
+        //fieldCelular.setText(celular);
         buttonClienteCancelar.setAction(new AbstractAction("Cancela") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,7 +143,7 @@ public class Cliente extends javax.swing.JPanel {
     
     @Override
     public String toString() {
-        return String.format("Nome: %s Celular: %s Cpf: %s %sa", nome, celular, cpf, mostrarPedidos());
+        return String.format("Nome: %s Celular: %s Cpf: %s %s", nome, celular, cpf, mostrarPedidos());
     }
     
     public StringBuilder mostrarPedidos(){
@@ -137,6 +151,9 @@ public class Cliente extends javax.swing.JPanel {
         for(var pd:pedidosFeitos){
             pedidos.append(pd.mostrarDados());
             pedidos.append("\t");
+        }
+        if(pedidosFeitos.isEmpty()){
+            pedidos.append("Não possui pedidos");
         }
         return pedidos;
     }
