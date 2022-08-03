@@ -20,12 +20,11 @@ import javax.swing.*;
  */
 public class TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins {
 
+    public static ArrayList<Produto> t;
     // Versão 30/07, 17:45
     public static void main(String[] args) throws IOException {
         Loja janelaPrincipal = new Loja();
-        
 
     }
-
 
 }

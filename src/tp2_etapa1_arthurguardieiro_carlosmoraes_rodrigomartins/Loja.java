@@ -51,7 +51,7 @@ public class Loja extends JFrame implements Serializable {
                 lido = (Produto) objetoIn.readObject();
                 produtos.add(lido);
             } while (lido != null);
-            
+
             objetoIn.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
@@ -62,10 +62,10 @@ public class Loja extends JFrame implements Serializable {
 
     private void salvarEstado() {
         try {
-            FileOutputStream araquivoOut = new FileOutputStream("info.dat");
-            ObjectOutputStream objetoOut = new ObjectOutputStream(araquivoOut);
-            for (Produto p : produtos) {
-                objetoOut.writeObject(p);
+            FileOutputStream arqOut = new FileOutputStream("info.ser");
+            ObjectOutputStream objetoOut = new ObjectOutputStream(arqOut);
+            for (Produto pro : produtos) {
+                objetoOut.writeObject(pro);
             }
             objetoOut.close();
         } catch (FileNotFoundException ex) {
@@ -860,24 +860,24 @@ public class Loja extends JFrame implements Serializable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (fieldProcurar.getText().length() != 0) {
-                        Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
-                        if (encontrado != null) {
-                            frameProcurar.setVisible(false);
-                            JFrame popUp = new JFrame(encontrado.getName());
-                            popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                            popUp.add(encontrado);
-                            encontrado.mostrarInfo(() -> {
-                                popUp.dispose();
-                            });
-                            popUp.setVisible(true);
-                            popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                        }
+                    Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
+                    if (encontrado != null) {
+                        frameProcurar.setVisible(false);
+                        JFrame popUp = new JFrame(encontrado.getName());
+                        popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
+                        popUp.add(encontrado);
+                        encontrado.mostrarInfo(() -> {
+                            popUp.dispose();
+                        });
+                        popUp.setVisible(true);
+                        popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Codigo invalido");
+                        throw new IllegalArgumentException("Produto não encontrado");
                     }
                 } catch (NumberFormatException f) {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
+                } catch (IllegalArgumentException f) {
+                    JOptionPane.showMessageDialog(null, f.getMessage());
                 }
             }
         });

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 
-public class Cliente extends javax.swing.JPanel {
+public class Cliente extends javax.swing.JPanel implements Serializable {
 
     private String nome;
     private String cpf;

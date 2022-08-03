@@ -9,7 +9,7 @@ import javax.swing.AbstractAction;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 
-public class Pedido extends javax.swing.JPanel {
+public class Pedido extends javax.swing.JPanel implements Serializable {
 
     private int codPedido;
     private int quantidade;
@@ -22,7 +22,6 @@ public class Pedido extends javax.swing.JPanel {
         data = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         quantidade = 1;
         initComponents();
-        buttonPedidoCCL.setVisible(false);
     }
 
     public int getCodigo() {
@@ -138,8 +137,8 @@ public class Pedido extends javax.swing.JPanel {
             preco = 0;
         }
     }
-    
-    public String mostrarDados(){
+
+    public String mostrarDados() {
         return String.format("%s\\%s\\%s\\%s", codPedido, quantidade, preco, data);
     }
 

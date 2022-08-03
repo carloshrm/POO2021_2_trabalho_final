@@ -328,19 +328,19 @@ public class Produto extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_fieldCodigoKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonProdutoCCL;
-    private javax.swing.JButton buttonProdutoOK;
-    private javax.swing.JTextField fieldCodigo;
-    private javax.swing.JTextField fieldDesc;
-    private javax.swing.JTextField fieldNome;
-    private javax.swing.JTextField fieldPreco;
-    private javax.swing.JLabel labelCodigo;
-    private javax.swing.JLabel labelDesc;
-    private javax.swing.JLabel labelNome;
-    private javax.swing.JLabel labelPreco;
-    private javax.swing.JPanel painelMenuProduto;
-    private javax.swing.JPanel panelEntradas;
-    private javax.swing.JPanel panelTitulo;
-    private javax.swing.JLabel produtoTitulo;
+    private transient javax.swing.JButton buttonProdutoCCL;
+    private transient javax.swing.JButton buttonProdutoOK;
+    private transient javax.swing.JTextField fieldCodigo;
+    private transient javax.swing.JTextField fieldDesc;
+    private transient javax.swing.JTextField fieldNome;
+    private transient javax.swing.JTextField fieldPreco;
+    private transient javax.swing.JLabel labelCodigo;
+    private transient javax.swing.JLabel labelDesc;
+    private transient javax.swing.JLabel labelNome;
+    private transient javax.swing.JLabel labelPreco;
+    private transient javax.swing.JPanel painelMenuProduto;
+    private transient javax.swing.JPanel panelEntradas;
+    private transient javax.swing.JPanel panelTitulo;
+    private transient javax.swing.JLabel produtoTitulo;
     // End of variables declaration//GEN-END:variables
 }
