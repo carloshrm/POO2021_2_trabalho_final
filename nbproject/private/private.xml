@@ -3,12 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Carlos/Documents/NetBeansProjects/TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/Loja.java</file>
             <file>file:/C:/Users/Carlos/Documents/NetBeansProjects/TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/Pedido.java</file>
             <file>file:/C:/Users/Carlos/Documents/NetBeansProjects/TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/Cliente.java</file>
             <file>file:/C:/Users/Carlos/Documents/NetBeansProjects/TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/Produto.java</file>
             <file>file:/C:/Users/Carlos/Documents/NetBeansProjects/TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/CpfInvalidoException.java</file>
             <file>file:/C:/Users/Carlos/Documents/NetBeansProjects/TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/TP2_Etapa1_ArthurGuardieiro_CarlosMoraes_RodrigoMartins.java</file>
+=======
+            <file>file:/C:/Users/MASTER/Desktop/POO/TP2_ETAPA2_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/Cliente.java</file>
+            <file>file:/C:/Users/MASTER/Desktop/POO/TP2_ETAPA2_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/Produto.java</file>
+            <file>file:/C:/Users/MASTER/Desktop/POO/TP2_ETAPA2_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/Loja.java</file>
+            <file>file:/C:/Users/MASTER/Desktop/POO/TP2_ETAPA2_ArthurGuardieiro_CarlosMoraes_RodrigoMartins/src/tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins/Pedido.java</file>
+>>>>>>> c7e85116a32bd0c1b85d771595ccb1e4e66e496b
         </group>
     </open-files>
 </project-private>

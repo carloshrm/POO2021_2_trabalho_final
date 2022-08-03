@@ -80,6 +80,7 @@ public class Loja extends JFrame implements Serializable {
         produtos.add(new Produto("Produto 1", 11.22, "P1", 0));
         produtos.add(new Produto("Produto 2", 9.99, "Produto 2", 1));
         produtos.add(new Produto("Produto", 33.44, "Produto exemplo, codigo numero 3 e descrição longa", 2));
+        clientes.add(new Cliente("Arthur", "11122233344", "a", "as"));
     }
 
     public static Pedido buscaPedido(int codigo) {
@@ -691,8 +692,9 @@ public class Loja extends JFrame implements Serializable {
                 if (encontrado != null) {
                     frameProcurar.setVisible(false);
                     JFrame popUp = new JFrame(encontrado.getName());
-                    popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                    popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
                     popUp.add(encontrado);
+                    System.out.println(encontrado);
                     encontrado.mostrarInfo(() -> {
                         popUp.dispose();
                     });
@@ -959,10 +961,8 @@ public class Loja extends JFrame implements Serializable {
     }//GEN-LAST:event_painelProdutosComponentAdded
 
     private void buttonTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTesteActionPerformed
-        try {
-            relatorio();
-        } catch (IOException ex) {
-            Logger.getLogger(Loja.class.getName()).log(Level.SEVERE, null, ex);
+        for(var cl:clientes){
+            System.out.println(cl.toString());
         }
     }//GEN-LAST:event_buttonTesteActionPerformed
 
