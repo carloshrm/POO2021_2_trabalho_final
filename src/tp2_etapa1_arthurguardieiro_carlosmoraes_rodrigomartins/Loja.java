@@ -22,6 +22,9 @@ public class Loja extends JFrame implements Serializable {
     private static ArrayList<Produto> produtos;
 
     public Loja() {
+        clientes = new ArrayList<>();
+        pedidos = new ArrayList<>();
+        produtos = new ArrayList<>();
         initComponents();
         setBounds(0, 0, 1280, 720);
         setVisible(true);
@@ -33,40 +36,38 @@ public class Loja extends JFrame implements Serializable {
                 System.exit(0);
             }
         });
-        if (new File("info.dat").exists()) {
+        if (new File("info.ser").exists()) {
             carregarEstado();
-        } else {
-            clientes = new ArrayList<>();
-            pedidos = new ArrayList<>();
-            produtos = new ArrayList<>();
         }
     }
 
     private void carregarEstado() {
+        ArrayList<Produto> lidos = null;
         try {
-            FileInputStream araquivoIn = new FileInputStream("info.dat");
+            FileInputStream araquivoIn = new FileInputStream("info.ser");
             ObjectInputStream objetoIn = new ObjectInputStream(araquivoIn);
-            Produto lido;
-            do {
-                lido = (Produto) objetoIn.readObject();
-                produtos.add(lido);
-            } while (lido != null);
-
+            lidos = (ArrayList<Produto>) objetoIn.readObject();
             objetoIn.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex);
         }
+        for (Produto prr : lidos) {
+            System.out.println(prr);
+            produtos.add(prr);
+        }
     }
 
     private void salvarEstado() {
+        ArrayList<Produto> salvarProdutos = new ArrayList<>();
+        for (Produto pro : produtos) {
+            salvarProdutos.add(new Produto(pro));
+        }
         try {
             FileOutputStream arqOut = new FileOutputStream("info.ser");
             ObjectOutputStream objetoOut = new ObjectOutputStream(arqOut);
-            for (Produto pro : produtos) {
-                objetoOut.writeObject(pro);
-            }
+            objetoOut.writeObject(salvarProdutos);
             objetoOut.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex);

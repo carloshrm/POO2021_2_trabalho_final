@@ -18,13 +18,20 @@ public class Produto extends javax.swing.JPanel implements Serializable {
         initComponents();
     }
 
+    public Produto(Produto p) {
+        this(p.nome, p.preco, p.descricao, p.codigo);
+        fieldCodigo.setText(String.format("%d", codigo));
+        fieldNome.setText(String.format("%s", nome));
+        fieldPreco.setText(String.format("R$%.2f", preco));
+        fieldDesc.setText(String.format("%s", descricao));
+    }
+
     public Produto(String nome, double preco, String descricao, int cod) {
+        this();
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
         this.codigo = cod;
-        initComponents();
-        setVisible(false);
     }
 
     public int getCodigo() {
@@ -309,13 +316,6 @@ public class Produto extends javax.swing.JPanel implements Serializable {
         }
     }//GEN-LAST:event_fieldNomeKeyReleased
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        fieldCodigo.setText(String.format("%d", codigo));
-        fieldNome.setText(String.format("%s", nome));
-        fieldPreco.setText(String.format("R$%.2f", preco));
-        fieldDesc.setText(String.format("%s", descricao));
-    }//GEN-LAST:event_formComponentShown
-
     private void fieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCodigoKeyReleased
         try {
             int val = Integer.parseInt(fieldCodigo.getText());
@@ -327,20 +327,27 @@ public class Produto extends javax.swing.JPanel implements Serializable {
 
     }//GEN-LAST:event_fieldCodigoKeyReleased
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        fieldCodigo.setText(String.format("%d", codigo));
+        fieldNome.setText(String.format("%s", nome));
+        fieldPreco.setText(String.format("R$%.2f", preco));
+        fieldDesc.setText(String.format("%s", descricao));
+    }//GEN-LAST:event_formComponentShown
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private transient javax.swing.JButton buttonProdutoCCL;
-    private transient javax.swing.JButton buttonProdutoOK;
-    private transient javax.swing.JTextField fieldCodigo;
-    private transient javax.swing.JTextField fieldDesc;
-    private transient javax.swing.JTextField fieldNome;
-    private transient javax.swing.JTextField fieldPreco;
-    private transient javax.swing.JLabel labelCodigo;
-    private transient javax.swing.JLabel labelDesc;
-    private transient javax.swing.JLabel labelNome;
-    private transient javax.swing.JLabel labelPreco;
-    private transient javax.swing.JPanel painelMenuProduto;
-    private transient javax.swing.JPanel panelEntradas;
-    private transient javax.swing.JPanel panelTitulo;
-    private transient javax.swing.JLabel produtoTitulo;
+    private javax.swing.JButton buttonProdutoCCL;
+    private javax.swing.JButton buttonProdutoOK;
+    private javax.swing.JTextField fieldCodigo;
+    private javax.swing.JTextField fieldDesc;
+    private javax.swing.JTextField fieldNome;
+    private javax.swing.JTextField fieldPreco;
+    private javax.swing.JLabel labelCodigo;
+    private javax.swing.JLabel labelDesc;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelPreco;
+    private javax.swing.JPanel painelMenuProduto;
+    private javax.swing.JPanel panelEntradas;
+    private javax.swing.JPanel panelTitulo;
+    private javax.swing.JLabel produtoTitulo;
     // End of variables declaration//GEN-END:variables
 }
