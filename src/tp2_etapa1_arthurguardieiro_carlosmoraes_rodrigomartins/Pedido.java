@@ -3,7 +3,12 @@ package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.AbstractAction;
 import javax.swing.*;
@@ -18,14 +23,36 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
     private Cliente cliente;
     private Produto produto;
 
-    Pedido() {
+    public Pedido() {
         data = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         quantidade = 1;
         initComponents();
     }
 
+    public Pedido(Pedido p, Cliente c, Produto pd) {
+        initComponents();
+        data = p.data;
+        codPedido = p.codPedido;
+        quantidade = p.quantidade;
+        preco = p.preco;
+        cliente = c;
+        produto = pd;
+        fieldCodigo.setText(codPedido < 0 ? "" : String.format("%d", codPedido));
+        fieldClienteCPF.setText(c.getCpf());
+        fieldClienteNome.setText(c.toString());
+        fieldData.setText(String.format("%s", data));
+        fieldProdutoCod.setText(produto != null ? String.format("%d", produto.getCodigo()) : "");
+        fieldProdutoNome.setText(pd.toString());
+        fieldQuantidade.setText(String.format("%d", quantidade));
+        fieldPreco.setText(String.format("R$%.2f", preco));
+    }
+
     public int getCodigo() {
         return codPedido;
+    }
+
+    public int getCodProduto() {
+        return produto.getCodigo();
     }
 
     public void iniciarCadastro(Runnable callback) {
@@ -43,6 +70,8 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
                     }
                 } catch (IllegalArgumentException err) {
                     JOptionPane.showMessageDialog(null, err.getMessage());
+                } catch (DateTimeParseException dateEx) {
+                    JOptionPane.showMessageDialog(null, "Data Invalida");
                 }
             }
         });
@@ -58,7 +87,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         setCliente();
         setProduto();
         this.quantidade = Integer.parseInt(fieldQuantidade.getText());
-        this.data = fieldData.getText();
+        setData();
         setPreco();
         return true;
     }
@@ -98,6 +127,15 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         });
     }
 
+    private void setData() {
+        if (fieldData.getText().length() > 0) {
+            LocalDate a = LocalDate.parse(fieldData.getText().replace(" ", ""), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            data = a.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } else {
+            throw new IllegalArgumentException("A data não pode ficar em branco.");
+        }
+    }
+
     private void setCodigo() {
         if (fieldProdutoCod.getText().length() <= 0) {
             throw new IllegalArgumentException("O código não pode ficar em branco.");
@@ -105,7 +143,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
             int codigoDigitado = Integer.parseInt(fieldCodigo.getText());
             Pedido encontrado = Loja.buscaPedido(codigoDigitado);
             if (encontrado != null && encontrado != this) {
-                throw new IllegalArgumentException("Já existe um pedido com o o codigo digitado.");
+                throw new IllegalArgumentException("Já existe um outro pedido com o o codigo digitado.");
             } else {
                 this.codPedido = codigoDigitado;
             }
@@ -170,7 +208,6 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         buttonPedidoCCL = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
-        setMinimumSize(new java.awt.Dimension(600, 600));
         setName("containerPedido"); // NOI18N
         setPreferredSize(new java.awt.Dimension(600, 600));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -447,7 +484,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_fieldProdutoCodKeyReleased
 
     private void fieldDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldDataKeyReleased
-        // ...
+        //..
     }//GEN-LAST:event_fieldDataKeyReleased
 
     private void fieldClienteCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldClienteCPFKeyReleased
@@ -471,7 +508,6 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         fieldProdutoCod.setText(produto != null ? String.format("%d", produto.getCodigo()) : "");
         fieldQuantidade.setText(String.format("%d", quantidade));
         fieldPreco.setText(String.format("%.2f", preco));
-
     }//GEN-LAST:event_formComponentShown
 
     private void fieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCodigoKeyReleased

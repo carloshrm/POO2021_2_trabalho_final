@@ -14,21 +14,38 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
     private String celular;
     private ArrayList<Pedido> pedidosFeitos;
 
-    Cliente() {
+    public Cliente() {
         initComponents();
         pedidosFeitos = new ArrayList<>();
-        buttonClienteCancelar.setVisible(false);
     }
 
-    public Cliente(String nome, String cpf, String endereco, String celular){
+    public Cliente(String nome, String cpf, String endereco, String celular) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
-        this.celular = celular;        
+        this.celular = celular;
         initComponents();
         setVisible(false);
     }
-    
+
+    public Cliente(Cliente c, ArrayList<Produto> pds) {
+        this(c.nome, c.cpf, c.endereco, c.celular);
+        System.out.println("salvado cli" + c);
+        pedidosFeitos = new ArrayList<>();
+        for (Pedido pd : c.pedidosFeitos) {
+            for (Produto np : pds) {
+                if (pd.getCodProduto() == pd.getCodigo()) {
+                    System.out.println("salvando ped" + pd);
+                    pedidosFeitos.add(new Pedido(pd, this, np));
+                }
+            }
+        }
+    }
+
+    public ArrayList<Pedido> getPedidosFeitos() {
+        return pedidosFeitos;
+    }
+
     public String getCpf() {
         return cpf;
     }
@@ -113,10 +130,10 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
     public void mostrarInfo(Runnable callback) {
         setVisible(true);
         clienteTitulo.setText("Informações do cliente: ");
-        //fieldNome.setText(nome);
-        //fieldCpf.setText(cpf);
-        //fieldEndereco.setText(endereco);
-        //fieldCelular.setText(celular);
+        fieldNome.setText(nome);
+        fieldCpf.setText(cpf);
+        fieldEndereco.setText(endereco);
+        fieldCelular.setText(celular);
         buttonClienteCancelar.setAction(new AbstractAction("Cancela") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -152,7 +169,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
             pedidos.append(pd.mostrarDados());
             pedidos.append("\t");
         }
-        if(pedidosFeitos.isEmpty()){
+        if (pedidosFeitos.isEmpty()) {
             pedidos.append("Não possui pedidos");
         }
         return pedidos;

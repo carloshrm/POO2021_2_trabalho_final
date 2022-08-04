@@ -40,33 +40,57 @@ public class Loja extends JFrame {
     }
 
     private void carregarEstado() {
-        ArrayList<Produto> lidos = null;
+        ArrayList<Produto> produtosLidos = null;
+        ArrayList<Cliente> clientesLidos = null;
+        ArrayList<Pedido> pedidosLidos = null;
         try {
             FileInputStream araquivoIn = new FileInputStream("info.ser");
             ObjectInputStream objetoIn = new ObjectInputStream(araquivoIn);
-            lidos = (ArrayList<Produto>) objetoIn.readObject();
+            produtosLidos = (ArrayList<Produto>) objetoIn.readObject();
+            clientesLidos = (ArrayList<Cliente>) objetoIn.readObject();
+            pedidosLidos = (ArrayList<Pedido>) objetoIn.readObject();
             objetoIn.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex);
         }
-        if (lidos != null && !lidos.isEmpty()) {
-            for (Produto prr : lidos) {
+        if (produtosLidos != null && !produtosLidos.isEmpty()) {
+            for (Produto prr : produtosLidos) {
                 produtos.add(prr);
+            }
+        }
+        if (clientesLidos != null && !clientesLidos.isEmpty()) {
+            for (Cliente cli : clientesLidos) {
+                clientes.add(cli);
+            }
+        }
+        if (pedidosLidos != null && !pedidosLidos.isEmpty()) {
+            for (Pedido pd : pedidosLidos) {
+                pedidos.add(pd);
             }
         }
     }
 
     private void salvarEstado() {
         ArrayList<Produto> salvarProdutos = new ArrayList<>();
+        ArrayList<Cliente> salvarClientes = new ArrayList<>();
+        ArrayList<Pedido> salvarPedidos = new ArrayList<>();
         for (Produto pro : produtos) {
             salvarProdutos.add(new Produto(pro));
+        }
+        for (Cliente cli : clientes) {
+            salvarClientes.add(new Cliente(cli, salvarProdutos));
+        }
+        for (Cliente cli : salvarClientes) {
+            salvarPedidos.addAll(cli.getPedidosFeitos());
         }
         try {
             FileOutputStream arqOut = new FileOutputStream("info.ser");
             ObjectOutputStream objetoOut = new ObjectOutputStream(arqOut);
             objetoOut.writeObject(salvarProdutos);
+            objetoOut.writeObject(salvarClientes);
+            objetoOut.writeObject(salvarPedidos);
             objetoOut.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
@@ -74,7 +98,7 @@ public class Loja extends JFrame {
             System.out.println(ex);
         }
     }
-    
+
     public static Pedido buscaPedido(int codigo) {
         for (Pedido pd : pedidos) {
             if (pd.getCodigo() == codigo) {
@@ -185,9 +209,10 @@ public class Loja extends JFrame {
         frameProcurar.getContentPane().add(labelProcurar, gridBagConstraints);
 
         fieldProcurar.setText("jTextField1");
+        fieldProcurar.setPreferredSize(new java.awt.Dimension(150, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 20;
@@ -204,7 +229,7 @@ public class Loja extends JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameProcurar.getContentPane().add(buttonProcurar, gridBagConstraints);
@@ -293,7 +318,6 @@ public class Loja extends JFrame {
         setTitle("Loja");
         setBackground(Loja.corFundoEscura);
         setName("frameLoja"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1400, 200));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         painelCliente.setBackground(Loja.corFundoEscura);
