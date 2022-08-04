@@ -12,7 +12,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
     private String cpf;
     private String endereco;
     private String celular;
-    private ArrayList<Pedido> pedidosFeitos = new ArrayList<>();
+    private ArrayList<Pedido> pedidosFeitos;
 
     Cliente() {
         initComponents();
@@ -24,8 +24,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
-        this.celular = celular;
-        
+        this.celular = celular;        
         initComponents();
         setVisible(false);
     }

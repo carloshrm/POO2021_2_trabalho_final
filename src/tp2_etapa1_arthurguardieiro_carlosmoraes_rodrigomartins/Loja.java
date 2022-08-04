@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.*;
 
-public class Loja extends JFrame implements Serializable {
+public class Loja extends JFrame {
 
     public static Color corFundoEscura = Color.darkGray;
     public static Color corFundoClara = Color.lightGray;
@@ -53,9 +51,10 @@ public class Loja extends JFrame implements Serializable {
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex);
         }
-        for (Produto prr : lidos) {
-            System.out.println(prr);
-            produtos.add(prr);
+        if (lidos != null && !lidos.isEmpty()) {
+            for (Produto prr : lidos) {
+                produtos.add(prr);
+            }
         }
     }
 
@@ -75,14 +74,7 @@ public class Loja extends JFrame implements Serializable {
             System.out.println(ex);
         }
     }
-
-    private void adicionarExemplosProdutos() {
-        produtos.add(new Produto("Produto 1", 11.22, "P1", 0));
-        produtos.add(new Produto("Produto 2", 9.99, "Produto 2", 1));
-        produtos.add(new Produto("Produto", 33.44, "Produto exemplo, codigo numero 3 e descrição longa", 2));
-        clientes.add(new Cliente("Arthur", "11122233344", "a", "as"));
-    }
-
+    
     public static Pedido buscaPedido(int codigo) {
         for (Pedido pd : pedidos) {
             if (pd.getCodigo() == codigo) {
@@ -961,7 +953,7 @@ public class Loja extends JFrame implements Serializable {
     }//GEN-LAST:event_painelProdutosComponentAdded
 
     private void buttonTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTesteActionPerformed
-        for(var cl:clientes){
+        for (var cl : clientes) {
             System.out.println(cl.toString());
         }
     }//GEN-LAST:event_buttonTesteActionPerformed

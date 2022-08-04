@@ -250,12 +250,14 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         panelEntradas.add(labelClienteNome);
 
         fieldClienteNome.setEditable(false);
+        fieldClienteNome.setForeground(Loja.corFonteClara);
         fieldClienteNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         fieldClienteNome.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldClienteNome.setFocusable(false);
         fieldClienteNome.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldClienteNome.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldClienteNome.setName("fieldClienteInfo"); // NOI18N
+        fieldClienteNome.setOpaque(false);
         fieldClienteNome.setPreferredSize(new java.awt.Dimension(300, 40));
         panelEntradas.add(fieldClienteNome);
 
@@ -324,6 +326,13 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         fieldQuantidade.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldQuantidade.setName("fieldQuantidadeIn"); // NOI18N
         fieldQuantidade.setPreferredSize(new java.awt.Dimension(300, 20));
+        fieldQuantidade.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                fieldQuantidadeInputMethodTextChanged(evt);
+            }
+        });
         fieldQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 fieldQuantidadeKeyReleased(evt);
@@ -342,6 +351,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         panelEntradas.add(labelPreco);
 
         fieldPreco.setEditable(false);
+        fieldPreco.setForeground(Loja.corFonteClara);
         fieldPreco.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         fieldPreco.setText("R$0.00");
         fieldPreco.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
@@ -349,6 +359,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         fieldPreco.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldPreco.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldPreco.setName("fieldPreco"); // NOI18N
+        fieldPreco.setOpaque(false);
         fieldPreco.setPreferredSize(new java.awt.Dimension(300, 20));
         panelEntradas.add(fieldPreco);
 
@@ -404,15 +415,18 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
 
     private void fieldQuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldQuantidadeKeyReleased
         try {
-            int val = Integer.parseInt(fieldQuantidade.getText());
+            int val = Integer.parseInt(fieldQuantidade.getText().replace(" ", ""));
             if (val <= 0) {
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             } else {
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara));
-                fieldPreco.setText(String.format("R$%.2f", val * Double.parseDouble(fieldPreco.getText().replace("R$", ""))));
+                fieldPreco.setText(String.format("R$%.2f", val * Loja.buscaProduto(
+                        Integer.parseInt(fieldProdutoCod.getText())).getPreco()
+                ));
             }
         } catch (NumberFormatException e) {
             fieldQuantidade.setText("");
+            fieldPreco.setText("R$0.00");
         }
     }//GEN-LAST:event_fieldQuantidadeKeyReleased
 
@@ -467,6 +481,11 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
             fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Color.red, 2));
         }
     }//GEN-LAST:event_fieldCodigoKeyReleased
+
+    private void fieldQuantidadeInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_fieldQuantidadeInputMethodTextChanged
+        // TODO add your handling code here:
+        System.out.println(evt);
+    }//GEN-LAST:event_fieldQuantidadeInputMethodTextChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
