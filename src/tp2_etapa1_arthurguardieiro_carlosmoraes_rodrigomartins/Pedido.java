@@ -363,13 +363,6 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         fieldQuantidade.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldQuantidade.setName("fieldQuantidadeIn"); // NOI18N
         fieldQuantidade.setPreferredSize(new java.awt.Dimension(300, 20));
-        fieldQuantidade.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                fieldQuantidadeInputMethodTextChanged(evt);
-            }
-        });
         fieldQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 fieldQuantidadeKeyReleased(evt);
@@ -451,18 +444,20 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_buttonPedidoCCLActionPerformed
 
     private void fieldQuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldQuantidadeKeyReleased
+        String qtd = fieldQuantidade.getText().replaceAll("[^0-9.]", "");
         try {
-            int val = Integer.parseInt(fieldQuantidade.getText().replace(" ", ""));
+            int val = Integer.parseInt(qtd);            
             if (val <= 0) {
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Color.red, 2));
-            } else {
+            } else {                
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara));
                 fieldPreco.setText(String.format("R$%.2f", val * Loja.buscaProduto(
                         Integer.parseInt(fieldProdutoCod.getText())).getPreco()
                 ));
             }
-        } catch (NumberFormatException e) {
-            fieldQuantidade.setText("");
+            fieldQuantidade.setText(qtd);
+        } catch (NumberFormatException e) {  
+            fieldQuantidade.setText(qtd);
             fieldPreco.setText("R$0.00");
         }
     }//GEN-LAST:event_fieldQuantidadeKeyReleased
@@ -517,11 +512,6 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
             fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Color.red, 2));
         }
     }//GEN-LAST:event_fieldCodigoKeyReleased
-
-    private void fieldQuantidadeInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_fieldQuantidadeInputMethodTextChanged
-        // TODO add your handling code here:
-        System.out.println(evt);
-    }//GEN-LAST:event_fieldQuantidadeInputMethodTextChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
