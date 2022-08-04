@@ -208,6 +208,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         buttonPedidoCCL = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
+        setMinimumSize(new java.awt.Dimension(600, 600));
         setName("containerPedido"); // NOI18N
         setPreferredSize(new java.awt.Dimension(600, 600));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -444,21 +445,25 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_buttonPedidoCCLActionPerformed
 
     private void fieldQuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldQuantidadeKeyReleased
-        String qtd = fieldQuantidade.getText().replaceAll("[^0-9.]", "");
-        try {
-            int val = Integer.parseInt(qtd);            
-            if (val <= 0) {
+        String limpa = fieldQuantidade.getText().replaceAll("[^0-9]", "");
+        fieldQuantidade.setText(limpa);
+        if (!limpa.isEmpty()) {
+            try {
+                int val = Integer.parseInt(limpa);
+                if (val <= 0) {
+                    fieldQuantidade.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+                } else {
+                    fieldQuantidade.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara));
+                    if (fieldProdutoCod.getText().length() > 0) {
+                        Produto p = Loja.buscaProduto(Integer.parseInt(fieldProdutoCod.getText()));
+                        fieldPreco.setText(String.format("R$%.2f", val * (p == null ? 0 : p.getPreco())
+                        ));
+                    }
+                }
+            } catch (NumberFormatException e) {
                 fieldQuantidade.setBorder(BorderFactory.createLineBorder(Color.red, 2));
-            } else {                
-                fieldQuantidade.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara));
-                fieldPreco.setText(String.format("R$%.2f", val * Loja.buscaProduto(
-                        Integer.parseInt(fieldProdutoCod.getText())).getPreco()
-                ));
+                fieldPreco.setText("R$0.00");
             }
-            fieldQuantidade.setText(qtd);
-        } catch (NumberFormatException e) {  
-            fieldQuantidade.setText(qtd);
-            fieldPreco.setText("R$0.00");
         }
     }//GEN-LAST:event_fieldQuantidadeKeyReleased
 

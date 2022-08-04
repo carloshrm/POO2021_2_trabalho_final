@@ -161,10 +161,6 @@ public class Loja extends JFrame {
         labelProcurar = new javax.swing.JLabel();
         fieldProcurar = new javax.swing.JTextField();
         buttonProcurar = new javax.swing.JButton();
-        frameAlterar = new javax.swing.JFrame();
-        labelAlterar = new javax.swing.JLabel();
-        fieldAlterar = new javax.swing.JTextField();
-        buttonAlterar = new javax.swing.JButton();
         frameExcluirCliente = new javax.swing.JFrame();
         labelExcluirCliente = new javax.swing.JLabel();
         fieldExcluirCliente = new javax.swing.JTextField();
@@ -233,46 +229,6 @@ public class Loja extends JFrame {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameProcurar.getContentPane().add(buttonProcurar, gridBagConstraints);
-
-        frameAlterar.setTitle("Procurar:");
-        frameAlterar.setBackground(Loja.corFundoEscura);
-        frameAlterar.setBounds(new java.awt.Rectangle(200, 200, 300, 200));
-        frameAlterar.setName("frameProcurar"); // NOI18N
-        frameAlterar.setSize(new java.awt.Dimension(400, 250));
-        frameAlterar.getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        labelAlterar.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        frameAlterar.getContentPane().add(labelAlterar, gridBagConstraints);
-
-        fieldAlterar.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 10;
-        frameAlterar.getContentPane().add(fieldAlterar, gridBagConstraints);
-
-        buttonAlterar.setBackground(Loja.corFundoClara);
-        buttonAlterar.setForeground(Loja.corFonteEscura);
-        buttonAlterar.setText("OK");
-        buttonAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAlterarActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        frameAlterar.getContentPane().add(buttonAlterar, gridBagConstraints);
 
         frameExcluirCliente.setTitle("Procurar:");
         frameExcluirCliente.setBackground(Loja.corFundoEscura);
@@ -679,7 +635,7 @@ public class Loja extends JFrame {
                     if (encontrado != null) {
                         frameProcurar.setVisible(false);
                         JFrame popUp = new JFrame(encontrado.getName());
-                        popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                        popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
                         popUp.add(encontrado);
                         encontrado.mostrarInfo(() -> {
                             popUp.dispose();
@@ -840,17 +796,9 @@ public class Loja extends JFrame {
         });
     }//GEN-LAST:event_buttonAlterarClienteActionPerformed
 
-    private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonAlterarActionPerformed
-
     private void menuClientesAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuClientesAncestorResized
         menuClientes.setPreferredSize(painelCliente.getSize());
     }//GEN-LAST:event_menuClientesAncestorResized
-
-    private void buttonExcluirClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirClActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonExcluirClActionPerformed
 
     private void buttonNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoProdutoActionPerformed
         Produto novoProduto = new Produto();
@@ -986,9 +934,12 @@ public class Loja extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemRelatorioActionPerformed
 
+    private void buttonExcluirClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirClActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonExcluirClActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
-    private javax.swing.JButton buttonAlterar;
     private javax.swing.JButton buttonAlterarCliente;
     private javax.swing.JButton buttonEditarPedido;
     private javax.swing.JButton buttonEditarProduto;
@@ -1004,13 +955,10 @@ public class Loja extends JFrame {
     private javax.swing.JButton buttonProcurarPedido;
     private javax.swing.JButton buttonProcurarProduto;
     private javax.swing.JButton buttonTeste;
-    private javax.swing.JTextField fieldAlterar;
     private javax.swing.JTextField fieldExcluirCliente;
     private javax.swing.JTextField fieldProcurar;
-    private javax.swing.JFrame frameAlterar;
     private javax.swing.JFrame frameExcluirCliente;
     private javax.swing.JFrame frameProcurar;
-    private javax.swing.JLabel labelAlterar;
     private javax.swing.JLabel labelExcluirCliente;
     private javax.swing.JLabel labelProcurar;
     private javax.swing.JPanel menuClientes;
