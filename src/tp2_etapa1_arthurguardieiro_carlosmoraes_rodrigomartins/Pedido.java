@@ -139,7 +139,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
     }
 
     public String mostrarDados() {
-        return String.format("%s\\%s\\%s\\%s", codPedido, quantidade, preco, data);
+        return String.format("codigo: %s, quantidade: %s, preco: %s, data: %s", codPedido, quantidade, preco, data);
     }
 
     @SuppressWarnings("unchecked")

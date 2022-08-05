@@ -26,6 +26,7 @@ public class Loja extends JFrame implements Serializable {
         pedidos = new ArrayList<>();
         produtos = new ArrayList<>();
         initComponents();
+        adicionarExemplos();
         setBounds(0, 0, 1280, 720);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -76,11 +77,12 @@ public class Loja extends JFrame implements Serializable {
         }
     }
 
-    private void adicionarExemplosProdutos() {
-        produtos.add(new Produto("Produto 1", 11.22, "P1", 0));
-        produtos.add(new Produto("Produto 2", 9.99, "Produto 2", 1));
-        produtos.add(new Produto("Produto", 33.44, "Produto exemplo, codigo numero 3 e descrição longa", 2));
+    private void adicionarExemplos() {
         clientes.add(new Cliente("Arthur", "11122233344", "a", "as"));
+        clientes.add(new Cliente("J", "11122233345", "D", "DDD"));
+        clientes.add(new Cliente("K", "11122233346", "B", "BBB"));
+        clientes.add(new Cliente("S", "11122233347", "C", "Cs"));
+        clientes.add(new Cliente("Z", "11122233348", "aZZZZZ", "ZZZas"));
     }
 
     public static Pedido buscaPedido(int codigo) {
@@ -159,7 +161,7 @@ public class Loja extends JFrame implements Serializable {
         buttonProcurarCliente = new javax.swing.JButton();
         buttonExcluirCliente = new javax.swing.JButton();
         buttonAlterarCliente = new javax.swing.JButton();
-        buttonTeste = new javax.swing.JButton();
+        buttonRelatorio = new javax.swing.JButton();
         painelPedido = new javax.swing.JPanel();
         menuPedidos = new javax.swing.JPanel();
         buttonNovoPedido = new javax.swing.JButton();
@@ -305,7 +307,7 @@ public class Loja extends JFrame implements Serializable {
         getContentPane().setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         painelCliente.setBackground(Loja.corFundoEscura);
-        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corDestaque)); // NOI18N
+        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corDestaque)); // NOI18N
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
         painelCliente.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -389,28 +391,28 @@ public class Loja extends JFrame implements Serializable {
         });
         menuClientes.add(buttonAlterarCliente);
 
-        buttonTeste.setBackground(Loja.corFundoClara);
-        buttonTeste.setForeground(Loja.corFonteEscura);
-        buttonTeste.setText("Testar");
-        buttonTeste.setAlignmentX(0.5F);
-        buttonTeste.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        buttonTeste.setMargin(new java.awt.Insets(2, 20, 2, 20));
-        buttonTeste.setMaximumSize(new java.awt.Dimension(200, 200));
-        buttonTeste.setName("Novo Cliente"); // NOI18N
-        buttonTeste.setPreferredSize(new java.awt.Dimension(100, 40));
-        buttonTeste.addActionListener(new java.awt.event.ActionListener() {
+        buttonRelatorio.setBackground(Loja.corFundoClara);
+        buttonRelatorio.setForeground(Loja.corFonteEscura);
+        buttonRelatorio.setText("Relatorio");
+        buttonRelatorio.setAlignmentX(0.5F);
+        buttonRelatorio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonRelatorio.setMargin(new java.awt.Insets(2, 20, 2, 20));
+        buttonRelatorio.setMaximumSize(new java.awt.Dimension(200, 200));
+        buttonRelatorio.setName("Novo Cliente"); // NOI18N
+        buttonRelatorio.setPreferredSize(new java.awt.Dimension(100, 40));
+        buttonRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTesteActionPerformed(evt);
+                buttonRelatorioActionPerformed(evt);
             }
         });
-        menuClientes.add(buttonTeste);
+        menuClientes.add(buttonRelatorio);
 
         painelCliente.add(menuClientes);
 
         getContentPane().add(painelCliente);
 
         painelPedido.setBackground(Loja.corFundoEscura);
-        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
+        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 12), Loja.corFonteClara)); // NOI18N
         painelPedido.setPreferredSize(new java.awt.Dimension(600, 200));
         painelPedido.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -499,7 +501,7 @@ public class Loja extends JFrame implements Serializable {
         getContentPane().add(painelPedido);
 
         painelProdutos.setBackground(Loja.corFundoEscura);
-        painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
+        painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corFonteClara)); // NOI18N
         painelProdutos.setPreferredSize(new java.awt.Dimension(450, 200));
         painelProdutos.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -960,11 +962,13 @@ public class Loja extends JFrame implements Serializable {
         painelProdutos.setPreferredSize(evt.getChild().getPreferredSize());
     }//GEN-LAST:event_painelProdutosComponentAdded
 
-    private void buttonTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTesteActionPerformed
-        for(var cl:clientes){
-            System.out.println(cl.toString());
+    private void buttonRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRelatorioActionPerformed
+        try {
+            relatorio();
+        } catch (IOException ex) {
+            Logger.getLogger(Loja.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_buttonTesteActionPerformed
+    }//GEN-LAST:event_buttonRelatorioActionPerformed
 
     private void menuItemRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRelatorioActionPerformed
         // TODO add your handling code here:
@@ -987,7 +991,7 @@ public class Loja extends JFrame implements Serializable {
     private javax.swing.JButton buttonProcurarCliente;
     private javax.swing.JButton buttonProcurarPedido;
     private javax.swing.JButton buttonProcurarProduto;
-    private javax.swing.JButton buttonTeste;
+    private javax.swing.JButton buttonRelatorio;
     private javax.swing.JTextField fieldAlterar;
     private javax.swing.JTextField fieldExcluirCliente;
     private javax.swing.JTextField fieldProcurar;
