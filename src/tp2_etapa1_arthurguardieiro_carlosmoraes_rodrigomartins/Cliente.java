@@ -50,6 +50,10 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
         return cpf;
     }
 
+    public String getInfoResumida() {
+        return String.format("Nome: %s, Cel.: %s", nome, celular);
+    }
+
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
         clienteTitulo.setText("Novo cliente: ");

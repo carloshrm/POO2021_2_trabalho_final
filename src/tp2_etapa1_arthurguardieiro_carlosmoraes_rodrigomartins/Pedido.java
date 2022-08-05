@@ -29,12 +29,16 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         initComponents();
     }
 
-    public Pedido(Pedido p, Cliente c, Produto pd) {
+    public Pedido(int codPedido, int quantidade, double preco, String data) {
+        this.codPedido = codPedido;
+        this.quantidade = quantidade;
+        this.preco = preco;
+        this.data = data;
         initComponents();
-        data = p.data;
-        codPedido = p.codPedido;
-        quantidade = p.quantidade;
-        preco = p.preco;
+    }
+
+    public Pedido(Pedido p, Cliente c, Produto pd) {
+        this(p.codPedido, p.quantidade, p.preco, p.data);
         cliente = c;
         produto = pd;
         fieldCodigo.setText(codPedido < 0 ? "" : String.format("%d", codPedido));
@@ -137,13 +141,17 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
     }
 
     private void setCodigo() {
-        if (fieldProdutoCod.getText().length() <= 0) {
+        if (fieldCodigo.getText().length() <= 0) {
             throw new IllegalArgumentException("O código não pode ficar em branco.");
         } else {
             int codigoDigitado = Integer.parseInt(fieldCodigo.getText());
             Pedido encontrado = Loja.buscaPedido(codigoDigitado);
-            if (encontrado != null && encontrado != this) {
-                throw new IllegalArgumentException("Já existe um outro pedido com o o codigo digitado.");
+            if (encontrado != null) {
+                if (encontrado != this) {
+                    throw new IllegalArgumentException("Já existe um outro pedido com o o codigo digitado.");
+                } else {
+                    this.codPedido = codigoDigitado;
+                }
             } else {
                 this.codPedido = codigoDigitado;
             }
@@ -468,6 +476,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_fieldQuantidadeKeyReleased
 
     private void fieldProdutoCodKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldProdutoCodKeyReleased
+        fieldProdutoCod.setText(fieldProdutoCod.getText().replaceAll("[^0-9]", ""));
         try {
             Produto p = Loja.buscaProduto(Integer.parseInt(fieldProdutoCod.getText()));
             if (p == null) {
@@ -491,7 +500,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         Cliente encontrado = Loja.buscaCliente(fieldClienteCPF.getText());
         if (encontrado != null) {
             fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
-            fieldClienteNome.setText(encontrado.toString());
+            fieldClienteNome.setText(encontrado.getInfoResumida());
         } else {
             fieldClienteNome.setText("Não encontrado.");
             fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Color.red, 2));
@@ -511,10 +520,11 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_formComponentShown
 
     private void fieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCodigoKeyReleased
-        if (fieldProdutoCod.getText().length() > 0) {
-            fieldProdutoCod.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
+        fieldCodigo.setText(fieldCodigo.getText().replaceAll("[^0-9]", ""));
+        if (fieldCodigo.getText().length() > 0) {
+            fieldCodigo.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
         } else {
-            fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+            fieldCodigo.setBorder(BorderFactory.createLineBorder(Color.red, 2));
         }
     }//GEN-LAST:event_fieldCodigoKeyReleased
 

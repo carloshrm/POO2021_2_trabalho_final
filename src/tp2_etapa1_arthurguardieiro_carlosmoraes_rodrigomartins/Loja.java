@@ -150,7 +150,7 @@ public class Loja extends JFrame {
         } catch (IOException e) {
             e.getMessage();
         }
-    }
+    }  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -621,7 +621,7 @@ public class Loja extends JFrame {
         });
 
     }//GEN-LAST:event_buttonNovoPedidoActionPerformed
-
+    
     private void buttonProcurarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarPedidoActionPerformed
         frameProcurar.setVisible(true);
         frameProcurar.setTitle("Procurar Pedido: ");
@@ -749,7 +749,7 @@ public class Loja extends JFrame {
                         if (encontrado != null) {
                             frameProcurar.setVisible(false);
                             JFrame popUp = new JFrame(encontrado.getName());
-                            popUp.setBounds(500, 500, encontrado.getWidth(), encontrado.getHeight());
+                            popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
                             popUp.add(encontrado);
                             encontrado.editarInfo(() -> {
                                 popUp.dispose();
