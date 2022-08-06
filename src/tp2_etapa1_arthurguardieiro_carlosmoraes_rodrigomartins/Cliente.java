@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 
-public class Cliente extends javax.swing.JPanel implements Serializable {
+public class Cliente extends javax.swing.JPanel implements Serializable, ISetorLoja {
 
     private String nome;
     private String cpf;
@@ -30,12 +30,12 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
 
     public Cliente(Cliente c, ArrayList<Produto> pds) {
         this(c.nome, c.cpf, c.endereco, c.celular);
-        System.out.println("salvado cli" + c);
+        System.out.println("salvado cli " + c);
         pedidosFeitos = new ArrayList<>();
         for (Pedido pd : c.pedidosFeitos) {
             for (Produto np : pds) {
                 if (pd.getCodProduto() == pd.getCodigo()) {
-                    System.out.println("salvando ped" + pd);
+                    System.out.println("salvando ped " + pd);
                     pedidosFeitos.add(new Pedido(pd, this, np));
                 }
             }
@@ -54,6 +54,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
         return String.format("Nome: %s, Cel.: %s", nome, celular);
     }
 
+    @Override
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
         clienteTitulo.setText("Novo cliente: ");
@@ -106,7 +107,8 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
         return true;
     }
 
-    public void editarInfo(Runnable callback) {
+    @Override
+    public void editarCadastro(Runnable callback) {
         setVisible(true);
         for (var pe : pedidosFeitos) {
             System.out.println(pe.toString());
@@ -131,7 +133,8 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
         });
     }
 
-    public void mostrarInfo(Runnable callback) {
+    @Override
+    public void mostrarCadastro(Runnable callback) {
         setVisible(true);
         clienteTitulo.setText("Informações do cliente: ");
         fieldNome.setText(nome);
@@ -170,7 +173,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
     public StringBuilder mostrarPedidos() {
         StringBuilder pedidos = new StringBuilder();
         for (var pd : pedidosFeitos) {
-            pedidos.append(pd.mostrarDados());
+            pedidos.append(pd.gerarStringRelatorio());
             pedidos.append("\t");
         }
         if (pedidosFeitos.isEmpty()) {
@@ -179,7 +182,8 @@ public class Cliente extends javax.swing.JPanel implements Serializable {
         return pedidos;
     }
 
-    public String mostrarDados() {
+    @Override
+    public String gerarStringRelatorio() {
         return String.format("%s\\%s\\%s\\%s\\%s", nome, cpf, endereco, celular, mostrarPedidos());
     }
 

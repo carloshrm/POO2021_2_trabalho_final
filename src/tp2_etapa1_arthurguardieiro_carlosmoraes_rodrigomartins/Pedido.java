@@ -3,18 +3,16 @@ package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.AbstractAction;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 
-public class Pedido extends javax.swing.JPanel implements Serializable {
+public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLoja {
 
     private int codPedido;
     private int quantidade;
@@ -59,6 +57,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         return produto.getCodigo();
     }
 
+    @Override
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
         pedidoTitulo.setText("Novo pedido: ");
@@ -86,17 +85,18 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         JOptionPane.showMessageDialog(null, "Cadastro OK");
     }
 
-    public boolean validarCampos() {
+    private boolean validarCampos() {
         setCodigo();
         setCliente();
         setProduto();
-        this.quantidade = Integer.parseInt(fieldQuantidade.getText());
+        setQuantidade();
         setData();
         setPreco();
         return true;
     }
 
-    public void editarInfo(Runnable callback) {
+    @Override
+    public void editarCadastro(Runnable callback) {
         setVisible(true);
         pedidoTitulo.setText("Editar Pedido: ");
         buttonPedidoCCL.setAction(new AbstractAction("Cancelar") {
@@ -119,7 +119,8 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         });
     }
 
-    public void mostrarInfo(Runnable callback) {
+    @Override
+    public void mostrarCadastro(Runnable callback) {
         setVisible(true);
         pedidoTitulo.setText("Informações do pedido: ");
         buttonPedidoOK.setAction(new AbstractAction("OK") {
@@ -129,6 +130,13 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
                 setVisible(false);
             }
         });
+    }
+
+    private void setQuantidade() {
+        int val = Integer.parseInt(fieldQuantidade.getText());
+        if (val > 0) {
+            this.quantidade = val;
+        }
     }
 
     private void setData() {
@@ -184,7 +192,8 @@ public class Pedido extends javax.swing.JPanel implements Serializable {
         }
     }
 
-    public String mostrarDados() {
+    @Override
+    public String gerarStringRelatorio() {
         return String.format("%s\\%s\\%s\\%s", codPedido, quantidade, preco, data);
     }
 

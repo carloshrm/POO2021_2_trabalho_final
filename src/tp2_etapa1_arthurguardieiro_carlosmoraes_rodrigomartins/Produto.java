@@ -7,7 +7,7 @@ import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
-public class Produto extends javax.swing.JPanel implements Serializable {
+public class Produto extends javax.swing.JPanel implements Serializable, ISetorLoja {
 
     private int codigo;
     private String nome;
@@ -46,6 +46,7 @@ public class Produto extends javax.swing.JPanel implements Serializable {
         return nome;
     }
 
+    @Override
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Novo produto: ");
@@ -64,7 +65,8 @@ public class Produto extends javax.swing.JPanel implements Serializable {
         });
     }
 
-    public void mostrarInfo(Runnable callback) {
+    @Override
+    public void mostrarCadastro(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Informações do Produto: ");
         buttonProdutoCCL.setAction(new AbstractAction("Cancela") {
@@ -114,7 +116,8 @@ public class Produto extends javax.swing.JPanel implements Serializable {
         }
     }
 
-    public void editarInfo(Runnable callback) {
+    @Override
+    public void editarCadastro(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Editar Produto: ");
         buttonProdutoCCL.setVisible(true);
@@ -135,6 +138,11 @@ public class Produto extends javax.swing.JPanel implements Serializable {
     @Override
     public String toString() {
         return String.format("\nNome: %s Preço unit.: %.2f", nome, preco);
+    }
+
+    @Override
+    public String gerarStringRelatorio() {
+        return String.format("%d\\%s\\%f\\%s", codigo, nome, preco, descricao);
     }
 
     @SuppressWarnings("unchecked")

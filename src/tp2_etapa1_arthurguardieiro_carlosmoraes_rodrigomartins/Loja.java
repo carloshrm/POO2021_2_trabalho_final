@@ -57,19 +57,28 @@ public class Loja extends JFrame {
         }
         if (produtosLidos != null && !produtosLidos.isEmpty()) {
             for (Produto prr : produtosLidos) {
-                produtos.add(prr);
+                produtos.add(new Produto(prr));
             }
         }
         if (clientesLidos != null && !clientesLidos.isEmpty()) {
             for (Cliente cli : clientesLidos) {
-                clientes.add(cli);
+                clientes.add(new Cliente(cli, produtosLidos));
             }
         }
-        if (pedidosLidos != null && !pedidosLidos.isEmpty()) {
-            for (Pedido pd : pedidosLidos) {
-                pedidos.add(pd);
+        for (Cliente cli : clientes) {
+            for (Pedido pd : cli.getPedidosFeitos()) {
+                boolean contem = false;
+                for (Pedido ad : pedidos) {
+                    if (ad.getCodigo() == pd.getCodigo()) {
+                        contem = true;
+                    }
+                }
+                if (!contem) {
+                    pedidos.add(pd);
+                }
             }
         }
+
     }
 
     private void salvarEstado() {
@@ -83,7 +92,17 @@ public class Loja extends JFrame {
             salvarClientes.add(new Cliente(cli, salvarProdutos));
         }
         for (Cliente cli : salvarClientes) {
-            salvarPedidos.addAll(cli.getPedidosFeitos());
+            for (Pedido pd : cli.getPedidosFeitos()) {
+                boolean contem = false;
+                for (Pedido salvo : salvarPedidos) {
+                    if (pd.getCodigo() == salvo.getCodigo()) {
+                        contem = true;
+                    }
+                }
+                if (!contem) {
+                    salvarPedidos.add(pd);
+                }
+            }
         }
         try {
             FileOutputStream arqOut = new FileOutputStream("info.ser");
@@ -143,14 +162,39 @@ public class Loja extends JFrame {
             br.write("Nome\\Cpf\\Endereco\\Celular\\Pedido(s)");
             br.newLine();
             for (Cliente cl : clientes) {
-                br.write(cl.mostrarDados());
+                br.write(cl.gerarStringRelatorio());
                 br.newLine();
             }
             br.close();
         } catch (IOException e) {
             e.getMessage();
         }
-    }  
+    }
+
+    private void mostrarItemEmPopUp(JPanel encontrado, boolean editar) {
+        JFrame popUp = new JFrame(encontrado.getName());
+        popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
+        popUp.add(encontrado);
+        if (editar) {
+            ((ISetorLoja) encontrado).editarCadastro(() -> {
+                popUp.dispose();
+            });
+        } else {
+            ((ISetorLoja) encontrado).mostrarCadastro(() -> {
+                popUp.dispose();
+            });
+        }
+        popUp.setVisible(true);
+        popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    private void mostrarTelaDeBusca(AbstractAction funcaoBotao, String titulo, String label) {
+        frameProcurar.setVisible(true);
+        frameProcurar.setTitle(titulo);
+        labelProcurar.setText(label);
+        fieldProcurar.setText("");
+        buttonProcurar.setAction(funcaoBotao);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -161,10 +205,6 @@ public class Loja extends JFrame {
         labelProcurar = new javax.swing.JLabel();
         fieldProcurar = new javax.swing.JTextField();
         buttonProcurar = new javax.swing.JButton();
-        frameExcluirCliente = new javax.swing.JFrame();
-        labelExcluirCliente = new javax.swing.JLabel();
-        fieldExcluirCliente = new javax.swing.JTextField();
-        buttonExcluirCl = new javax.swing.JButton();
         painelCliente = new javax.swing.JPanel();
         menuClientes = new javax.swing.JPanel();
         buttonNovoCliente = new javax.swing.JButton();
@@ -229,46 +269,6 @@ public class Loja extends JFrame {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         frameProcurar.getContentPane().add(buttonProcurar, gridBagConstraints);
-
-        frameExcluirCliente.setTitle("Procurar:");
-        frameExcluirCliente.setBackground(Loja.corFundoEscura);
-        frameExcluirCliente.setBounds(new java.awt.Rectangle(200, 200, 300, 200));
-        frameExcluirCliente.setName("frameProcurar"); // NOI18N
-        frameExcluirCliente.setSize(new java.awt.Dimension(400, 250));
-        frameExcluirCliente.getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        labelExcluirCliente.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        frameExcluirCliente.getContentPane().add(labelExcluirCliente, gridBagConstraints);
-
-        fieldExcluirCliente.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 10;
-        frameExcluirCliente.getContentPane().add(fieldExcluirCliente, gridBagConstraints);
-
-        buttonExcluirCl.setBackground(Loja.corFundoClara);
-        buttonExcluirCl.setForeground(Loja.corFonteEscura);
-        buttonExcluirCl.setText("OK");
-        buttonExcluirCl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExcluirClActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        frameExcluirCliente.getContentPane().add(buttonExcluirCl, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja");
@@ -590,14 +590,13 @@ public class Loja extends JFrame {
 
     private void buttonNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoClienteActionPerformed
         Cliente novoCliente = new Cliente();
+        menuClientes.setVisible(false);
+        painelCliente.add(novoCliente);
         novoCliente.addComponentListener(new ComponentAdapter() {
-            @Override
             public void componentHidden(ComponentEvent e) {
                 menuClientes.setVisible(true);
             }
         });
-        menuClientes.setVisible(false);
-        painelCliente.add(novoCliente);
         novoCliente.iniciarCadastro(() -> {
             painelCliente.remove(novoCliente);
             menuClientes.setVisible(true);
@@ -607,41 +606,29 @@ public class Loja extends JFrame {
 
     private void buttonNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoPedidoActionPerformed
         Pedido novoPedido = new Pedido();
+        menuPedidos.setVisible(false);
+        painelPedido.add(novoPedido);
         novoPedido.addComponentListener(new ComponentAdapter() {
-            @Override
             public void componentHidden(ComponentEvent e) {
                 menuPedidos.setVisible(true);
             }
         });
-        menuPedidos.setVisible(false);
-        painelPedido.add(novoPedido);
         novoPedido.iniciarCadastro(() -> {
             painelPedido.remove(novoPedido);
+            menuPedidos.setVisible(true);
             pedidos.add(novoPedido);
         });
-
     }//GEN-LAST:event_buttonNovoPedidoActionPerformed
-    
+
     private void buttonProcurarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarPedidoActionPerformed
-        frameProcurar.setVisible(true);
-        frameProcurar.setTitle("Procurar Pedido: ");
-        labelProcurar.setText("Codigo do pedido: ");
-        fieldProcurar.setText("");
-        buttonProcurar.setAction(new AbstractAction("Procurar") {
+        mostrarTelaDeBusca(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     Pedido encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
                     if (encontrado != null) {
                         frameProcurar.setVisible(false);
-                        JFrame popUp = new JFrame(encontrado.getName());
-                        popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                        popUp.add(encontrado);
-                        encontrado.mostrarInfo(() -> {
-                            popUp.dispose();
-                        });
-                        popUp.setVisible(true);
-                        popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                        mostrarItemEmPopUp(encontrado, false);
                     } else {
                         JOptionPane.showMessageDialog(null, "Pedido não encontrado");
                     }
@@ -649,52 +636,44 @@ public class Loja extends JFrame {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
-        });
+        }, "Procurar Pedido: ", "Codigo do pedido:");
     }//GEN-LAST:event_buttonProcurarPedidoActionPerformed
 
     private void buttonProcurarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarClienteActionPerformed
-        frameProcurar.setVisible(true);
-        frameProcurar.setTitle("Procurar Cliente: ");
-        labelProcurar.setText("cpf do cliente: ");
-        fieldProcurar.setText("");
-        buttonProcurar.setAction(new AbstractAction("Procurar") {
+        mostrarTelaDeBusca(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Cliente encontrado = buscaCliente(fieldProcurar.getText());
                 if (encontrado != null) {
                     frameProcurar.setVisible(false);
-                    JFrame popUp = new JFrame(encontrado.getName());
-                    popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                    popUp.add(encontrado);
-                    System.out.println(encontrado);
-                    encontrado.mostrarInfo(() -> {
-                        popUp.dispose();
-                    });
-                    popUp.setVisible(true);
-                    popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    mostrarItemEmPopUp(encontrado, false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
                 }
             }
-        });
+        }, "Procurar Cliente: ", "Cpf do Cliente: ");
     }//GEN-LAST:event_buttonProcurarClienteActionPerformed
 
     private void buttonExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirClienteActionPerformed
-        frameExcluirCliente.setVisible(true);
-        frameExcluirCliente.setTitle("Excluir cliente");
-        labelExcluirCliente.setText("Digite o cpf: ");
-        fieldExcluirCliente.setText("");
-        buttonExcluirCl.addActionListener((e) -> {
-            Cliente encontrado = buscaCliente(fieldExcluirCliente.getText());
-            if (encontrado != null) {
-                System.out.println("Excluido " + encontrado.getName());
-                clientes.remove(encontrado);
-                JOptionPane.showMessageDialog(null, "Cliente excluido.");
-            } else {
-                JOptionPane.showMessageDialog(null, "CPF não encontrado.");
-                System.out.println("cpf nao encontrado");
+        mostrarTelaDeBusca(new AbstractAction("Excluir") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (fieldProcurar.getText().length() != 0) {
+                        Cliente encontrado = buscaCliente(fieldProcurar.getText());
+                        if (encontrado != null) {
+                            clientes.remove(encontrado);
+                            frameProcurar.setVisible(false);
+                            JOptionPane.showMessageDialog(null, String.format("O cliente - %s - foi excluido.", encontrado.getInfoResumida()));
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "CPF em branco.");
+                    }
+                } catch (NumberFormatException f) {
+                    JOptionPane.showMessageDialog(null, "CPD inválido.");
+                }
             }
-        });
+        }, "Excluir Cliente: ", "CPF do cliente: ");
     }//GEN-LAST:event_buttonExcluirClienteActionPerformed
 
     private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
@@ -706,11 +685,7 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_buttonProcurarActionPerformed
 
     private void buttonExcluirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirPedidoActionPerformed
-        frameProcurar.setVisible(true);
-        frameProcurar.setTitle("Excluir Pedido: ");
-        labelProcurar.setText("Codigo do pedido: ");
-        fieldProcurar.setText("");
-        buttonProcurar.setAction(new AbstractAction("Excluir") {
+        mostrarTelaDeBusca(new AbstractAction("Excluir") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -725,10 +700,10 @@ public class Loja extends JFrame {
                         throw new NumberFormatException();
                     }
                 } catch (NumberFormatException f) {
-                    JOptionPane.showMessageDialog(null, "Codigo invalido");
+                    JOptionPane.showMessageDialog(null, "Código inválido");
                 }
             }
-        });
+        }, "Excluir Pedido: ", "Código do pedido: ");
     }//GEN-LAST:event_buttonExcluirPedidoActionPerformed
 
     private void menuPedidosAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuPedidosAncestorResized
@@ -736,11 +711,7 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_menuPedidosAncestorResized
 
     private void buttonEditarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarPedidoActionPerformed
-        frameProcurar.setVisible(true);
-        frameProcurar.setTitle("Editar Pedido: ");
-        labelProcurar.setText("Codigo do pedido: ");
-        fieldProcurar.setText("");
-        buttonProcurar.setAction(new AbstractAction("Procurar") {
+        mostrarTelaDeBusca(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -748,14 +719,7 @@ public class Loja extends JFrame {
                         Pedido encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
                         if (encontrado != null) {
                             frameProcurar.setVisible(false);
-                            JFrame popUp = new JFrame(encontrado.getName());
-                            popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                            popUp.add(encontrado);
-                            encontrado.editarInfo(() -> {
-                                popUp.dispose();
-                            });
-                            popUp.setVisible(true);
-                            popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                            mostrarItemEmPopUp(encontrado, true);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Codigo invalido");
@@ -765,35 +729,24 @@ public class Loja extends JFrame {
 
                 }
             }
-        });
+        }, "Editar pedido: ", "Código do pedido: ");
     }//GEN-LAST:event_buttonEditarPedidoActionPerformed
 
     private void buttonAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarClienteActionPerformed
-        frameProcurar.setVisible(true);
-        frameProcurar.setTitle("Alterar dados");
-        labelProcurar.setText("Digite o cpf: ");
-        fieldProcurar.setText("");
-        buttonProcurar.setAction(new AbstractAction("Procurar") {
+        mostrarTelaDeBusca(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     Cliente encontrado = buscaCliente(fieldProcurar.getText());
                     if (encontrado != null) {
                         frameProcurar.setVisible(false);
-                        JFrame popUp = new JFrame(encontrado.getName());
-                        popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                        popUp.add(encontrado);
-                        encontrado.editarInfo(() -> {
-                            popUp.dispose();
-                        });
-                        popUp.setVisible(true);
-                        popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                        mostrarItemEmPopUp(encontrado, true);
                     }
                 } catch (CpfInvalidoException f) {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
-        });
+        }, "Editar dados de um cliente: ", "CPF: ");
     }//GEN-LAST:event_buttonAlterarClienteActionPerformed
 
     private void menuClientesAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuClientesAncestorResized
@@ -802,14 +755,13 @@ public class Loja extends JFrame {
 
     private void buttonNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoProdutoActionPerformed
         Produto novoProduto = new Produto();
+        menuProdutos.setVisible(false);
+        painelProdutos.add(novoProduto);
         novoProduto.addComponentListener(new ComponentAdapter() {
-            @Override
             public void componentHidden(ComponentEvent e) {
                 menuProdutos.setVisible(true);
             }
         });
-        menuProdutos.setVisible(false);
-        painelProdutos.add(novoProduto);
         novoProduto.iniciarCadastro(() -> {
             novoProduto.setVisible(false);
             painelProdutos.remove(novoProduto);
@@ -819,25 +771,14 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_buttonNovoProdutoActionPerformed
 
     private void buttonProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarProdutoActionPerformed
-        frameProcurar.setVisible(true);
-        frameProcurar.setTitle("Procurar Produto: ");
-        labelProcurar.setText("Codigo do produto: ");
-        fieldProcurar.setText("");
-        buttonProcurar.setAction(new AbstractAction("Procurar") {
+        mostrarTelaDeBusca(new AbstractAction("Procurar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
                     if (encontrado != null) {
                         frameProcurar.setVisible(false);
-                        JFrame popUp = new JFrame(encontrado.getName());
-                        popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                        popUp.add(encontrado);
-                        encontrado.mostrarInfo(() -> {
-                            popUp.dispose();
-                        });
-                        popUp.setVisible(true);
-                        popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                        mostrarItemEmPopUp(encontrado, false);
                     } else {
                         throw new IllegalArgumentException("Produto não encontrado");
                     }
@@ -847,15 +788,11 @@ public class Loja extends JFrame {
                     JOptionPane.showMessageDialog(null, f.getMessage());
                 }
             }
-        });
+        }, "Procurar Produto: ", "Código do produto: ");
     }//GEN-LAST:event_buttonProcurarProdutoActionPerformed
 
     private void buttonExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirProdutoActionPerformed
-        frameProcurar.setVisible(true);
-        frameProcurar.setTitle("Excluir produto: ");
-        labelProcurar.setText("Codigo do produto: ");
-        fieldProcurar.setText("");
-        buttonProcurar.setAction(new AbstractAction("Excluir") {
+        mostrarTelaDeBusca(new AbstractAction("Excluir") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -873,15 +810,11 @@ public class Loja extends JFrame {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
-        });
+        }, "Excluir Produto: ", "Código do produto: ");
     }//GEN-LAST:event_buttonExcluirProdutoActionPerformed
 
     private void buttonEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarProdutoActionPerformed
-        frameProcurar.setVisible(true);
-        frameProcurar.setTitle("Editar produto: ");
-        labelProcurar.setText("Codigo do produto: ");
-        fieldProcurar.setText("");
-        buttonProcurar.setAction(new AbstractAction("Editar") {
+        mostrarTelaDeBusca(new AbstractAction("Editar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -889,14 +822,7 @@ public class Loja extends JFrame {
                         Produto encontrado = buscaProduto(Integer.parseInt(fieldProcurar.getText()));
                         if (encontrado != null) {
                             frameProcurar.setVisible(false);
-                            JFrame popUp = new JFrame(encontrado.getName());
-                            popUp.setBounds(500, 500, encontrado.getPreferredSize().width, encontrado.getPreferredSize().height);
-                            popUp.add(encontrado);
-                            encontrado.editarInfo(() -> {
-                                popUp.dispose();
-                            });
-                            popUp.setVisible(true);
-                            popUp.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                            mostrarItemEmPopUp(encontrado, true);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Codigo invalido");
@@ -905,7 +831,7 @@ public class Loja extends JFrame {
                     JOptionPane.showMessageDialog(null, "Codigo invalido");
                 }
             }
-        });
+        }, "Editar informações de um produto: ", "Código do produto: ");
     }//GEN-LAST:event_buttonEditarProdutoActionPerformed
 
     private void menuProdutosAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_menuProdutosAncestorResized
@@ -934,16 +860,11 @@ public class Loja extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemRelatorioActionPerformed
 
-    private void buttonExcluirClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirClActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonExcluirClActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;
     private javax.swing.JButton buttonAlterarCliente;
     private javax.swing.JButton buttonEditarPedido;
     private javax.swing.JButton buttonEditarProduto;
-    private javax.swing.JButton buttonExcluirCl;
     private javax.swing.JButton buttonExcluirCliente;
     private javax.swing.JButton buttonExcluirPedido;
     private javax.swing.JButton buttonExcluirProduto;
@@ -955,11 +876,8 @@ public class Loja extends JFrame {
     private javax.swing.JButton buttonProcurarPedido;
     private javax.swing.JButton buttonProcurarProduto;
     private javax.swing.JButton buttonTeste;
-    private javax.swing.JTextField fieldExcluirCliente;
     private javax.swing.JTextField fieldProcurar;
-    private javax.swing.JFrame frameExcluirCliente;
     private javax.swing.JFrame frameProcurar;
-    private javax.swing.JLabel labelExcluirCliente;
     private javax.swing.JLabel labelProcurar;
     private javax.swing.JPanel menuClientes;
     private javax.swing.JMenuItem menuItemRelatorio;
