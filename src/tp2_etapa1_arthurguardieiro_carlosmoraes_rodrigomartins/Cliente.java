@@ -28,15 +28,15 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
         setVisible(false);
     }
 
-    public Cliente(Cliente c, ArrayList<Produto> pds) {
+    public Cliente(Cliente c, ArrayList<Produto> produtos) {
         this(c.nome, c.cpf, c.endereco, c.celular);
-        System.out.println("salvado cli " + c);
-        pedidosFeitos = new ArrayList<>();
-        for (Pedido pd : c.pedidosFeitos) {
-            for (Produto np : pds) {
-                if (pd.getCodProduto() == pd.getCodigo()) {
-                    System.out.println("salvando ped " + pd);
-                    pedidosFeitos.add(new Pedido(pd, this, np));
+        System.out.println("cli " + c);
+        this.pedidosFeitos = new ArrayList<>();
+        for (Pedido pedido : c.pedidosFeitos) {
+            System.out.println("pedido " + pedido);
+            for (Produto prod : produtos) {
+                if (pedido.getCodProduto() == prod.getCodigo()) {
+                    pedidosFeitos.add(new Pedido(pedido, this, prod));
                 }
             }
         }
@@ -52,6 +52,10 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
 
     public String getInfoResumida() {
         return String.format("Nome: %s, Cel.: %s", nome, celular);
+    }
+
+    public void removerPedido(Pedido p) {
+        pedidosFeitos.remove(p);
     }
 
     @Override

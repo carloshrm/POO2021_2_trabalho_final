@@ -42,13 +42,11 @@ public class Loja extends JFrame {
     private void carregarEstado() {
         ArrayList<Produto> produtosLidos = null;
         ArrayList<Cliente> clientesLidos = null;
-        ArrayList<Pedido> pedidosLidos = null;
         try {
             FileInputStream araquivoIn = new FileInputStream("info.ser");
             ObjectInputStream objetoIn = new ObjectInputStream(araquivoIn);
             produtosLidos = (ArrayList<Produto>) objetoIn.readObject();
             clientesLidos = (ArrayList<Cliente>) objetoIn.readObject();
-            pedidosLidos = (ArrayList<Pedido>) objetoIn.readObject();
             objetoIn.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
@@ -66,16 +64,8 @@ public class Loja extends JFrame {
             }
         }
         for (Cliente cli : clientes) {
-            for (Pedido pd : cli.getPedidosFeitos()) {
-                boolean contem = false;
-                for (Pedido ad : pedidos) {
-                    if (ad.getCodigo() == pd.getCodigo()) {
-                        contem = true;
-                    }
-                }
-                if (!contem) {
-                    pedidos.add(pd);
-                }
+            for (Pedido novo : cli.getPedidosFeitos()) {
+                pedidos.add(novo);
             }
         }
 
@@ -84,32 +74,17 @@ public class Loja extends JFrame {
     private void salvarEstado() {
         ArrayList<Produto> salvarProdutos = new ArrayList<>();
         ArrayList<Cliente> salvarClientes = new ArrayList<>();
-        ArrayList<Pedido> salvarPedidos = new ArrayList<>();
         for (Produto pro : produtos) {
             salvarProdutos.add(new Produto(pro));
         }
         for (Cliente cli : clientes) {
             salvarClientes.add(new Cliente(cli, salvarProdutos));
         }
-        for (Cliente cli : salvarClientes) {
-            for (Pedido pd : cli.getPedidosFeitos()) {
-                boolean contem = false;
-                for (Pedido salvo : salvarPedidos) {
-                    if (pd.getCodigo() == salvo.getCodigo()) {
-                        contem = true;
-                    }
-                }
-                if (!contem) {
-                    salvarPedidos.add(pd);
-                }
-            }
-        }
         try {
             FileOutputStream arqOut = new FileOutputStream("info.ser");
             ObjectOutputStream objetoOut = new ObjectOutputStream(arqOut);
             objetoOut.writeObject(salvarProdutos);
             objetoOut.writeObject(salvarClientes);
-            objetoOut.writeObject(salvarPedidos);
             objetoOut.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
@@ -120,7 +95,7 @@ public class Loja extends JFrame {
 
     public static Pedido buscaPedido(int codigo) {
         for (Pedido pd : pedidos) {
-            if (pd.getCodigo() == codigo) {
+            if (pd.getCodPedido() == codigo) {
                 return pd;
             }
         }
@@ -692,6 +667,7 @@ public class Loja extends JFrame {
                     if (fieldProcurar.getText().length() != 0) {
                         Pedido encontrado = buscaPedido(Integer.parseInt(fieldProcurar.getText()));
                         if (encontrado != null) {
+                            encontrado.getCliente().removerPedido(encontrado);
                             pedidos.remove(encontrado);
                             frameProcurar.setVisible(false);
                             JOptionPane.showMessageDialog(null, "Pedido Excluido.");

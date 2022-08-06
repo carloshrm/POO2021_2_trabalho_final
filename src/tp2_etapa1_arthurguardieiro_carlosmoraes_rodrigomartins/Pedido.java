@@ -35,21 +35,21 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
         initComponents();
     }
 
-    public Pedido(Pedido p, Cliente c, Produto pd) {
+    public Pedido(Pedido p, Cliente c, Produto prod) {
         this(p.codPedido, p.quantidade, p.preco, p.data);
         cliente = c;
-        produto = pd;
+        produto = prod;
         fieldCodigo.setText(codPedido < 0 ? "" : String.format("%d", codPedido));
         fieldClienteCPF.setText(c.getCpf());
         fieldClienteNome.setText(c.toString());
         fieldData.setText(String.format("%s", data));
         fieldProdutoCod.setText(produto != null ? String.format("%d", produto.getCodigo()) : "");
-        fieldProdutoNome.setText(pd.toString());
+        fieldProdutoNome.setText(produto.toString());
         fieldQuantidade.setText(String.format("%d", quantidade));
         fieldPreco.setText(String.format("R$%.2f", preco));
     }
 
-    public int getCodigo() {
+    public int getCodPedido() {
         return codPedido;
     }
 
@@ -83,6 +83,10 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
     private void cadastrarNoCliente() {
         cliente.cadastrarPedido(this);
         JOptionPane.showMessageDialog(null, "Cadastro OK");
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
     private boolean validarCampos() {
@@ -350,12 +354,14 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
         panelEntradas.add(labelProdutoNome);
 
         fieldProdutoNome.setEditable(false);
+        fieldProdutoNome.setForeground(Loja.corFonteClara);
         fieldProdutoNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         fieldProdutoNome.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         fieldProdutoNome.setFocusable(false);
         fieldProdutoNome.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldProdutoNome.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldProdutoNome.setName("fieldProdutoCod"); // NOI18N
+        fieldProdutoNome.setOpaque(false);
         fieldProdutoNome.setPreferredSize(new java.awt.Dimension(300, 20));
         fieldProdutoNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
