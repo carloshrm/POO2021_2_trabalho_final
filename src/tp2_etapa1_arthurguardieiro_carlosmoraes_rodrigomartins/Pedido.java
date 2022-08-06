@@ -127,6 +127,12 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
     public void mostrarCadastro(Runnable callback) {
         setVisible(true);
         pedidoTitulo.setText("Informações do pedido: ");
+        buttonPedidoCCL.setAction(new AbstractAction("Cancelar") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.run();
+            }
+        });
         buttonPedidoOK.setAction(new AbstractAction("OK") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -198,7 +204,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
 
     @Override
     public String gerarStringRelatorio() {
-        return String.format("%s\\%s\\%s\\%s", codPedido, quantidade, preco, data);
+        return String.format("codigo: %s, quantidade: %s, preco: %s, data: %s", codPedido, quantidade, preco, data);
     }
 
     @SuppressWarnings("unchecked")

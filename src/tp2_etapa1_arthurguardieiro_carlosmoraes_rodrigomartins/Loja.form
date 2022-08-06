@@ -301,7 +301,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAlterarClienteActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonTeste">
+            <Component class="javax.swing.JButton" name="buttonRelatorio">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="Loja.corFundoClara" type="code"/>
@@ -309,7 +309,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="Loja.corFonteEscura" type="code"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Testar"/>
+                <Property name="text" type="java.lang.String" value="Relatorio"/>
                 <Property name="alignmentX" type="float" value="0.5"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -328,7 +328,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTesteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRelatorioActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

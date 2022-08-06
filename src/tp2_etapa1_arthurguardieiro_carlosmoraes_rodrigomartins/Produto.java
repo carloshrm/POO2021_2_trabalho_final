@@ -90,10 +90,10 @@ public class Produto extends javax.swing.JPanel implements Serializable, ISetorL
             throw new IllegalArgumentException("Já existe um produto com esse código.");
         } else {
             if (fieldNome.getText().length() > 0) {
-                Double precoDigitado = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
                 this.nome = fieldNome.getText();
                 this.codigo = Integer.parseInt(fieldCodigo.getText());
-                this.descricao = fieldDesc.getText();
+                this.descricao = fieldDesc.getText().length() > 0 ? fieldDesc.getText() : "Sem descrição";
+                Double precoDigitado = Double.parseDouble(fieldPreco.getText());
                 this.preco = precoDigitado;
                 JOptionPane.showMessageDialog(null, "Produto cadastrado");
                 return true;
@@ -120,7 +120,12 @@ public class Produto extends javax.swing.JPanel implements Serializable, ISetorL
     public void editarCadastro(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Editar Produto: ");
-        buttonProdutoCCL.setVisible(true);
+        buttonProdutoCCL.setAction(new AbstractAction("Cancelar") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.run();
+            }
+        });
         buttonProdutoOK.setAction(new AbstractAction("OK") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -304,15 +309,12 @@ public class Produto extends javax.swing.JPanel implements Serializable, ISetorL
     }//GEN-LAST:event_buttonProdutoCCLActionPerformed
 
     private void fieldPrecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldPrecoKeyReleased
+        String limpa = fieldPreco.getText().replaceAll("[^0-9,.]", "");
         try {
-            double valorDigitado = Double.parseDouble(fieldPreco.getText().replace("R$", ""));
-            if (valorDigitado <= 0) {
-            } else {
-                fieldPreco.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
-            }
+            Double.parseDouble(limpa);
+            fieldPreco.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
         } catch (NumberFormatException e) {
             fieldPreco.setBorder(BorderFactory.createLineBorder(Color.red, 2));
-            fieldPreco.setText("");
         }
     }//GEN-LAST:event_fieldPrecoKeyReleased
 
@@ -325,12 +327,12 @@ public class Produto extends javax.swing.JPanel implements Serializable, ISetorL
     }//GEN-LAST:event_fieldNomeKeyReleased
 
     private void fieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCodigoKeyReleased
-        try {
-            int val = Integer.parseInt(fieldCodigo.getText());
+        String limpa = fieldCodigo.getText().replaceAll("[^0-9]", "");
+        fieldCodigo.setText(limpa);
+        if (!limpa.isEmpty()) {
             fieldCodigo.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
-        } catch (NumberFormatException e) {
+        } else {
             fieldCodigo.setBorder(BorderFactory.createLineBorder(Color.red, 2));
-            fieldCodigo.setText("");
         }
 
     }//GEN-LAST:event_fieldCodigoKeyReleased

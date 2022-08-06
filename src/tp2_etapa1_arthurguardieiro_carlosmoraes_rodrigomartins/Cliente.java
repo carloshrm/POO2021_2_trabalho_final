@@ -186,6 +186,27 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
         return pedidos;
     }
 
+    public boolean acharClientePedido(int codigo) {
+        for (var pd : pedidosFeitos) {
+            if (pd.getCodPedido() == codigo) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removerPedido(int codigo) {
+        int indice = -1;
+        for (var pd : pedidosFeitos) {
+            if (pd.getCodPedido() == codigo) {
+                indice = pedidosFeitos.indexOf(pd);
+            }
+        }
+        if (indice != -1) {
+            pedidosFeitos.remove(indice);
+        }
+    }
+
     @Override
     public String gerarStringRelatorio() {
         return String.format("%s\\%s\\%s\\%s\\%s", nome, cpf, endereco, celular, mostrarPedidos());
