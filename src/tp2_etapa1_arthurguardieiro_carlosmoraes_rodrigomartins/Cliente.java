@@ -163,7 +163,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
     }
 
     public static boolean validarCPF(String cpf) {
-        final String formato = "^(\\d{3}[.]){2}(\\d{3}[-]\\d{2}){1}$";
+        final String formato = "^(\\d{3}[[.][-]]){3}\\d{2}$";
         return cpf.matches(formato);
     }
 
@@ -287,6 +287,11 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
         fieldCpf.setMaximumSize(new java.awt.Dimension(300, 30));
         fieldCpf.setMinimumSize(new java.awt.Dimension(200, 30));
         fieldCpf.setPreferredSize(new java.awt.Dimension(300, 20));
+        fieldCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldCpfKeyReleased(evt);
+            }
+        });
         panelEntradas.add(fieldCpf);
 
         labelEndereco.setForeground(Loja.corFonteClara);
@@ -350,6 +355,16 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
     private void buttonClienteCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClienteCancelarActionPerformed
         setVisible(false);
     }//GEN-LAST:event_buttonClienteCancelarActionPerformed
+
+    private void fieldCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCpfKeyReleased
+        String limpa = fieldCpf.getText().replaceAll("[^0-9.-]", "");
+        fieldCpf.setText(limpa);
+        if (fieldCpf.getText().length() > 0 && validarCPF(limpa)) {
+            fieldCpf.setBorder(BorderFactory.createLineBorder(Loja.corFundoClara, 1));
+        } else {
+            fieldCpf.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+        }
+    }//GEN-LAST:event_fieldCpfKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClienteCadastrar;

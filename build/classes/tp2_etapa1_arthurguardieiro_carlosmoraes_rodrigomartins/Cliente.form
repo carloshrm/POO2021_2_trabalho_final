@@ -153,6 +153,9 @@
               <Dimension value="[300, 20]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fieldCpfKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelEndereco">
           <Properties>
