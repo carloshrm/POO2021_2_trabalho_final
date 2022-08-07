@@ -370,11 +370,6 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
         fieldProdutoNome.setName("fieldProdutoCod"); // NOI18N
         fieldProdutoNome.setOpaque(false);
         fieldProdutoNome.setPreferredSize(new java.awt.Dimension(300, 20));
-        fieldProdutoNome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fieldProdutoNomeKeyReleased(evt);
-            }
-        });
         panelEntradas.add(fieldProdutoNome);
 
         labelQtd.setForeground(Loja.corFonteClara);
@@ -438,11 +433,6 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
         fieldData.setText(data);
         fieldData.setToolTipText("Formato: 01/12/2022");
         fieldData.setName("fieldDataIn"); // NOI18N
-        fieldData.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fieldDataKeyReleased(evt);
-            }
-        });
         panelEntradas.add(fieldData);
 
         add(panelEntradas);
@@ -514,10 +504,6 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
         }
     }//GEN-LAST:event_fieldProdutoCodKeyReleased
 
-    private void fieldDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldDataKeyReleased
-        //..
-    }//GEN-LAST:event_fieldDataKeyReleased
-
     private void fieldClienteCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldClienteCPFKeyReleased
         Cliente encontrado = Loja.buscaCliente(fieldClienteCPF.getText());
         if (encontrado != null) {
@@ -528,10 +514,6 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
             fieldClienteCPF.setBorder(BorderFactory.createLineBorder(Color.red, 2));
         }
     }//GEN-LAST:event_fieldClienteCPFKeyReleased
-
-    private void fieldProdutoNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldProdutoNomeKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldProdutoNomeKeyReleased
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         fieldCodigo.setText(codPedido < 0 ? "" : String.format("%d", codPedido));

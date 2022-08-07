@@ -1,9 +1,11 @@
 package tp2_etapa1_arthurguardieiro_carlosmoraes_rodrigomartins;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
 public class Cliente extends javax.swing.JPanel implements Serializable, ISetorLoja {
@@ -161,7 +163,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
     }
 
     public static boolean validarCPF(String cpf) {
-        final String formato = "^(\\d{3}[[.][-]]){3}\\d{2}$";
+        final String formato = "^(\\d{3}[.]){2}(\\d{3}[-]\\d{2}){1}$";
         return cpf.matches(formato);
     }
 
