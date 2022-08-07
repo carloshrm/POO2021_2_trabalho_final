@@ -864,33 +864,33 @@ public class Loja extends JFrame {
     }//GEN-LAST:event_menuItemSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu Arquivo;
-    private javax.swing.JButton buttonAlterarCliente;
-    private javax.swing.JButton buttonEditarPedido;
-    private javax.swing.JButton buttonEditarProduto;
-    private javax.swing.JButton buttonExcluirCliente;
-    private javax.swing.JButton buttonExcluirPedido;
-    private javax.swing.JButton buttonExcluirProduto;
-    private javax.swing.JButton buttonNovoCliente;
-    private javax.swing.JButton buttonNovoPedido;
-    private javax.swing.JButton buttonNovoProduto;
-    private javax.swing.JButton buttonProcurar;
-    private javax.swing.JButton buttonProcurarCliente;
-    private javax.swing.JButton buttonProcurarPedido;
-    private javax.swing.JButton buttonProcurarProduto;
-    private javax.swing.JButton buttonRelatorio;
-    private javax.swing.JTextField fieldProcurar;
-    private javax.swing.JFrame frameProcurar;
-    private javax.swing.JLabel labelProcurar;
-    private javax.swing.JPanel menuClientes;
-    private javax.swing.JMenuItem menuItemRelatorio;
-    private javax.swing.JMenuItem menuItemSair;
-    private javax.swing.JPanel menuPedidos;
-    private javax.swing.JMenuBar menuPrincipal;
-    private javax.swing.JPanel menuProdutos;
-    private javax.swing.JPanel painelCliente;
-    private javax.swing.JPanel painelPedido;
-    private javax.swing.JPanel painelProdutos;
+    private transient javax.swing.JMenu Arquivo;
+    private transient javax.swing.JButton buttonAlterarCliente;
+    private transient javax.swing.JButton buttonEditarPedido;
+    private transient javax.swing.JButton buttonEditarProduto;
+    private transient javax.swing.JButton buttonExcluirCliente;
+    private transient javax.swing.JButton buttonExcluirPedido;
+    private transient javax.swing.JButton buttonExcluirProduto;
+    private transient javax.swing.JButton buttonNovoCliente;
+    private transient javax.swing.JButton buttonNovoPedido;
+    private transient javax.swing.JButton buttonNovoProduto;
+    private transient javax.swing.JButton buttonProcurar;
+    private transient javax.swing.JButton buttonProcurarCliente;
+    private transient javax.swing.JButton buttonProcurarPedido;
+    private transient javax.swing.JButton buttonProcurarProduto;
+    private transient javax.swing.JButton buttonRelatorio;
+    private transient javax.swing.JTextField fieldProcurar;
+    private transient javax.swing.JFrame frameProcurar;
+    private transient javax.swing.JLabel labelProcurar;
+    private transient javax.swing.JPanel menuClientes;
+    private transient javax.swing.JMenuItem menuItemRelatorio;
+    private transient javax.swing.JMenuItem menuItemSair;
+    private transient javax.swing.JPanel menuPedidos;
+    private transient javax.swing.JMenuBar menuPrincipal;
+    private transient javax.swing.JPanel menuProdutos;
+    private transient javax.swing.JPanel painelCliente;
+    private transient javax.swing.JPanel painelPedido;
+    private transient javax.swing.JPanel painelProdutos;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -82,7 +82,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
 
     private boolean validarCadastro() {
         String cpfDigitado = fieldCpf.getText();
-        if (cpfDigitado.length() != 11) {
+        if (cpfDigitado.length() != 14) {
             throw new CpfInvalidoException("Cpf com numero de caracteres invalido");
         }
         if (Loja.buscaCliente(cpfDigitado) == null) {
@@ -98,7 +98,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
     }
 
     public boolean validarEdicao() {
-        if (fieldCpf.getText().length() != 11) {
+        if (fieldCpf.getText().length() != 14) {
             throw new CpfInvalidoException("Cpf com numero de carcteres invalido");
         }
         if (!cpf.equals(fieldCpf.getText())) {
@@ -367,20 +367,20 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
     }//GEN-LAST:event_fieldCpfKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonClienteCadastrar;
-    private javax.swing.JButton buttonClienteCancelar;
-    private javax.swing.JLabel clienteTitulo;
-    private javax.swing.JTextField fieldCelular;
-    private javax.swing.JTextField fieldCpf;
-    private javax.swing.JTextField fieldEndereco;
-    private javax.swing.JTextField fieldNome;
-    private javax.swing.JLabel labelCelular;
-    private javax.swing.JLabel labelCpf;
-    private javax.swing.JLabel labelEndereco;
-    private javax.swing.JLabel labelNome;
-    private javax.swing.JPanel panelEntradas;
-    private javax.swing.JPanel panelMenuCliente;
-    private javax.swing.JPanel panelTitulo;
+    private transient javax.swing.JButton buttonClienteCadastrar;
+    private transient javax.swing.JButton buttonClienteCancelar;
+    private transient javax.swing.JLabel clienteTitulo;
+    private transient javax.swing.JTextField fieldCelular;
+    private transient javax.swing.JTextField fieldCpf;
+    private transient javax.swing.JTextField fieldEndereco;
+    private transient javax.swing.JTextField fieldNome;
+    private transient javax.swing.JLabel labelCelular;
+    private transient javax.swing.JLabel labelCpf;
+    private transient javax.swing.JLabel labelEndereco;
+    private transient javax.swing.JLabel labelNome;
+    private transient javax.swing.JPanel panelEntradas;
+    private transient javax.swing.JPanel panelMenuCliente;
+    private transient javax.swing.JPanel panelTitulo;
     // End of variables declaration//GEN-END:variables
 
 }

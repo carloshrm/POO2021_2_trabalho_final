@@ -1,4 +1,2 @@
 Nome\Cpf\Endereco\Celular\Pedido(s)
-a\00000000000\1\1\codigo: 5, quantidade: 717, preco: 16010.609999999999, data: 06/08/2022	
-abcd\99999999999\12\12\codigo: 0, quantidade: 1, preco: 1.22, data: 06/08/2022	codigo: 2, quantidade: 81, preco: 1808.7299999999998, data: 06/08/2022	codigo: 1, quantidade: 122, preco: 2724.2599999999998, data: 06/08/2022	
-oo\88888888888\abcd\abcd\codigo: 3, quantidade: 12, preco: 265.32, data: 06/08/2022	codigo: 4, quantidade: 17, preco: 20.74, data: 06/08/2022	
+1\000.000.000-00\9ur\ihujiouhjoir\codigo: 1, quantidade: 1, preco: 12.0, data: 07/08/2022	codigo: 2, quantidade: 3, preco: 36.0, data: 07/08/2022	

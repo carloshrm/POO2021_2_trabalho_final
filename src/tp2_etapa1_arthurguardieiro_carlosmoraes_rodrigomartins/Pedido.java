@@ -534,27 +534,27 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonPedidoCCL;
-    private javax.swing.JButton buttonPedidoOK;
-    private javax.swing.JTextField fieldClienteCPF;
-    private javax.swing.JTextField fieldClienteNome;
-    private javax.swing.JTextField fieldCodigo;
-    private javax.swing.JFormattedTextField fieldData;
-    private javax.swing.JTextField fieldPreco;
-    private javax.swing.JTextField fieldProdutoCod;
-    private javax.swing.JTextField fieldProdutoNome;
-    private javax.swing.JTextField fieldQuantidade;
-    private javax.swing.JLabel labelClienteCPF;
-    private javax.swing.JLabel labelClienteNome;
-    private javax.swing.JLabel labelCodigo;
-    private javax.swing.JLabel labelData;
-    private javax.swing.JLabel labelPreco;
-    private javax.swing.JLabel labelProdutoCod;
-    private javax.swing.JLabel labelProdutoNome;
-    private javax.swing.JLabel labelQtd;
-    private javax.swing.JPanel panelEntradas;
-    private javax.swing.JPanel panelMenuPedido;
-    private javax.swing.JPanel panelTitulo;
-    private javax.swing.JLabel pedidoTitulo;
+    private transient javax.swing.JButton buttonPedidoCCL;
+    private transient javax.swing.JButton buttonPedidoOK;
+    private transient javax.swing.JTextField fieldClienteCPF;
+    private transient javax.swing.JTextField fieldClienteNome;
+    private transient javax.swing.JTextField fieldCodigo;
+    private transient javax.swing.JFormattedTextField fieldData;
+    private transient javax.swing.JTextField fieldPreco;
+    private transient javax.swing.JTextField fieldProdutoCod;
+    private transient javax.swing.JTextField fieldProdutoNome;
+    private transient javax.swing.JTextField fieldQuantidade;
+    private transient javax.swing.JLabel labelClienteCPF;
+    private transient javax.swing.JLabel labelClienteNome;
+    private transient javax.swing.JLabel labelCodigo;
+    private transient javax.swing.JLabel labelData;
+    private transient javax.swing.JLabel labelPreco;
+    private transient javax.swing.JLabel labelProdutoCod;
+    private transient javax.swing.JLabel labelProdutoNome;
+    private transient javax.swing.JLabel labelQtd;
+    private transient javax.swing.JPanel panelEntradas;
+    private transient javax.swing.JPanel panelMenuPedido;
+    private transient javax.swing.JPanel panelTitulo;
+    private transient javax.swing.JLabel pedidoTitulo;
     // End of variables declaration//GEN-END:variables
 }
