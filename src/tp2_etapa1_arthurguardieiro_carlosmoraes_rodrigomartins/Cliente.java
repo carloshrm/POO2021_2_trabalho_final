@@ -145,7 +145,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
         fieldCpf.setText(cpf);
         fieldEndereco.setText(endereco);
         fieldCelular.setText(celular);
-        buttonClienteCancelar.setAction(new AbstractAction("Cancela") {
+        buttonClienteCancelar.setAction(new AbstractAction("Cancelar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 callback.run();
@@ -237,6 +237,7 @@ public class Cliente extends javax.swing.JPanel implements Serializable, ISetorL
         buttonClienteCancelar = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         setPreferredSize(new java.awt.Dimension(600, 500));
 
         panelTitulo.setForeground(Loja.corFonteClara);

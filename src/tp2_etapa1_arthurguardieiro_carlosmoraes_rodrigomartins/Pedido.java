@@ -235,6 +235,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
         buttonPedidoCCL = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         setMinimumSize(new java.awt.Dimension(600, 600));
         setName("containerPedido"); // NOI18N
         setPreferredSize(new java.awt.Dimension(600, 600));
@@ -458,7 +459,7 @@ public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLo
 
         buttonPedidoCCL.setBackground(Loja.corFundoEscura);
         buttonPedidoCCL.setForeground(Loja.corFonteClara);
-        buttonPedidoCCL.setText("Cancela");
+        buttonPedidoCCL.setText("Cancelar");
         buttonPedidoCCL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPedidoCCLActionPerformed(evt);

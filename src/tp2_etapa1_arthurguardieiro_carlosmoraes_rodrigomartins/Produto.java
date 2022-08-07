@@ -50,7 +50,7 @@ public class Produto extends javax.swing.JPanel implements Serializable, ISetorL
     public void iniciarCadastro(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Novo produto: ");
-        buttonProdutoOK.setAction(new AbstractAction("Cadastrar") {
+        buttonProdutoOK.setAction(new AbstractAction("Confirmar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -69,7 +69,7 @@ public class Produto extends javax.swing.JPanel implements Serializable, ISetorL
     public void mostrarCadastro(Runnable callback) {
         setVisible(true);
         produtoTitulo.setText("Informações do Produto: ");
-        buttonProdutoCCL.setAction(new AbstractAction("Cancela") {
+        buttonProdutoCCL.setAction(new AbstractAction("Cancelar") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 callback.run();
@@ -170,6 +170,7 @@ public class Produto extends javax.swing.JPanel implements Serializable, ISetorL
         buttonProdutoCCL = new javax.swing.JButton();
 
         setBackground(Loja.corFundoEscura);
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         setName("containerProduto"); // NOI18N
         setPreferredSize(new java.awt.Dimension(500, 500));
         addComponentListener(new java.awt.event.ComponentAdapter() {

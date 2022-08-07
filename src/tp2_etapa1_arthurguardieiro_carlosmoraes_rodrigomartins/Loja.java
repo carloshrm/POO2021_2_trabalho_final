@@ -24,6 +24,7 @@ public class Loja extends JFrame {
         pedidos = new ArrayList<>();
         produtos = new ArrayList<>();
         initComponents();
+        this.getContentPane().setBackground(Loja.corFundoEscura);
         setBounds(0, 0, 1280, 720);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -129,9 +130,12 @@ public class Loja extends JFrame {
         return null;
     }
 
-    public static void relatorio() throws IOException {
+    public static void relatorio(String enderecoArquivo) throws IOException {
+        if (enderecoArquivo.isEmpty()) {
+            enderecoArquivo = "relatorio.txt";
+        }
         try {
-            OutputStream os = new FileOutputStream("relatorio.txt"); // nome do arquivo que será escrito
+            OutputStream os = new FileOutputStream(enderecoArquivo); // nome do arquivo que será escrito
             Writer wr = new OutputStreamWriter(os); // criação de um escritor
             BufferedWriter br = new BufferedWriter(wr); // adiciono a um escritor de buffer
             br.write("Nome\\Cpf\\Endereco\\Celular\\Pedido(s)");
@@ -144,6 +148,19 @@ public class Loja extends JFrame {
         } catch (IOException e) {
             e.getMessage();
         }
+    }
+
+    public String salvarComo() {
+        JFileChooser janelaSeletora = new JFileChooser();
+        janelaSeletora.setDialogTitle("Escolha onde salvar: ");
+
+        int escolha = janelaSeletora.showSaveDialog(frameProcurar);
+
+        if (escolha == JFileChooser.APPROVE_OPTION) {
+            File novoArquivo = janelaSeletora.getSelectedFile();
+            return novoArquivo.getAbsolutePath() + ".txt";
+        }
+        return "";
     }
 
     private void mostrarItemEmPopUp(JPanel encontrado, boolean editar) {
@@ -177,6 +194,7 @@ public class Loja extends JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         frameProcurar = new javax.swing.JFrame();
+        frameProcurar.getContentPane().setBackground(Loja.corFundoEscura);
         labelProcurar = new javax.swing.JLabel();
         fieldProcurar = new javax.swing.JTextField();
         buttonProcurar = new javax.swing.JButton();
@@ -211,6 +229,7 @@ public class Loja extends JFrame {
         frameProcurar.setSize(new java.awt.Dimension(400, 250));
         frameProcurar.getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        labelProcurar.setForeground(Loja.corFonteClara);
         labelProcurar.setText("jLabel1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -249,10 +268,12 @@ public class Loja extends JFrame {
         setTitle("Loja");
         setBackground(Loja.corFundoEscura);
         setName("frameLoja"); // NOI18N
-        getContentPane().setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0, 20, 0));
 
         painelCliente.setBackground(Loja.corFundoEscura);
-        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corDestaque)); // NOI18N
+        painelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara
+ // NOI18N
+        ));
         painelCliente.setPreferredSize(new java.awt.Dimension(200, 200));
         painelCliente.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -357,7 +378,7 @@ public class Loja extends JFrame {
         getContentPane().add(painelCliente);
 
         painelPedido.setBackground(Loja.corFundoEscura);
-        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, Loja.corDestaque, Loja.corFundoClara), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 12), Loja.corFonteClara)); // NOI18N
+        painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, Loja.corFundoClara, Loja.corFundoEscura), "Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
         painelPedido.setPreferredSize(new java.awt.Dimension(600, 200));
         painelPedido.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -446,7 +467,7 @@ public class Loja extends JFrame {
         getContentPane().add(painelPedido);
 
         painelProdutos.setBackground(Loja.corFundoEscura);
-        painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corDestaque, Loja.corFundoClara), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), Loja.corFonteClara)); // NOI18N
+        painelProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(Loja.corFundoClara, Loja.corFundoEscura), "Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), Loja.corFonteClara)); // NOI18N
         painelProdutos.setPreferredSize(new java.awt.Dimension(450, 200));
         painelProdutos.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -651,10 +672,6 @@ public class Loja extends JFrame {
         }, "Excluir Cliente: ", "CPF do cliente: ");
     }//GEN-LAST:event_buttonExcluirClienteActionPerformed
 
-    private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_menuItemSairActionPerformed
-
     private void buttonProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonProcurarActionPerformed
@@ -828,15 +845,23 @@ public class Loja extends JFrame {
 
     private void buttonRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRelatorioActionPerformed
         try {
-            relatorio();
+            relatorio("");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro na criação do relatorio");
         }
     }//GEN-LAST:event_buttonRelatorioActionPerformed
 
     private void menuItemRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRelatorioActionPerformed
-        // TODO add your handling code here:
+        try {
+            relatorio(salvarComo());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erro na criação do relatorio");
+        }
     }//GEN-LAST:event_menuItemRelatorioActionPerformed
+
+    private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuItemSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Arquivo;

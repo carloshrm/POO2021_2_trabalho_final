@@ -16,11 +16,17 @@
           <Dimension value="[400, 250]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="frameProcurar.getContentPane().setBackground(Loja.corFundoEscura);  "/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labelProcurar">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Loja.corFonteClara" type="code"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
           <Constraints>
@@ -130,7 +136,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
     <Property name="columns" type="int" value="0"/>
-    <Property name="horizontalGap" type="int" value="10"/>
+    <Property name="horizontalGap" type="int" value="20"/>
     <Property name="rows" type="int" value="1"/>
   </Layout>
   <SubComponents>
@@ -148,7 +154,7 @@
                   <Connection PropertyName="shadow" code="Loja.corFundoEscura" type="code"/>
                 </EtchetBorder>
               </Border>
-              <Connection PropertyName="color" code="Loja.corDestaque" type="code"/>
+              <Connection PropertyName="color" code="Loja.corFonteClara&#xd;&#xa;" type="code"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -345,8 +351,8 @@
             <TitledBorder justification="2" position="2" title="Pedidos">
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder bevelType="0">
-                  <Connection PropertyName="highlight" code="Loja.corDestaque" type="code"/>
-                  <Connection PropertyName="shadow" code="Loja.corFundoClara" type="code"/>
+                  <Connection PropertyName="highlight" code="Loja.corFundoClara" type="code"/>
+                  <Connection PropertyName="shadow" code="Loja.corFundoEscura" type="code"/>
                 </EtchetBorder>
               </Border>
               <Connection PropertyName="color" code="Loja.corFonteClara" type="code"/>
@@ -516,8 +522,8 @@
             <TitledBorder justification="2" title="Produtos">
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder>
-                  <Connection PropertyName="highlight" code="Loja.corDestaque" type="code"/>
-                  <Connection PropertyName="shadow" code="Loja.corFundoClara" type="code"/>
+                  <Connection PropertyName="highlight" code="Loja.corFundoClara" type="code"/>
+                  <Connection PropertyName="shadow" code="Loja.corFundoEscura" type="code"/>
                 </EtchetBorder>
               </Border>
               <Connection PropertyName="color" code="Loja.corFonteClara" type="code"/>
