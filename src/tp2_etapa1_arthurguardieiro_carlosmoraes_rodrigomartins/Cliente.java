@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 public class Cliente extends javax.swing.JPanel implements Serializable, ISetorLoja {
 
+    private static final long serialVersionUID = 20220807;
     private String nome;
     private String cpf;
     private String endereco;

@@ -7,8 +7,9 @@ import java.io.*;
 
 import javax.swing.*;
 
-public class Loja extends JFrame {
+public class Loja extends JFrame implements Serializable {
 
+    private static final long serialVersionUID = 20220807;
     public static Color corFundoEscura = Color.darkGray;
     public static Color corFundoClara = Color.lightGray;
     public static Color corFonteClara = Color.white;
@@ -44,7 +45,7 @@ public class Loja extends JFrame {
         ArrayList<Produto> produtosLidos = null;
         ArrayList<Cliente> clientesLidos = null;
         try {
-            FileInputStream araquivoIn = new FileInputStream("info.ser");
+            FileInputStream araquivoIn = new FileInputStream("infoBinaria.ser");
             ObjectInputStream objetoIn = new ObjectInputStream(araquivoIn);
             produtosLidos = (ArrayList<Produto>) objetoIn.readObject();
             clientesLidos = (ArrayList<Cliente>) objetoIn.readObject();
@@ -82,7 +83,7 @@ public class Loja extends JFrame {
             salvarClientes.add(new Cliente(cli, salvarProdutos));
         }
         try {
-            FileOutputStream arqOut = new FileOutputStream("info.ser");
+            FileOutputStream arqOut = new FileOutputStream("infoBinaria.ser");
             ObjectOutputStream objetoOut = new ObjectOutputStream(arqOut);
             objetoOut.writeObject(salvarProdutos);
             objetoOut.writeObject(salvarClientes);

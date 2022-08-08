@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 public class Produto extends javax.swing.JPanel implements Serializable, ISetorLoja {
 
+    private static final long serialVersionUID = 20220807;
     private int codigo;
     private String nome;
     private double preco;

@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 public class Pedido extends javax.swing.JPanel implements Serializable, ISetorLoja {
 
+    private static final long serialVersionUID = 20220807;
     private int codPedido;
     private int quantidade;
     private double preco;
